@@ -148,3 +148,69 @@ WCAG: styled for WooCommerce 9+
 .prose-wpp table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .prose-wpp th, .prose-wpp td { border: 1px solid #E6E6EB; padding: .55em .8em; text-align: left; }
 .prose-wpp th { background: #FAFAFC; }
+
+/* ==== WooCommerce: карточка товара на хуках (grid media + buy panel) ==== */
+.woocommerce div.product div.images { float: none !important; width: 100% !important; margin: 0 !important; }
+.woocommerce div.product div.images .woocommerce-product-gallery__wrapper { margin: 0; border-radius: 16px; overflow: hidden; }
+.woocommerce div.product div.images .woocommerce-product-gallery__image { border-radius: 16px; }
+.woocommerce div.product div.images .flex-control-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; padding: 4px; }
+.woocommerce div.product div.images .flex-control-thumbs li { float: none; width: auto; list-style: none; }
+.woocommerce div.product div.images .flex-control-thumbs img { border-radius: 12px; border: 2px solid transparent; cursor: pointer; opacity: .75; transition: all .2s; }
+.woocommerce div.product div.images .flex-control-thumbs img.flex-active, .woocommerce div.product div.images .flex-control-thumbs img:hover { border-color: #FFC21F; opacity: 1; }
+@media (min-width: 1024px) {
+  .woocommerce div.product { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 32px; align-items: start; }
+  .woocommerce div.product .wpp-single-buy { position: sticky; top: 96px; }
+}
+.woocommerce div.product .woocommerce-tabs, .woocommerce div.product .related.products, .woocommerce div.product .up-sells { grid-column: 1 / -1; clear: both; width: 100%; }
+.woocommerce div.product .woocommerce-tabs ul.tabs li a:hover { color: #141418; }
+.woocommerce div.product .summary .product_title { font-size: 30px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 6px; }
+.woocommerce div.product .summary .price { font-size: 34px; font-weight: 700; color: #141418; letter-spacing: -0.02em; margin: 10px 0 0; }
+.woocommerce div.product .summary .price del { font-size: 14px; color: #6f6f7a; font-weight: 400; }
+.woocommerce div.product .summary .price ins { text-decoration: none; }
+.woocommerce div.product .summary .woocommerce-product-details__short-description { margin-top: 8px; font-size: 12px; line-height: 1.6; color: #6f6f7a; }
+.woocommerce div.product .summary form.cart { margin: 20px 0 0; padding-top: 20px; border-top: 1px solid #E6E6EB; display: flex; gap: 10px; align-items: stretch; }
+.woocommerce div.product .summary form.cart .quantity { display: none; }
+.woocommerce div.product .summary form.cart .button {
+  flex: 1; height: 56px; font-size: 15px; background: #141418; color: #fff;
+  border-radius: 9999px; box-shadow: none;
+}
+.woocommerce div.product .summary form.cart .button:hover { background: #2A2A33; color: #fff; }
+.woocommerce div.product .summary .product_meta { margin-top: 16px; padding-top: 16px; border-top: 1px solid #E6E6EB; font-size: 11px; color: #6f6f7a; }
+.woocommerce div.product .summary .product_meta a { color: #141418; }
+.woocommerce .woocommerce-product-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 4px !important; }
+.woocommerce .woocommerce-product-rating .woocommerce-review-link { font-size: 11px; color: #6f6f7a; }
+/* Табы-панели */
+.woocommerce div.product .woocommerce-tabs .panel { margin-top: 20px; border: 0; background: transparent; }
+.woocommerce div.product .woocommerce-tabs .panel h2:first-child { font-size: 20px; font-weight: 700; margin-top: 0; }
+/* Связанные товары */
+.woocommerce .related.products > h2, .woocommerce .up-sells > h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+.woocommerce .related.products ul.products, .woocommerce .up-sells ul.products { margin-top: 20px; }
+/* Страница корзины/чекаута */
+.woocommerce-cart .woocommerce, .woocommerce-checkout .woocommerce { max-width: 100%; }
+.woocommerce table.shop_table td.product-name a { color: #141418; font-weight: 600; }
+.woocommerce-cart table.cart td.actions .coupon .input-text { width: 180px !important; height: 44px; border: 1px solid #E6E6EB !important; border-radius: 9999px !important; padding: 0 16px !important; background: #FAFAFC; }
+.woocommerce .cart-collaterals .cart_totals { width: 100%; }
+@media (min-width: 900px) { .woocommerce .cart-collaterals .cart_totals { float: right; width: 42%; } }
+.woocommerce-checkout #payment ul.payment_methods { border-bottom: 1px solid #E6E6EB; list-style: none; padding: 0; margin: 0; }
+.woocommerce-checkout #payment ul.payment_methods li { padding: 12px 0; }
+.woocommerce-checkout #payment div.form-row { padding: 16px 0 0; }
+.woocommerce #place_order { width: 100%; height: 56px; font-size: 15px; }
+.woocommerce-checkout .woocommerce-info, .woocommerce-cart .woocommerce-info { margin-bottom: 20px; }
+/* thank you / order view */
+.woocommerce .woocommerce-order-overview, .woocommerce ul.order_details { background: #FAFAFC; border: 1px solid #E6E6EB; border-radius: 16px; padding: 16px 20px; }
+.woocommerce ul.order_details { display: flex; flex-wrap: wrap; gap: 18px; list-style: none; margin: 0; }
+.woocommerce ul.order_details li { float: none; margin: 0; font-size: 13px; }
+.woocommerce .woocommerce-customer-details address { border: 1px solid #E6E6EB; border-radius: 16px; padding: 16px 20px; background: #FAFAFC; }
+/* Кабинет: карточки таблиц */
+.woocommerce-account .woocommerce-MyAccount-content table.shop_table { border-radius: 16px; }
+.woocommerce-account .woocommerce-Message, .woocommerce-account .woocommerce-info { border-radius: 16px; }
+.woocommerce-account .addresses .title h3 { font-size: 16px; font-weight: 700; }
+.woocommerce-account .u-columns { display: grid; gap: 20px; }
+@media (min-width: 768px) { .woocommerce-account .u-columns.col2-set { grid-template-columns: 1fr 1fr; } }
+.woocommerce-account .woocommerce-form-login { max-width: 420px; margin: 0 auto; background: #fff; border: 1px solid #E6E6EB; border-radius: 20px; padding: 28px; box-shadow: 0 1px 2px rgba(20,20,28,.05); }
+.woocommerce-account .woocommerce-form-login .button { width: 100%; margin-top: 6px; }
+.woocommerce-account h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+/* Виджет-контейнеры Woo, которые встречаются вне карточек */
+.woocommerce .woocommerce-error li, .woocommerce .woocommerce-info li, .woocommerce .woocommerce-message li { list-style: none; }
+.woocommerce a.remove { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 9999px; color: #e11d48 !important; background: #FFF1F3; }
+.woocommerce a.remove:hover { background: #FFE0E5; }

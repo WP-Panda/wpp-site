@@ -169,6 +169,53 @@ update_option( 'page_on_front', $front_id );
 update_option( 'page_for_posts', $blog_id );
 
 /* ------------------------------------------------------------------ */
+/* WooCommerce: активация, страницы магазина, валюта                   */
+/* ------------------------------------------------------------------ */
+// опция нужна ДО активации: Settings::get_default_handler зовёт WC_Admin_Settings::get_option,
+// а false→class_exists() в PHP 8 фаталит (песочный scrape, классы ещё не загружены)
+update_option( 'woocommerce_logs_default_handler', 'WC_Log_Handler_DB' );
+
+$woo_active = activate_plugin( 'woocommerce/woocommerce.php' );
+if ( is_wp_error( $woo_active ) ) {
+	echo 'WooCommerce: ' . $woo_active->get_error_message() . "\n";
+} else {
+	echo "WooCommerce активирован\n";
+}
+
+function wpp_seed_woo_page( $title, $slug, $content ) {
+	$existing = get_page_by_path( $slug, OBJECT, 'page' );
+	if ( $existing ) {
+		return $existing->ID;
+	}
+	return wp_insert_post( array(
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_title'   => $title,
+		'post_name'    => $slug,
+		'post_content' => $content,
+		'post_author'  => get_current_user_id() ?: 1,
+	) );
+}
+
+$shop_id     = wpp_seed_woo_page( 'Магазин', 'shop', '' );
+$cart_id     = wpp_seed_woo_page( 'Корзина', 'cart', '<!-- wp:shortcode -->[woocommerce_cart]<!-- /wp:shortcode -->' );
+$checkout_id = wpp_seed_woo_page( 'Оформление заказа', 'checkout', '<!-- wp:shortcode -->[woocommerce_checkout]<!-- /wp:shortcode -->' );
+$account_id  = wpp_seed_woo_page( 'Личный кабинет', 'my-account', '<!-- wp:shortcode -->[woocommerce_my_account]<!-- /wp:shortcode -->' );
+
+update_option( 'woocommerce_shop_page_id', $shop_id );
+update_option( 'woocommerce_cart_page_id', $cart_id );
+update_option( 'woocommerce_checkout_page_id', $checkout_id );
+update_option( 'woocommerce_myaccount_page_id', $account_id );
+update_option( 'woocommerce_currency', 'RUB' );
+update_option( 'woocommerce_currency_pos', 'right_space' );
+update_option( 'woocommerce_thousand_sep', ' ' );
+update_option( 'woocommerce_price_decimal_sep', ',' );
+update_option( 'woocommerce_price_num_decimals', 0 );
+update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+update_option( 'woocommerce_allowed_countries', 'all' );
+
+/* ------------------------------------------------------------------ */
 /* Меню                                                                */
 /* ------------------------------------------------------------------ */
 $menu_name = 'Главное меню';
@@ -177,7 +224,7 @@ if ( ! $menu ) {
 	$menu_id = wp_create_nav_menu( $menu_name );
 	wp_update_nav_menu_item( $menu_id, 0, array(
 		'menu-item-title'  => 'Каталог',
-		'menu-item-url'    => get_permalink( $catalog_id ),
+		'menu-item-url'    => class_exists( 'WooCommerce' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : get_permalink( $catalog_id ),
 		'menu-item-type'   => 'custom',
 		'menu-item-status' => 'publish',
 	) );

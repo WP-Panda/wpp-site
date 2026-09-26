@@ -67,7 +67,49 @@ function ensureFiles() {
     fs.rmSync(tmp, { recursive: true, force: true });
   }
 
-  // 3. db.php drop-in из db.copy
+  // 3. WooCommerce (из монорепо-тега, папка plugins/woocommerce)
+  const wooZip = path.join(ROOT, 'woo.zip');
+  download('https://codeload.github.com/woocommerce/woocommerce/zip/refs/tags/11.1.2', wooZip);
+  const wooDir = path.join(DOCROOT, 'wp-content/plugins/woocommerce');
+  if (!fs.existsSync(path.join(wooDir, 'woocommerce.php'))) {
+    log('распаковываю WooCommerce…');
+    const tmp = path.join(ROOT, 'woo-tmp');
+    fs.rmSync(tmp, { recursive: true, force: true });
+    extract(wooZip, tmp);
+    const inner = path.join(tmp, fs.readdirSync(tmp)[0], 'plugins', 'woocommerce');
+    fs.renameSync(inner, wooDir);
+    fs.rmSync(tmp, { recursive: true, force: true });
+    log('WooCommerce установлен как плагин');
+  }
+
+  // 3b. Action Scheduler (в монорепо это composer-зависимость, в исходниках нет;
+  // Woo грузит packages/action-scheduler/action-scheduler.php — путь как в собранном плагине)
+  const asDir = path.join(wooDir, 'packages/action-scheduler');
+  if (!fs.existsSync(path.join(asDir, 'action-scheduler.php'))) {
+    log('скачиваю Action Scheduler…');
+    const asZip = path.join(ROOT, 'action-scheduler.zip');
+    download('https://codeload.github.com/woocommerce/action-scheduler/zip/refs/tags/3.9.3', asZip);
+    const asTmp = path.join(ROOT, 'as-tmp');
+    sh(`rm -rf "${asTmp}"`);
+    extract(asZip, asTmp);
+    const asInner = path.join(asTmp, fs.readdirSync(asTmp)[0]);
+    fs.mkdirSync(path.dirname(asDir), { recursive: true });
+    fs.renameSync(asInner, asDir);
+    log('Action Scheduler установлен');
+  }
+
+  // 4. Минимальный vendor-автозагрузчик Woo (в монорепо нет собранного Composer)
+  const vendorDir = path.join(wooDir, 'vendor');
+  if (!fs.existsSync(path.join(vendorDir, 'autoload_packages.php'))) {
+    fs.mkdirSync(vendorDir, { recursive: true });
+    fs.copyFileSync(path.join(REPO, 'scripts/wp-demo/woo-vendor-autoload.php'), path.join(vendorDir, 'autoload_packages.php'));
+    fs.copyFileSync(path.join(REPO, 'scripts/wp-demo/woo-jetpack-constants.php'), path.join(vendorDir, 'jetpack-constants.php'));
+    fs.copyFileSync(path.join(REPO, 'scripts/wp-demo/woo-jetpack-connection.php'), path.join(vendorDir, 'jetpack-connection.php'));
+    fs.copyFileSync(path.join(REPO, 'scripts/wp-demo/woo-block-scanner.php'), path.join(vendorDir, 'block-scanner.php'));
+    log('создан vendor/autoload_packages.php для WooCommerce');
+  }
+
+  // 5. db.php drop-in из db.copy
   const dbPhp = path.join(DOCROOT, 'wp-content/db.php');
   if (!fs.existsSync(dbPhp)) {
     const src = fs.readFileSync(path.join(pluginDir, 'db.copy'), 'utf8');
@@ -78,7 +120,7 @@ function ensureFiles() {
     log('создан wp-content/db.php');
   }
 
-  // 4. wp-config.php
+  // 6. wp-config.php
   const wpConfig = path.join(DOCROOT, 'wp-config.php');
   if (!fs.existsSync(wpConfig)) {
     const salts = Object.fromEntries(
@@ -110,7 +152,7 @@ require_once ABSPATH . 'wp-settings.php';
     log('создан wp-config.php');
   }
 
-  // 5. Тема из репозитория
+  // 7. Тема из репозитория
   sh(`rm -rf "${DOCROOT}/wp-content/themes/wp-panda" && mkdir -p "${DOCROOT}/wp-content/themes" && cp -r "${REPO}/wp-panda" "${DOCROOT}/wp-content/themes/wp-panda"`);
 }
 
@@ -168,10 +210,15 @@ async function install(handler, php) {
   }
   log('WordPress установлен. Логин:', ADMIN_USER, '/', ADMIN_PASS);
 
-  // Сидирование демо-контента
+  // Сидирование демо-контента (фаза 1: тема, посты, страницы, активация Woo)
   fs.copyFileSync(path.join(REPO, 'scripts/wp-demo/seed.php'), path.join(DOCROOT, 'wp-content/wpp-seed.php'));
   const res = await php.run({ code: `<?php require '/www/wp-load.php'; require '/www/wp-content/wpp-seed.php';` });
   log((res.text || '').trim());
+
+  // Фаза 2: товары WooCommerce (свежий запрос — Woo уже активен и установлен)
+  fs.copyFileSync(path.join(REPO, 'scripts/wp-demo/seed-woo.php'), path.join(DOCROOT, 'wp-content/wpp-seed-woo.php'));
+  const res2 = await php.run({ code: `<?php require '/www/wp-load.php'; require '/www/wp-content/wpp-seed-woo.php';` });
+  log((res2.text || '').trim());
 }
 
 async function serve(handler) {

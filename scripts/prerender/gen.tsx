@@ -50,7 +50,7 @@ const { Home } = await import('../../src/pages/Home');
 const { Shop } = await import('../../src/pages/Shop');
 const { ProductPage } = await import('./gen-src/Product.static');
 const { Checkout } = await import('../../src/pages/Checkout');
-const { Blog, BlogPost } = await import('../../src/pages/Blog');
+const { Blog, BlogPost } = await import('./gen-src/Blog.static');
 const { KnowledgeBase, KbArticle } = await import('./gen-src/KnowledgeBase.static');
 const { Support } = await import('../../src/pages/Support');
 const { Account } = await import('../../src/pages/Account');
@@ -205,7 +205,6 @@ const ACCOUNT_TITLES: Record<string, string> = {
   payment: 'Способы оплаты',
   details: 'Данные аккаунта',
 };
-const ticketExample = data.tickets[0];
 
 const pages: { file: string; hash: string; title: string }[] = [
   { file: 'index.html', hash: '#/home', title: 'Wp Panda (WPP) — премиум темы и плагины для WordPress и WooCommerce' },
@@ -229,7 +228,11 @@ const pages: { file: string; hash: string; title: string }[] = [
     hash: `#/account/${t}`,
     title: `${ACCOUNT_TITLES[t]} — личный кабинет Wp Panda`,
   })),
-  { file: `account-ticket-${ticketExample.id.toLowerCase()}.html`, hash: `#/account/ticket%2F${ticketExample.id}`, title: `Тикет ${ticketExample.id} — Wp Panda` },
+  ...data.tickets.map((t: any) => ({
+    file: `account-ticket-${t.id.toLowerCase()}.html`,
+    hash: `#/account/ticket%2F${t.id}`,
+    title: `Тикет ${t.id} — Wp Panda`,
+  })),
   { file: 'ui.html', hash: '#/ui', title: 'UI-кит — Wp Panda' },
 ];
 
@@ -308,6 +311,12 @@ function processPage(bodyHtml: string, page: { file: string; hash: string; title
   const isKbArticle = page.file.startsWith('kb-') && page.file !== 'kb.html';
   const productId = isProduct ? data.productBySlug(page.file.slice('product-'.length, -'.html'.length))?.id : undefined;
   const stringSwaps: [string, string][] = [];
+  const swapped = new Set<string>();
+  const toLink = (btn: El, href: string) => {
+    if (swapped.has(btn.outerHTML)) return;
+    swapped.add(btn.outerHTML);
+    stringSwaps.push([btn.outerHTML, `<a class="${btn.getAttribute('class')}" href="${href}">${btn.innerHTML}</a>`]);
+  };
 
   /* --- ссылки #/... -> файлы --- */
   for (const a of root.querySelectorAll('a[href^="#/"]')) {
@@ -394,13 +403,13 @@ function processPage(bodyHtml: string, page: { file: string; hash: string; title
       const upsell = data.products.find((p: any) => p.type === 'plugin' && ![1, 9].includes(p.id));
       if (btn) { btn.setAttribute('data-add', String(upsell.id)); btn.setAttribute('data-upsell', ''); }
     }
-    // кнопки навигации
+    // кнопки навигации -> настоящие ссылки
     for (const btn of drawer.querySelectorAll('button')) {
       const t = text(btn);
-      if (t === 'Оформить заказ') btn.setAttribute('data-goto', 'checkout.html');
-      else if (t === 'Страница корзины') btn.setAttribute('data-goto', 'checkout-cart.html');
+      if (t === 'Оформить заказ') toLink(btn, 'checkout.html');
+      else if (t === 'Страница корзины') toLink(btn, 'checkout-cart.html');
+      else if (t === 'Перейти в каталог') toLink(btn, 'shop.html');
       else if (t === 'Продолжить покупки') btn.setAttribute('data-close-cart', '');
-      else if (t === 'Перейти в каталог') btn.setAttribute('data-goto', 'shop.html');
     }
   }
 
@@ -484,7 +493,7 @@ function processPage(bodyHtml: string, page: { file: string; hash: string; title
     for (const btn of nav.querySelectorAll('button')) {
       const label = text(btn);
       const href = CRUMB_LINKS[label];
-      if (href) stringSwaps.push([btn.outerHTML, `<a class="transition hover:text-ink" href="${href}">${label}</a>`]);
+      if (href) { swapped.add(btn.outerHTML); stringSwaps.push([btn.outerHTML, `<a class="transition hover:text-ink" href="${href}">${label}</a>`]); }
     }
   }
 
@@ -504,8 +513,7 @@ function processPage(bodyHtml: string, page: { file: string; hash: string; title
     'Избранное': 'account-wishlist.html', 'Платёжный адрес': 'account-address.html',
     'Способы оплаты': 'account-payment.html', 'Данные аккаунта': 'account-details.html',
   };
-  const toLink = (btn: El, href: string) =>
-    stringSwaps.push([btn.outerHTML, `<a class="${btn.getAttribute('class')}" href="${href}">${btn.innerHTML}</a>`]);
+
 
   for (const panelEl of root.querySelectorAll('[data-panel]')) {
     const name = panelEl.getAttribute('data-panel');
@@ -542,6 +550,59 @@ function processPage(bodyHtml: string, page: { file: string; hash: string; title
     }
   }
 
+  /* --- универсальная перелинковка: навигационные кнопки -> ссылки --- */
+  const kbFileByTitle = new Map<string, string>(data.kbArticles.map((a: any) => [a.title, `kb-${a.id}.html`]));
+  const CHIP_LINKS: Record<string, string> = {
+    'Активация ключа': 'kb-license-key.html',
+    'Импорт демо': 'kb-demo-import.html',
+    'Белый экран': 'kb-white-screen.html',
+    'Дочерняя тема': 'kb-child-theme.html',
+  };
+  const FOOTER_LINKS: Record<string, string> = {
+    'Все продукты': 'shop.html',
+    'Темы WordPress': 'shop.html',
+    'Плагины': 'shop.html',
+    'Оформление заказа': 'checkout.html',
+    'Блог': 'blog.html',
+    'Частые вопросы (FAQ)': 'faq.html',
+    'База знаний': 'kb.html',
+    'Установка темы': 'kb-install-theme.html',
+    'Для разработчиков': 'kb-hooks.html',
+    'UI-кит и шаблоны WooCommerce': 'ui.html',
+    'Создать обращение': 'account-new-ticket.html',
+    'Личный кабинет': 'account.html',
+    'Мои обращения': 'account-tickets.html',
+    'Мои лицензии': 'account-licenses.html',
+    'Возврат средств': 'kb-refund.html',
+  };
+  for (const btn of root.querySelectorAll('button')) {
+    const t = text(btn);
+    let href: string | undefined = kbFileByTitle.get(t) ?? CHIP_LINKS[t] ?? FOOTER_LINKS[t];
+    const tm = t.match(/#(T-\d{5})/);
+    if (!href && tm) href = `account-ticket-${tm[1].toLowerCase()}.html`;
+    if (!href && (t === 'Написать в поддержку в кабинете' || t === 'спросите поддержку')) href = 'account-new-ticket.html';
+    if (href) toLink(btn, href);
+  }
+  // иконка поддержки в шапке
+  for (const btn of root.querySelectorAll('button[aria-label="Поддержка в личном кабинете"]')) toLink(btn, 'account-new-ticket.html');
+  // индекс БЗ: карточки «Документация продуктов»
+  if (/^kb/.test(page.file)) {
+    for (const btn of root.querySelectorAll('button')) {
+      const t = text(btn);
+      if (!t.includes('\u20BD')) continue;
+      const prod = data.products.find((p: any) => t.startsWith(p.name));
+      if (prod) toLink(btn, prod.type === 'theme' ? 'kb-install-theme.html' : 'kb-seo-setup.html');
+    }
+  }
+  // статья блога: «Подробнее» о упомянутом продукте
+  if (/^blog-/.test(page.file)) {
+    const slug = page.file.slice('blog-'.length, -'.html'.length);
+    const post = data.posts.find((p: any) => p.slug === slug);
+    for (const btn of root.querySelectorAll('button')) {
+      if (text(btn) === 'Подробнее' && post) toLink(btn, `product-${post.product}.html`);
+    }
+  }
+
   const html = root.innerHTML;
 
   /* --- пути к локальным ассетам --- */
@@ -552,6 +613,27 @@ function processPage(bodyHtml: string, page: { file: string; hash: string; title
     if (!out.includes(from)) warn(`Крошка не найдена при замене на ${page.file}`);
     out = out.replace(from, to);
   }
+
+  /* --- перелинковка карточек: заголовки постов и товаров -> ссылки --- */
+  const escRe = (x: string) => x.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  for (const p of data.posts) {
+    out = out.replace(new RegExp(`<h3([^>]*)>(${escRe(p.title)})</h3>`, 'g'), `<h3$1><a class="transition hover:text-ink" href="blog-${p.slug}.html">$2</a></h3>`);
+  }
+  for (const p of data.products) {
+    out = out.replace(new RegExp(`<h3([^>]*)>(${escRe(p.name)})</h3>`, 'g'), `<h3$1><a class="transition hover:text-ink" href="product-${p.slug}.html">$2</a></h3>`);
+  }
+
+  /* --- «Форма поддержки» в футере (перелинковка support.html) --- */
+  out = out.replace(
+    '<li><a class="text-ink/80 transition hover:text-ink" href="account-new-ticket.html">Создать обращение</a></li>',
+    '<li><a class="text-ink/80 transition hover:text-ink" href="support.html">Форма поддержки</a></li><li><a class="text-ink/80 transition hover:text-ink" href="account-new-ticket.html">Создать обращение</a></li>',
+  );
+
+  /* --- ссылка на карту сайта в футере --- */
+  out = out.replace(
+    '<a class="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4" href="account-new-ticket.html">Написать в поддержку в кабинете</a>',
+    '<a class="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4" href="account-new-ticket.html">Написать в поддержку в кабинете</a> · <a class="font-semibold text-ink underline decoration-brand decoration-2 underline-offset-4" href="sitemap.html">Карта сайта</a>',
+  );
 
   /* --- JS-шаблоны строк корзины + данные + скрипт --- */
   const templates = data.products
@@ -631,6 +713,63 @@ for (const page of pages) {
   fs.writeFileSync(path.join(outDir, page.file), processPage(body, page));
   ok++;
   console.log(`✓ ${page.file}`);
+}
+
+/* ------------------------------------------------------------------ */
+/* Карта сайта (sitemap.html)                                          */
+/* ------------------------------------------------------------------ */
+{
+  const chip = (href: string, label: string) =>
+    `<a class="rounded-full bg-soft px-3 py-1.5 text-xs font-medium text-muted transition hover:bg-brand-50 hover:text-ink" href="${href}">${label}</a>`;
+  const group = (title: string, items: string[]) =>
+    `<section class="mt-10"><h2 class="text-xl font-bold tracking-tight">${title}</h2><div class="mt-4 flex flex-wrap gap-2">${items.join('')}</div></section>`;
+
+  const body =
+    `<div class="mx-auto max-w-[1200px] px-4 py-10 sm:px-6">` +
+    `<h1 class="text-3xl font-bold tracking-tight">Карта сайта</h1>` +
+    `<p class="mt-2 max-w-2xl text-sm text-muted">Все страницы магазина Wp Panda: продукты, статьи блога и базы знаний, служебные разделы.</p>` +
+    group('Основные страницы', [
+      chip('index.html', 'Главная'),
+      chip('shop.html', 'Каталог'),
+      chip('checkout-cart.html', 'Корзина'),
+      chip('checkout.html', 'Оформление заказа'),
+      chip('blog.html', 'Блог'),
+      chip('kb.html', 'База знаний'),
+      chip('faq.html', 'FAQ'),
+      chip('support.html', 'Поддержка'),
+      chip('account.html', 'Личный кабинет'),
+      chip('ui.html', 'UI-кит'),
+    ]) +
+    group('Темы и плагины', data.products.map((p: any) => chip(`product-${p.slug}.html`, `${p.name} — ${p.tagline}`))) +
+    group('Блог', data.posts.map((p: any) => chip(`blog-${p.slug}.html`, p.title))) +
+    group('База знаний', data.kbArticles.map((a: any) => chip(`kb-${a.id}.html`, a.title))) +
+    group('Личный кабинет', [
+      ...ACCOUNT_PARAMS.map((t) => chip(`account-${t}.html`, ACCOUNT_TITLES[t])),
+      ...data.tickets.map((t: any) => chip(`account-ticket-${t.id.toLowerCase()}.html`, `Тикет ${t.id}`)),
+    ]) +
+    `</div>`;
+  fs.writeFileSync(path.join(outDir, 'sitemap.html'), head('Карта сайта — Wp Panda') + body + '</body>\n</html>\n');
+  console.log(`✓ sitemap.html`);
+}
+
+/* ------------------------------------------------------------------ */
+/* Проверка перелинковки: страницы без входящих ссылок                 */
+/* ------------------------------------------------------------------ */
+{
+  const files = fs.readdirSync(outDir).filter((f) => f.endsWith('.html'));
+  const inbound = new Map<string, number>(files.map((f) => [f, 0]));
+  for (const f of files) {
+    const file = fs.readFileSync(path.join(outDir, f), 'utf8');
+    for (const m of file.matchAll(/href="([^"#]+)"/g)) {
+      const u = m[1];
+      if (/^(https?:|mailto:|data:)/.test(u)) continue;
+      const clean = u.split('?')[0].split('#')[0];
+      if (clean && inbound.has(clean) && clean !== f) inbound.set(clean, (inbound.get(clean) ?? 0) + 1);
+    }
+  }
+  const orphans = [...inbound.entries()].filter(([, n]) => n === 0).map(([f]) => f);
+  const total = [...inbound.values()].reduce((a, b) => a + b, 0);
+  console.log(`\nПерелинковка: ${total} внутренних ссылок, страниц-сирот: ${orphans.length}${orphans.length ? ' — ' + orphans.join(', ') : ''}`);
 }
 
 console.log(`\nГотово: ${ok}/${pages.length} страниц -> markup/`);

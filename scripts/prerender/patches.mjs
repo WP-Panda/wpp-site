@@ -88,14 +88,6 @@ make('pages/Faq.tsx', 'pages', (t) => {
 });
 
 /* ------------------------------------------------------------------ */
-/* База знаний: список статей раздела в сайдбаре — всегда              */
-/* ------------------------------------------------------------------ */
-make('pages/KnowledgeBase.tsx', 'pages', (t) => {
-  t = patch(t, '{isOpen && (', '{true && (', 1, 'списки статей в сайдбаре — всегда');
-  return t;
-});
-
-/* ------------------------------------------------------------------ */
 /* Галерея товара: без портала + все слайды в разметке                 */
 /* ------------------------------------------------------------------ */
 make('components/GalleryModal.tsx', 'components', (t) => {
@@ -136,7 +128,26 @@ make('components/ProductPreviewDialog.tsx', 'components', (t) => {
 });
 
 /* ------------------------------------------------------------------ */
-/* Страница товара: модалки и все табы в разметке + data-крючки        */
+/* Блог: «Читайте также» — тематически близкие посты                   */
+/* ------------------------------------------------------------------ */
+make('pages/Blog.tsx', 'pages', (t) => {
+  t = patch(
+    t,
+    'const related = posts.filter((p) => p.slug !== post.slug).slice(0, 3);',
+    `const related = posts
+    .filter((p) => p.slug !== post.slug)
+    .map((p) => ({ post: p, score: (p.category === post.category ? 2 : 0) + (p.product === post.product ? 2 : 0) }))
+    .sort((a, b) => b.score - a.score)
+    .map((x) => x.post)
+    .slice(0, 3);`,
+    1,
+    'блог: тематические «Читайте также»',
+  );
+  return t;
+});
+
+/* ------------------------------------------------------------------ */
+/* Товар: блок «Статьи о продукте» со ссылками на посты                */
 /* ------------------------------------------------------------------ */
 make('pages/Product.tsx', 'pages', (t) => {
   t = patch(t, "{galleryOpen && <GalleryModal", '{true && <GalleryModal', 1, 'галерея — рендерить всегда');
@@ -175,6 +186,78 @@ make('pages/Product.tsx', 'pages', (t) => {
   // Импорты модалок -> статичные версии без порталов (после rewriteImports)
   t = patch(t, "from '../../../src/components/GalleryModal'", "from './GalleryModal.static'", 1, 'импорт GalleryModal.static');
   t = patch(t, "from '../../../src/components/ProductPreviewDialog'", "from './ProductPreviewDialog.static'", 1, 'импорт ProductPreviewDialog.static');
+
+  // Перелинковка: статьи о продукте
+  t = patch(t, 'productBySlug, products, themeLicenses,', 'productBySlug, products, posts, themeLicenses,', 1, 'импорт posts');
+  t = patch(
+    t,
+    'const related = products.filter((item) => item.type === p.type && item.id !== p.id).slice(0, 4);',
+    `const related = products.filter((item) => item.type === p.type && item.id !== p.id).slice(0, 4);
+  const productPosts = posts.filter((post) => post.product === p.slug);`,
+    1,
+    'список статей о продукте',
+  );
+  t = patch(
+    t,
+    `<div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <ProductCard key={item.id} product={item} />)}</div>
+      </section>`,
+    `<div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{related.map((item) => <ProductCard key={item.id} product={item} />)}</div>
+      </section>
+
+      {productPosts.length > 0 && (
+        <section className="mt-16 border-t border-line pt-9">
+          <p className="text-xs text-muted">Блог и база знаний</p>
+          <h2 className="mt-1 text-2xl font-bold tracking-tight">Статьи о {p.name}</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {productPosts.map((post) => (
+              <a key={post.slug} href={'blog-' + post.slug + '.html'} className="group rounded-card border border-line bg-white p-5 shadow-card transition hover:-translate-y-0.5 hover:border-ink/20 hover:shadow-float">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted">{post.category} · {post.date}</div>
+                <div className="mt-2 text-base font-semibold leading-snug tracking-tight group-hover:underline">{post.title}</div>
+                <div className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-muted transition group-hover:text-ink">Читать <ArrowRight className="h-4 w-4" /></div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}`,
+    1,
+    'блок «Статьи о продукте»',
+  );
+  return t;
+});
+
+/* ------------------------------------------------------------------ */
+/* Статья БЗ: блок «Связанные статьи»                                  */
+/* ------------------------------------------------------------------ */
+make('pages/KnowledgeBase.tsx', 'pages', (t) => {
+  t = patch(t, '{isOpen && (', '{true && (', 1, 'списки статей в сайдбаре — всегда');
+  t = patch(
+    t,
+    'const nextA = kbArticles[idx + 1];',
+    `const nextA = kbArticles[idx + 1];
+  const relatedArts = kbArticles.filter((a) => a.category === art.category && a.id !== art.id).slice(0, 3);`,
+    1,
+    'список связанных статей',
+  );
+  t = patch(
+    t,
+    '{nextA && (',
+    `{relatedArts.length > 0 && (
+              <section className="mt-14">
+                <h2 className="text-xl font-bold tracking-tight">Связанные статьи</h2>
+                <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                  {relatedArts.map((a) => (
+                    <a key={a.id} href={'kb-' + a.id + '.html'} className="rounded-card border border-line bg-white p-5 shadow-card transition hover:border-ink/20">
+                      <div className="text-sm font-semibold leading-snug">{a.title}</div>
+                      <div className="mt-2 text-xs text-muted">{a.read} · обновлено {a.updated}</div>
+                    </a>
+                  ))}
+                </div>
+              </section>
+            )}
+            {nextA && (`,
+    1,
+    'блок «Связанные статьи»',
+  );
   return t;
 });
 

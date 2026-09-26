@@ -1,0 +1,218 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Wp Panda design tokens (стилистика Uppointment)
+   ============================================================ */
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-brand: #ffc21f;
+  --color-brand-600: #f5b000;
+  --color-brand-50: #fff8e4;
+  --color-brand-100: #ffedb8;
+  --color-ink: #1c1c21;
+  --color-ink-2: #2c2c34;
+  --color-muted: #7b7b87;
+  --color-line: #ebebf0;
+  --color-soft: #f6f6f8;
+
+  --radius-card: 22px;
+
+  --shadow-card: 0 1px 2px rgba(20, 20, 28, 0.04), 0 12px 32px -20px rgba(20, 20, 28, 0.2);
+  --shadow-float: 0 24px 60px -24px rgba(20, 20, 28, 0.32);
+  --shadow-glow: 0 10px 24px -10px rgba(255, 176, 0, 0.8);
+  --shadow-picked: 0 0 0 4px rgba(255, 194, 31, 0.16), 0 18px 40px -22px rgba(255, 166, 0, 0.55);
+}
+
+@layer base {
+  body {
+    background: #ffffff;
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  ::selection {
+    background: #ffe38f;
+    color: #1c1c21;
+  }
+}
+
+/* Тёплое свечение сверху страницы, как в референсе */
+.page-glow {
+  background:
+    radial-gradient(900px 380px at 50% -140px, rgba(255, 199, 45, 0.26), transparent 70%),
+    radial-gradient(520px 260px at 88% -60px, rgba(255, 140, 60, 0.1), transparent 70%);
+}
+
+/* Full-bleed product photography with a quiet reading area for the brand message. */
+.panda-hero__image {
+  object-position: 58% center;
+}
+.panda-hero__shade {
+  background:
+    linear-gradient(90deg, rgba(250, 249, 246, 0.99) 0%, rgba(250, 249, 246, 0.96) 28%, rgba(250, 249, 246, 0.78) 45%, rgba(250, 249, 246, 0.12) 73%, rgba(250, 249, 246, 0) 100%),
+    linear-gradient(0deg, rgba(250, 249, 246, 0.18), transparent 22%);
+}
+
+/* Тёмная карточка «Your appointment» */
+.dark-card {
+  background:
+    radial-gradient(120% 90% at 100% 0%, #5b2c2c 0%, rgba(91, 44, 44, 0) 58%),
+    linear-gradient(180deg, #2a2027 0%, #1c1c21 100%);
+}
+
+.dots-bg {
+  background-image: radial-gradient(rgba(28, 28, 33, 0.09) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.fade-up {
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.fade-in {
+  animation: fade-in 0.4s ease-out both;
+}
+.pop {
+  animation: pop 0.35s ease-out both;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #dcdce3;
+  border-radius: 999px;
+  border: 3px solid #fff;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* The purchase area follows the preview on mobile without duplicating controls. */
+.item-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+.item-sidebar { display: contents; }
+.item-media { order: 0; }
+.item-buy { order: 1; }
+.item-content { order: 2; }
+.item-info { order: 3; }
+.item-layout:not(.item-layout--details) .item-content { order: 0; }
+.item-page :is(button, a, summary):focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 4px;
+}
+
+@media (min-width: 1024px) {
+  .item-layout { grid-template-columns: minmax(0, 1fr) 340px; }
+  .item-sidebar {
+    display: block;
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .item-media, .item-content { order: initial; grid-column: 1; grid-row: 1; }
+  .item-layout--details .item-sidebar { grid-row: 1 / span 2; }
+  .item-layout--details .item-content { grid-row: 2; }
+  .item-info { margin-top: 28px; }
+}
+
+@media (max-width: 640px) {
+  .panda-hero__image {
+    object-position: 63% center;
+  }
+  .panda-hero__shade {
+    background: linear-gradient(90deg, rgba(250, 249, 246, 0.98) 0%, rgba(250, 249, 246, 0.9) 48%, rgba(250, 249, 246, 0.56) 100%);
+  }
+}
+
+@media (min-width: 1200px) {
+  .item-layout { grid-template-columns: minmax(0, 1fr) 360px; gap: 36px; }
+}
+
+.product-preview-dialog {
+  position: fixed;
+  inset: 0;
+  margin: auto;
+  width: min(1140px, calc(100% - 32px));
+  max-width: none;
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 24px;
+  background: white;
+  color: var(--color-ink);
+  box-shadow: var(--shadow-float);
+}
+.product-preview-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  animation: fade-up .25s ease-out both;
+}
+.product-preview-dialog::backdrop {
+  background: rgb(28 28 33 / 65%);
+  backdrop-filter: blur(5px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item-page *, .product-preview-dialog, .product-preview-dialog * {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

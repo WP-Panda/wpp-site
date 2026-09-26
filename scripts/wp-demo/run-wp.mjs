@@ -19,6 +19,7 @@ const ROOT = '/home/user/wp-demo';
 const DOCROOT = path.join(ROOT, 'wp');
 const PORT = 8080;
 const SITE = `http://localhost:${PORT}`;
+const SITE_HOSTED = `localhost:${PORT}`;
 const ADMIN_USER = 'admin';
 const ADMIN_PASS = 'wppanda2026';
 const ADMIN_EMAIL = 'admin@wppanda.demo';
@@ -135,8 +136,8 @@ function ensureFiles() {
       `<?php
 // Демо-конфиг темы Wp Panda (SQLite через sqlite-database-integration).
 define('DB_DRIVER', 'sqlite');
-define('WP_HOME', '${SITE}');
-define('WP_SITEURL', '${SITE}');
+define('WP_HOME', 'http://' . ($_SERVER['HTTP_HOST'] ?? '${SITE_HOSTED}'));
+define('WP_SITEURL', 'http://' . ($_SERVER['HTTP_HOST'] ?? '${SITE_HOSTED}'));
 define('WP_DEBUG', true);
 define('WP_DEBUG_LOG', true);
 define('WP_DEBUG_DISPLAY', false);

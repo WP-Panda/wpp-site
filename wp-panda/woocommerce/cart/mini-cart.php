@@ -42,7 +42,11 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 			$visible = apply_filters( 'woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key );
 
 			if ( $_product instanceof WC_Product && $_product->exists() && $cart_item['quantity'] > 0 && $visible ) {
-				$cart_item_name = WC()->cart->get_item_product_name( $cart_item, $_product );
+				// get_item_product_name() is not available in every supported
+				// WooCommerce release. The product API is the compatible fallback.
+				$cart_item_name = method_exists( WC()->cart, 'get_item_product_name' )
+					? WC()->cart->get_item_product_name( $cart_item, $_product )
+					: $_product->get_name();
 				/**
 				 * This filter is documented in woocommerce/templates/cart/cart.php.
 				 *
@@ -78,7 +82,7 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 							<?php echo $thumbnail . wp_kses_post( $product_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</a>
 					<?php endif; ?>
-					<?php echo wc_get_formatted_cart_item_data( $cart_item, false, $cart_item_name ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo wc_get_formatted_cart_item_data( $cart_item, false ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<?php echo apply_filters( 'woocommerce_widget_cart_item_quantity', '<span class="quantity">' . sprintf( '%s &times; %s', $cart_item['quantity'], $product_price ) . '</span>', $cart_item, $cart_item_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</li>
 				<?php

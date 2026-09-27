@@ -107,7 +107,7 @@ do_action( 'woocommerce_before_cart' );
 											?>
 										<?php endif; ?>
 										<?php do_action( 'woocommerce_after_cart_item_name', $cart_item, $cart_item_key ); ?>
-										<?php echo wp_kses_post( wc_get_formatted_cart_item_data( $cart_item, false, $cart_item_name ) ); ?>
+										<?php echo wp_kses_post( wc_get_formatted_cart_item_data( $cart_item, false ) ); ?>
 										<?php if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) : ?>
 											<?php echo wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'woocommerce' ) . '</p>', $product_id ) ); ?>
 										<?php endif; ?>

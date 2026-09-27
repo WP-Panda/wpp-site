@@ -1,4 +1,6 @@
 Источник: https://v2.wp-panda.pro (React-SPA с hash-роутингом, один HTML-файл)
-Отрендерено роутов: 62
-Рендер: jsdom (scripts/wp-demo/render-spa-snapshot.mjs), SPA-бандл исполнен как классический скрипт
-Исходник SPA: _app.html; в HTML-страницах бандл удалён — чистая вёрстка, ассеты абсолютными ссылками
+Отрендерено роутов: 70
+Именование: файл = маршрут (#/product/aurora -> product-aurora.html)
+Переходы: JS-кнопки заменены настоящими ссылками <a href="*.html">
+Скрипты и стили вынесены: app.js, styles.css (подключены внешне)
+Исходник SPA: _app.html; рендер: scripts/snapshot/render-spa-snapshot.mjs (jsdom)

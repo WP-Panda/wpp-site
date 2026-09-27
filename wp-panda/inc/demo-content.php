@@ -390,11 +390,33 @@ function wpp_demo_make_attribute( $name, $options, $position, $is_variation = fa
 	return $attribute;
 }
 
+/** Merge demo topic and compatibility labels into native WooCommerce product tags. */
+function wpp_demo_product_tag_names( $data ) {
+	$tags = ! empty( $data['tags'] ) ? (array) $data['tags'] : array();
+	if ( ! empty( $data['compatibility'] ) ) {
+		$tags = array_merge( $tags, preg_split( '/\s*,\s*/u', (string) $data['compatibility'], -1, PREG_SPLIT_NO_EMPTY ) );
+	}
+
+	$tags = array_map( 'sanitize_text_field', $tags );
+	$tags = array_filter( $tags, 'strlen' );
+
+	return array_values( array_unique( $tags ) );
+}
+
+/** Add demo tags without removing product tags managed by the store owner. */
+function wpp_demo_sync_product_tags( $product_id, $data ) {
+	$tags = wpp_demo_product_tag_names( $data );
+	if ( $tags && taxonomy_exists( 'product_tag' ) ) {
+		wp_set_object_terms( absint( $product_id ), $tags, 'product_tag', true );
+	}
+}
+
 /** Import a simple plugin product or a variable theme product using WooCommerce CRUD objects. */
 function wpp_demo_import_product( $data, $category_id, &$result ) {
 	$product_id = wpp_demo_find_post_id( 'product', $data['key'] );
 	if ( $product_id ) {
 		$result['products_skipped']++;
+		wpp_demo_sync_product_tags( $product_id, $data );
 		if ( 'variable' === $data['type'] ) {
 			wpp_demo_ensure_theme_variations( $product_id, $data, $result );
 		}
@@ -475,9 +497,7 @@ function wpp_demo_import_product( $data, $category_id, &$result ) {
 		wpp_demo_ensure_theme_variations( $product_id, $data, $result );
 	}
 
-	if ( ! empty( $data['tags'] ) ) {
-		wp_set_object_terms( $product_id, array_map( 'sanitize_text_field', $data['tags'] ), 'product_tag', false );
-	}
+	wpp_demo_sync_product_tags( $product_id, $data );
 
 	$result['products_created']++;
 	wpp_demo_attach_image( $product_id, $data['image'], $result );

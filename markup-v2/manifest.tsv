@@ -1,0 +1,71 @@
+route	file	bytes	h1
+/	index.html	188108	Wp Panda.
+shop	shop.html	233321	Каталог
+shop/theme	shop-theme.html	144259	Темы WordPress
+shop/plugin	shop-plugin.html	125838	Плагины WordPress
+ui	ui.html	121752	UI-кит Wp Panda
+faq	faq.html	50853	Частые вопросы
+product/aurora	product-aurora.html	130231	Aurora - Многоцелевая тема для агентств, студий и портфолио
+product/vesta	product-vesta.html	129825	Vesta - Тема для магазинов одежды и аксессуаров на WooCommerce
+product/brewly	product-brewly.html	129960	Brewly - Тема для кофеен, пекарен и доставки еды
+product/nomad	product-nomad.html	129921	Nomad - Тема для travel-блогов, журналов и медиа
+product/pulse	product-pulse.html	129968	Pulse - Тема для фитнес-клубов, тренеров и студий йоги
+product/habitat	product-habitat.html	129987	Habitat - Тема для недвижимости и дизайнеров интерьеров
+product/glow	product-glow.html	130105	Glow - Тема для бьюти-брендов и магазинов косметики
+product/savora	product-savora.html	129954	Savora - Тема для ресторанов с меню и онлайн-бронированием
+product/seo-rocket	product-seo-rocket.html	109557	SEO Rocket - SEO-оптимизация, Schema-разметка и карта сайта
+product/shieldy	product-shieldy.html	109228	Shieldy - Файрвол, защита от ботов и двухфакторная авторизация
+product/turbocache	product-turbocache.html	109170	TurboCache - Кэширование, WebP, CDN и отложенная загрузка
+product/wooboost	product-wooboost.html	109065	WooBoost - Допродажи, бандлы и быстрый чекаут для WooCommerce
+product/formflow	product-formflow.html	109265	FormFlow - Конструктор форм с условной логикой и интеграциями
+product/polyglot	product-polyglot.html	109172	Polyglot - Мультиязычность и автоматический перевод сайта
+product/bookit	product-bookit.html	109194	BookIt - Онлайн-запись и бронирование услуг
+product/mailpilot	product-mailpilot.html	109109	MailPilot - Email-рассылки, автоворонки и брошенные корзины
+checkout	checkout.html	43915	Оформление заказа
+checkout/cart	checkout-cart.html	56788	Ваша корзина
+account	account.html	98159	Панель управления
+account/orders	account-orders.html	56707	Заказы
+account/downloads	account-downloads.html	68283	Загрузки
+account/licenses	account-licenses.html	71991	Лицензии и ключи
+account/address	account-address.html	47933	Платёжный адрес
+account/new-ticket	account-new-ticket.html	57495	Новое обращение
+account/tickets	account-tickets.html	47323	Тикеты поддержки
+account/details	account-details.html	47770	Данные аккаунта
+account/dashboard	account-dashboard.html	98178	Панель управления
+account/wishlist	account-wishlist.html	77086	Избранное
+blog	blog.html	51504	Блог
+post/tema-dlya-magazina	post-tema-dlya-magazina.html	61405	Как выбрать тему WordPress для интернет-магазина в 2026 году
+post/gutenberg-vs-elementor	post-gutenberg-vs-elementor.html	61420	Gutenberg или Elementor: что выбрать для нового проекта
+post/pagespeed-100	post-pagespeed-100.html	59343	Разгоняем WordPress до 100 баллов PageSpeed: чек-лист
+post/wordpress-6-8	post-wordpress-6-8.html	61417	WordPress 6.8: разбираем ключевые изменения и новые блоки
+post/plaginy-woocommerce	post-plaginy-woocommerce.html	59411	10 плагинов, без которых не обходится магазин на WooCommerce
+post/zashchita-wordpress	post-zashchita-wordpress.html	59358	Как защитить сайт на WordPress от взлома: 12 правил
+post/dochernyaya-tema	post-dochernyaya-tema.html	61444	Дочерняя тема WordPress: зачем она нужна и как её создать
+post/checkout-optimizaciya	post-checkout-optimizaciya.html	59414	Оформление заказа в WooCommerce: 7 приёмов роста конверсии
+post/backup-wordpress	post-backup-wordpress.html	59377	Резервные копии WordPress: стратегия, которая спасает сайт
+post/multiyazychnost-saita	post-multiyazychnost-saita.html	61411	Мультиязычный сайт на WordPress: WPML, Polylang и AI-перевод
+post/hosting-dlya-wordpress	post-hosting-dlya-wordpress.html	59313	Как выбрать хостинг для WordPress в 2026 году
+post/email-vozvrat-klientov	post-email-vozvrat-klientov.html	59422	Email для WooCommerce: брошенные корзины и повторные продажи
+kb	kb.html	70386	База знаний
+kb-article/install-theme	kb-article-install-theme.html	55701	Установка темы через консоль WordPress
+kb-article/demo-import	kb-article-demo-import.html	56296	Импорт демо-контента в один клик
+kb-article/requirements	kb-article-requirements.html	56325	Требования к хостингу и серверу
+kb-article/license-key	kb-article-license-key.html	56345	Где найти и как активировать лицензионный ключ
+kb-article/move-license	kb-article-move-license.html	56340	Как перенести лицензию на другой домен
+kb-article/license-types	kb-article-license-types.html	56351	Лицензии тем: 1 сайт или 5 сайтов
+kb-article/auto-updates	kb-article-auto-updates.html	56325	Как включить автоматические обновления
+kb-article/white-screen	kb-article-white-screen.html	56318	Белый экран после обновления: что делать
+kb-article/rollback	kb-article-rollback.html	56312	Откат к предыдущей версии
+kb-article/header-builder	kb-article-header-builder.html	56212	Настройка шапки и меню
+kb-article/child-theme	kb-article-child-theme.html	56222	Создание дочерней темы
+kb-article/fonts-colors	kb-article-fonts-colors.html	56250	Шрифты и цветовые схемы
+kb-article/seo-setup	kb-article-seo-setup.html	56266	Первичная настройка SEO Rocket
+kb-article/cache-rules	kb-article-cache-rules.html	56268	Правила кэширования TurboCache
+kb-article/forms-crm	kb-article-forms-crm.html	56301	Интеграция FormFlow с amoCRM
+kb-article/woo-payments	kb-article-woo-payments.html	56115	Настройка оплаты и доставки в WooCommerce
+kb-article/checkout-speed	kb-article-checkout-speed.html	56099	Ускорение чекаута WooCommerce
+kb-article/refund	kb-article-refund.html	56076	Условия возврата средств
+kb-article/invoices	kb-article-invoices.html	56094	Счёт и закрывающие документы для юрлиц
+kb-article/hooks	kb-article-hooks.html	56035	Хуки и фильтры темы Aurora
+kb-article/rest-api	kb-article-rest-api.html	55436	REST API лицензий
+checkout/thankyou	checkout-thankyou.html	25766	Спасибо за покупку!

@@ -1,0 +1,50 @@
+name: Снапшот вёрстки v2.wp-panda.pro
+
+on:
+  push:
+    branches: ['**']
+    paths: ['.github/workflows/snapshot-v2.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshot-v2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Скачать SPA-оболочку
+        run: |
+          mkdir -p markup-v2
+          curl -fsSL -A "Mozilla/5.0" https://v2.wp-panda.pro/ -o markup-v2/_app.html
+          wc -c markup-v2/_app.html
+
+      - name: Отрендерить все роуты в статические HTML
+        run: |
+          npm install jsdom js-beautify --no-audit --no-fund
+          node scripts/snapshot/render-spa-snapshot.mjs
+
+      - name: Загрузить артефакт
+        uses: actions/upload-artifact@v4
+        with:
+          name: markup-v2
+          path: markup-v2/
+
+      - name: Закоммитить снапшот
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add markup-v2
+          git commit -m "Снапшот вёрстки v2.wp-panda.pro (${{ github.run_id }})"
+          git push origin HEAD:${{ github.ref_name }}

@@ -60,32 +60,28 @@ function wpp_theme_setup() {
 }
 add_action( 'after_setup_theme', 'wpp_theme_setup' );
 
-/** Enqueue the supplied layout styles and small progressive-enhancement script. */
+/**
+ * Enqueue only the stylesheet supplied with the static layout.
+ *
+ * Core, block and plugin styles are enqueued by WordPress before this callback.
+ * The late priority deliberately places the original layout stylesheet last.
+ */
 function wpp_enqueue_assets() {
-	$theme_version = wp_get_theme()->get( 'Version' );
-	$layout_path   = get_template_directory() . '/assets/css/layout.css';
-	$theme_path    = get_template_directory() . '/assets/css/theme.css';
-	$script_path   = get_template_directory() . '/assets/js/theme.js';
+	$layout_path = get_template_directory() . '/assets/css/layout.css';
+	$script_path = get_template_directory() . '/assets/js/theme.js';
 
 	wp_enqueue_style(
-		'wpp-theme-meta',
-		get_stylesheet_uri(),
+		'wpp-fonts',
+		'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap',
 		array(),
-		$theme_version
+		null
 	);
 
 	wp_enqueue_style(
 		'wpp-layout',
 		get_template_directory_uri() . '/assets/css/layout.css',
-		array( 'wpp-theme-meta' ),
+		array( 'wpp-fonts' ),
 		file_exists( $layout_path ) ? (string) filemtime( $layout_path ) : WPP_THEME_VERSION
-	);
-
-	wp_enqueue_style(
-		'wpp-theme',
-		get_template_directory_uri() . '/assets/css/theme.css',
-		array( 'wpp-layout' ),
-		file_exists( $theme_path ) ? (string) filemtime( $theme_path ) : WPP_THEME_VERSION
 	);
 
 	wp_enqueue_script(
@@ -97,7 +93,10 @@ function wpp_enqueue_assets() {
 	);
 
 	wp_localize_script( 'wpp-theme', 'wppTheme', array(
-		'cartUrl' => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' ),
+		'cartUrl'     => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' ),
+		'checkoutUrl' => function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/checkout/' ),
+		'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+		'cartNonce'   => wp_create_nonce( 'wpp-cart' ),
 	) );
 
 	// The header uses WooCommerce's mini-cart template. Enqueue its fragment updater
@@ -106,4 +105,13 @@ function wpp_enqueue_assets() {
 		wp_enqueue_script( 'wc-cart-fragments' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'wpp_enqueue_assets', 30 );
+add_action( 'wp_enqueue_scripts', 'wpp_enqueue_assets', 999 );
+
+/**
+ * Prevent WooCommerce's classic CSS from overriding the supplied catalog,
+ * product, cart and checkout layout. Functional scripts remain enabled.
+ */
+function wpp_disable_woocommerce_classic_styles() {
+	return array();
+}
+add_filter( 'woocommerce_enqueue_styles', 'wpp_disable_woocommerce_classic_styles' );

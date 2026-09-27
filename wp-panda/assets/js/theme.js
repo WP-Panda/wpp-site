@@ -3,6 +3,14 @@
 
   var menuToggle = document.querySelector('[data-menu-toggle]');
   var navigation = document.getElementById('site-navigation');
+  var siteHeader = document.querySelector('.site-header');
+
+  function syncHeaderSurface() {
+    if (siteHeader) siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+  }
+
+  syncHeaderSurface();
+  window.addEventListener('scroll', syncHeaderSurface, { passive: true });
 
   if (menuToggle && navigation) {
     menuToggle.addEventListener('click', function () {
@@ -32,14 +40,62 @@
       }
     }
 
-    document.querySelectorAll('.header-search[open], .header-cart[open]').forEach(function (details) {
+    document.querySelectorAll('.header-search[open], .header-cart[open], .header-notifications[open]').forEach(function (details) {
       details.removeAttribute('open');
     });
   });
 
   document.addEventListener('click', function (event) {
-    document.querySelectorAll('.header-search[open], .header-cart[open]').forEach(function (details) {
+    var cartClose = event.target.closest('[data-cart-close]');
+    if (cartClose) {
+      var openCart = document.querySelector('.header-cart[open]');
+      if (openCart) openCart.removeAttribute('open');
+      document.body.classList.remove('wpp-cart-drawer-open');
+      if (cartClose.tagName === 'BUTTON') event.preventDefault();
+      return;
+    }
+
+    document.querySelectorAll('.header-search[open], .header-cart[open], .header-notifications[open]').forEach(function (details) {
       if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
+
+  document.querySelectorAll('.header-cart').forEach(function (cart) {
+    cart.addEventListener('toggle', function () {
+      document.body.classList.toggle('wpp-cart-drawer-open', cart.open);
+    });
+  });
+
+  document.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-cart-variation]');
+    if (!button || !window.wppTheme || !window.wppTheme.ajaxUrl) return;
+    event.preventDefault();
+    if (button.classList.contains('is-active')) return;
+    var selector = button.closest('.wpp-mini-cart-license-switch');
+    if (selector) selector.querySelectorAll('button').forEach(function (item) { item.disabled = true; });
+
+    var request = new URLSearchParams();
+    request.set('action', 'wpp_switch_cart_variation');
+    request.set('nonce', window.wppTheme.cartNonce || '');
+    request.set('cart_item_key', button.getAttribute('data-cart-item-key') || '');
+    request.set('variation_id', button.getAttribute('data-cart-variation') || '');
+    fetch(window.wppTheme.ajaxUrl, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+      body: request.toString()
+    }).then(function (response) { return response.json(); }).then(function (data) {
+      if (!data || !data.fragments) throw new Error('Cart update failed');
+      Object.keys(data.fragments).forEach(function (cssSelector) {
+        document.querySelectorAll(cssSelector).forEach(function (element) {
+          var holder = document.createElement('div');
+          holder.innerHTML = data.fragments[cssSelector];
+          if (holder.firstElementChild) element.replaceWith(holder.firstElementChild);
+        });
+      });
+      if (window.jQuery) window.jQuery(document.body).trigger('wc_fragments_refreshed');
+    }).catch(function () {
+      if (selector) selector.querySelectorAll('button').forEach(function (item) { item.disabled = false; });
     });
   });
 
@@ -193,19 +249,74 @@
 
   initProductVariationPickers();
 
-  document.querySelectorAll('[data-wpp-open-product-gallery]').forEach(function (button) {
+  document.querySelectorAll('[data-wpp-buy-now]').forEach(function (button) {
     button.addEventListener('click', function () {
-      var product = button.closest('.wpp-single-product');
-      if (!product) return;
-      var galleryTrigger = product.querySelector('.woocommerce-product-gallery__trigger');
-      var imageLink = product.querySelector('.woocommerce-product-gallery__image a');
-      if (galleryTrigger) galleryTrigger.click();
-      else if (imageLink) imageLink.click();
-      else {
-        var image = product.querySelector('.woocommerce-product-gallery__image img');
-        if (image) image.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }
+      var card = button.closest('.wpp-product-purchase-card');
+      var form = card && card.querySelector('form.cart');
+      if (!form) return;
+      form.action = window.wppTheme && window.wppTheme.checkoutUrl ? window.wppTheme.checkoutUrl : form.action;
+      if (form.requestSubmit) form.requestSubmit();
+      else form.submit();
     });
+  });
+
+  document.querySelectorAll('[data-wpp-gallery-modal]').forEach(function (modal) {
+    var product = modal.closest('.wpp-single-product');
+    var thumbs = Array.prototype.slice.call(modal.querySelectorAll('[data-wpp-gallery-thumb]'));
+    var image = modal.querySelector('[data-wpp-gallery-image]');
+    var counter = modal.querySelector('[data-wpp-gallery-counter]');
+    var closeButton = modal.querySelector('[data-wpp-gallery-close]');
+    var current = 0;
+    var previousFocus = null;
+
+    function select(index) {
+      if (!thumbs.length || !image) return;
+      current = (index + thumbs.length) % thumbs.length;
+      var thumb = thumbs[current];
+      image.src = thumb.getAttribute('data-full') || '';
+      image.alt = thumb.getAttribute('data-alt') || '';
+      thumbs.forEach(function (item, itemIndex) {
+        item.classList.toggle('is-active', itemIndex === current);
+        item.setAttribute('aria-current', itemIndex === current ? 'true' : 'false');
+      });
+      if (counter) counter.textContent = (current + 1) + ' / ' + thumbs.length;
+    }
+
+    function open(index) {
+      previousFocus = document.activeElement;
+      select(typeof index === 'number' ? index : 0);
+      modal.hidden = false;
+      document.body.classList.add('wpp-gallery-is-open');
+      if (closeButton) closeButton.focus();
+    }
+
+    function close() {
+      modal.hidden = true;
+      document.body.classList.remove('wpp-gallery-is-open');
+      if (previousFocus && previousFocus.focus) previousFocus.focus();
+    }
+
+    thumbs.forEach(function (thumb, index) {
+      thumb.addEventListener('click', function () { select(index); });
+    });
+    modal.querySelector('[data-wpp-gallery-prev]')?.addEventListener('click', function () { select(current - 1); });
+    modal.querySelector('[data-wpp-gallery-next]')?.addEventListener('click', function () { select(current + 1); });
+    if (closeButton) closeButton.addEventListener('click', close);
+    modal.addEventListener('click', function (event) { if (event.target === modal) close(); });
+    modal.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') close();
+      if (event.key === 'ArrowLeft') select(current - 1);
+      if (event.key === 'ArrowRight') select(current + 1);
+    });
+
+    if (product) {
+      product.querySelectorAll('[data-wpp-open-product-gallery]').forEach(function (button) {
+        button.addEventListener('click', function () { open(0); });
+      });
+      product.querySelectorAll('.woocommerce-product-gallery__image a').forEach(function (link, index) {
+        link.addEventListener('click', function (event) { event.preventDefault(); open(index); });
+      });
+    }
   });
 
   document.querySelectorAll('[data-wpp-share-product]').forEach(function (button) {

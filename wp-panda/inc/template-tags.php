@@ -9,11 +9,13 @@ function wpp_icon( $name, $class = '' ) {
 		'search' => '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>',
 		'cart'   => '<path d="M3 3h2l2.1 11.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>',
 		'user'   => '<circle cx="12" cy="8" r="4"></circle><path d="M5 21v-2a7 7 0 0 1 14 0v2"></path>',
+		'bell'   => '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path>',
 		'menu'   => '<path d="M4 6h16M4 12h16M4 18h16"></path>',
 		'close'  => '<path d="m18 6-12 12M6 6l12 12"></path>',
 		'arrow'  => '<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>',
 		'chevron'=> '<path d="m9 18 6-6-6-6"></path>',
 		'check'  => '<path d="m5 12 4 4L19 6"></path>',
+		'trash'  => '<path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="m19 6-1 14H6L5 6"></path><path d="M10 11v5M14 11v5"></path>',
 	);
 
 	if ( ! isset( $icons[ $name ] ) ) {
@@ -25,15 +27,19 @@ function wpp_icon( $name, $class = '' ) {
 	return '<svg class="' . esc_attr( $classes ) . '" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' . $icons[ $name ] . '</svg>';
 }
 
-/** Fallback menu for a fresh install before a menu is assigned in Appearance > Menus. */
+/** Render the four navigation items used by the supplied header. */
 function wpp_primary_menu_fallback() {
-	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-	$blog_url = (int) get_option( 'page_for_posts' ) ? get_permalink( (int) get_option( 'page_for_posts' ) ) : home_url( '/' );
+	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+	$blog_url = (int) get_option( 'page_for_posts' ) ? get_permalink( (int) get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+	$items = array(
+		array( 'label' => __( 'Каталог', 'wp-panda' ), 'url' => $shop_url, 'active' => function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() || is_product() ) ),
+		array( 'label' => __( 'Блог', 'wp-panda' ), 'url' => $blog_url, 'active' => is_home() || is_singular( 'post' ) || is_category() || is_tag() ),
+		array( 'label' => __( 'База знаний', 'wp-panda' ), 'url' => home_url( '/kb/' ), 'active' => is_page( 'kb' ) || ( is_page() && 0 === strpos( (string) get_post_meta( get_queried_object_id(), '_wpp_demo_key', true ), 'kb:' ) ) ),
+		array( 'label' => __( 'FAQ', 'wp-panda' ), 'url' => home_url( '/faq/' ), 'active' => is_page( 'faq' ) ),
+	);
 	?>
-	<ul class="menu">
-		<li class="menu-item"><a href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Каталог', 'wp-panda' ); ?></a></li>
-		<li class="menu-item"><a href="<?php echo esc_url( $blog_url ); ?>"><?php esc_html_e( 'Блог', 'wp-panda' ); ?></a></li>
-		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>"><?php esc_html_e( 'FAQ', 'wp-panda' ); ?></a></li>
+	<ul class="menu" id="primary-menu">
+		<?php foreach ( $items as $item ) : ?><li class="menu-item<?php echo $item['active'] ? ' current-menu-item' : ''; ?>"><a href="<?php echo esc_url( $item['url'] ); ?>"<?php echo $item['active'] ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?></a></li><?php endforeach; ?>
 	</ul>
 	<?php
 }

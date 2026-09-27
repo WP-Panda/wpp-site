@@ -37,16 +37,7 @@ defined( 'ABSPATH' ) || exit;
 				</button>
 
 				<nav id="site-navigation" class="site-navigation mx-auto" aria-label="<?php esc_attr_e( 'Главное меню', 'wp-panda' ); ?>">
-					<?php
-					wp_nav_menu( array(
-						'theme_location' => 'primary',
-						'container'      => false,
-						'menu_id'        => 'primary-menu',
-						'menu_class'     => 'menu',
-						'fallback_cb'    => 'wpp_primary_menu_fallback',
-						'depth'          => 2,
-					) );
-					?>
+					<?php wpp_primary_menu_fallback(); ?>
 				</nav>
 
 				<div class="site-header__tools ml-auto flex items-center gap-2 lg:ml-0">
@@ -65,27 +56,28 @@ defined( 'ABSPATH' ) || exit;
 						</div>
 					</details>
 
-					<?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
-						<a class="header-account header-tool" href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" aria-label="<?php esc_attr_e( 'Личный кабинет', 'wp-panda' ); ?>">
-							<?php echo wpp_icon( 'user', 'h-[18px] w-[18px]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-							<span class="header-account__label"><?php echo is_user_logged_in() ? esc_html__( 'Кабинет', 'wp-panda' ) : esc_html__( 'Войти', 'wp-panda' ); ?></span>
-						</a>
+					<?php if ( is_user_logged_in() && function_exists( 'wc_get_page_permalink' ) ) : ?>
+						<details class="header-notifications">
+							<summary class="header-tool" aria-label="<?php esc_attr_e( 'Уведомления', 'wp-panda' ); ?>"><?php echo wpp_icon( 'bell', 'h-[18px] w-[18px]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span class="header-notifications__dot"></span></summary>
+							<div class="header-notifications__panel"><strong><?php esc_html_e( 'Уведомления', 'wp-panda' ); ?></strong><a href="<?php echo esc_url( wc_get_account_endpoint_url( 'downloads' ) ); ?>"><b><?php esc_html_e( 'Доступны обновления', 'wp-panda' ); ?></b><span><?php esc_html_e( 'Проверьте новые версии в загрузках', 'wp-panda' ); ?></span></a><a href="<?php echo esc_url( wc_get_account_endpoint_url( 'support' ) ); ?>"><b><?php esc_html_e( 'Поддержка Wp Panda', 'wp-panda' ); ?></b><span><?php esc_html_e( 'Ответы на обращения находятся в кабинете', 'wp-panda' ); ?></span></a></div>
+						</details>
+					<?php endif; ?>
 
+					<?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>
 						<details class="header-cart">
 							<summary class="header-tool header-cart__toggle" aria-label="<?php esc_attr_e( 'Открыть корзину', 'wp-panda' ); ?>">
 								<?php echo wpp_icon( 'cart', 'h-[18px] w-[18px]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								<span class="wpp-cart-count" aria-label="<?php echo esc_attr( sprintf( __( 'Корзина, товаров: %s', 'wp-panda' ), number_format_i18n( wpp_get_cart_count() ) ) ); ?>"><?php echo esc_html( number_format_i18n( wpp_get_cart_count() ) ); ?></span>
 							</summary>
-							<div class="header-cart__panel">
-								<div class="header-cart__panel-head">
-									<strong><?php esc_html_e( 'Корзина', 'wp-panda' ); ?></strong>
-									<a href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php esc_html_e( 'В корзину', 'wp-panda' ); ?></a>
-								</div>
-								<div class="widget_shopping_cart_content">
-									<?php woocommerce_mini_cart(); ?>
-								</div>
-							</div>
+							<div class="header-cart__backdrop" data-cart-close aria-hidden="true"></div>
+							<aside class="header-cart__panel" role="dialog" aria-label="<?php esc_attr_e( 'Корзина', 'wp-panda' ); ?>">
+								<div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?></div>
+							</aside>
 						</details>
+						<a class="header-account header-tool" href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" aria-label="<?php esc_attr_e( 'Личный кабинет', 'wp-panda' ); ?>">
+							<span class="header-account__icon"><?php echo wpp_icon( 'user', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							<span class="header-account__label"><?php echo is_user_logged_in() ? esc_html( wp_get_current_user()->display_name ) : esc_html__( 'Войти', 'wp-panda' ); ?></span>
+						</a>
 					<?php endif; ?>
 				</div>
 			</div>

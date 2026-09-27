@@ -11,6 +11,7 @@ define( 'WPP_THEME_VERSION', '1.0.0' );
 
 require_once get_template_directory() . '/inc/template-tags.php';
 require_once get_template_directory() . '/inc/woocommerce.php';
+require_once get_template_directory() . '/inc/demo-content.php';
 
 /** Set up theme defaults and register support for WordPress features. */
 function wpp_theme_setup() {

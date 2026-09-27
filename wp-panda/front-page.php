@@ -1,7 +1,12 @@
 <?php
 /** Front page based on the Wp Panda landing-page layout. */
 get_header();
-$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
+$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : '';
+if ( ! $shop_url ) {
+	$shop_url = home_url( '/' );
+}
+$faq_page_id = function_exists( 'wpp_demo_find_post_id' ) ? wpp_demo_find_post_id( 'page', 'page:faq' ) : 0;
+$faq_url = $faq_page_id ? get_permalink( $faq_page_id ) : home_url( '/faq/' );
 $featured_query = null;
 
 if ( class_exists( 'WooCommerce' ) ) {
@@ -28,7 +33,7 @@ if ( class_exists( 'WooCommerce' ) ) {
 					<a class="button button--brand button--large" href="<?php echo esc_url( $shop_url ); ?>">
 						<?php esc_html_e( 'Смотреть каталог', 'wp-panda' ); ?> <?php echo wpp_icon( 'arrow', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</a>
-					<a class="button button--light button--large" href="<?php echo esc_url( home_url( '/faq/' ) ); ?>"><?php esc_html_e( 'Как это работает', 'wp-panda' ); ?></a>
+					<a class="button button--light button--large" href="<?php echo esc_url( $faq_url ); ?>"><?php esc_html_e( 'Как это работает', 'wp-panda' ); ?></a>
 				</div>
 				<ul class="hero-benefits">
 					<li><?php echo wpp_icon( 'check', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php esc_html_e( 'Автообновления', 'wp-panda' ); ?></li>
@@ -72,7 +77,8 @@ if ( class_exists( 'WooCommerce' ) ) {
 		<?php else : ?>
 			<div class="empty-state">
 				<h3><?php esc_html_e( 'Каталог готов к наполнению', 'wp-panda' ); ?></h3>
-				<p><?php esc_html_e( 'После установки WooCommerce добавьте товары — популярные позиции появятся здесь автоматически.', 'wp-panda' ); ?></p>
+				<p><?php esc_html_e( 'Добавьте свои товары или импортируйте каталог из демо-верстки через инструменты темы.', 'wp-panda' ); ?></p>
+				<?php if ( current_user_can( 'manage_options' ) ) : ?><a class="button button--brand" href="<?php echo esc_url( admin_url( 'tools.php?page=wpp-demo-content' ) ); ?>"><?php esc_html_e( 'Импортировать демо-контент', 'wp-panda' ); ?></a><?php endif; ?>
 				<?php if ( current_user_can( 'manage_woocommerce' ) ) : ?><a class="button button--dark" href="<?php echo esc_url( admin_url( 'post-new.php?post_type=product' ) ); ?>"><?php esc_html_e( 'Добавить товар', 'wp-panda' ); ?></a><?php endif; ?>
 			</div>
 		<?php endif; ?>

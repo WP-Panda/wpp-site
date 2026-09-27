@@ -1,0 +1,766 @@
+{
+  "products": [
+    {
+      "key": "product:aurora",
+      "slug": "aurora",
+      "name": "Aurora",
+      "short_description": "Многоцелевая тема для агентств, студий и портфолио",
+      "description": "<div><div><section><h2>О продукте Aurora</h2><p>Aurora — флагманская тема Wp Panda для креативных агентств, студий и фрилансеров. 40+ готовых демо, визуальный конструктор страниц, продуманная типографика и молниеносная загрузка. Всё настраивается без единой строчки кода.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / Elementor / WooCommerce / WPML</span></div></section><section><div><h2>Последнее обновление</h2><span>12 марта 2026</span></div><div><span></span>Версия 3.2.1</div><ul><li>Ускорена загрузка стилей и скриптов на 18%</li><li>Исправлено отображение меню в iOS Safari</li><li>Новые блоки Gutenberg: «Тарифы» и «Отзывы»</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 3990,
+      "regular_price": 5490,
+      "sale_price": 3990,
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Агентство",
+        "Elementor",
+        "WooCommerce",
+        "WPML"
+      ],
+      "version": "3.2.1",
+      "wordpress": "6.2+",
+      "php": "8.0+",
+      "compatibility": "Gutenberg, Elementor, WooCommerce, WPML",
+      "image": "products/aurora.jpg",
+      "sku": "WPP-DEMO-AURORA"
+    },
+    {
+      "key": "product:bookit",
+      "slug": "bookit",
+      "name": "BookIt",
+      "short_description": "Онлайн-запись и бронирование услуг",
+      "description": "<div><div><section><h2>О продукте BookIt</h2><p>BookIt — онлайн-запись для салонов, клиник, школ и сервисов. Расписания специалистов, предоплата, напоминания по SMS и email, синхронизация с Google Calendar. Пожизненная лицензия навсегда.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Онлайн-запись на услуги и к специалистам</span></li><li><span>Гибкие расписания и перерывы</span></li><li><span>Предоплата и оплата онлайн</span></li><li><span>SMS и email-напоминания клиентам</span></li><li><span>Синхронизация с Google Calendar</span></li><li><span>Личный кабинет клиента</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / Elementor / WooCommerce</span></div></section><section><div><h2>Последнее обновление</h2><span>13 марта 2026</span></div><div><span></span>Версия 1.7.0</div><ul><li>Мелкие исправления перевода и RTL</li><li>Совместимость с WordPress 6.8 и WooCommerce 9.7</li><li>Ускорена загрузка стилей и скриптов на 18%</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 2690,
+      "regular_price": 2690,
+      "sale_price": "",
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "Бронирование",
+        "Elementor",
+        "WooCommerce"
+      ],
+      "version": "1.7.0",
+      "wordpress": "6.2+",
+      "php": "8.0+",
+      "compatibility": "Gutenberg, Elementor, WooCommerce",
+      "image": "products/bookit.jpg",
+      "sku": "WPP-DEMO-BOOKIT"
+    },
+    {
+      "key": "product:brewly",
+      "slug": "brewly",
+      "name": "Brewly",
+      "short_description": "Тема для кофеен, пекарен и доставки еды",
+      "description": "<div><div><section><h2>О продукте Brewly</h2><p>Brewly создана для кофеен, пекарен и небольших ресторанов: меню с фото, онлайн-заказ и доставка, программа лояльности и карта заведений. Тёплый дизайн, который пахнет свежей выпечкой.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / WooCommerce</span></div></section><section><div><h2>Последнее обновление</h2><span>28 февраля 2026</span></div><div><span></span>Версия 1.9.4</div><ul><li>Новые блоки Gutenberg: «Тарифы» и «Отзывы»</li><li>Переработан мастер импорта демо-контента</li><li>Исправлено предупреждение PHP 8.3 в настройках</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 2990,
+      "regular_price": 2990,
+      "sale_price": "",
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Кафе и рестораны",
+        "WooCommerce"
+      ],
+      "version": "1.9.4",
+      "wordpress": "6.2+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, WooCommerce",
+      "image": "products/brewly.jpg",
+      "sku": "WPP-DEMO-BREWLY"
+    },
+    {
+      "key": "product:formflow",
+      "slug": "formflow",
+      "name": "FormFlow",
+      "short_description": "Конструктор форм с условной логикой и интеграциями",
+      "description": "<div><div><section><h2>О продукте FormFlow</h2><p>FormFlow — конструктор форм любой сложности: от обратного звонка до многошаговых анкет с оплатой. Условная логика, интеграции с CRM и мессенджерами, защита от спама без капчи. Пожизненная лицензия навсегда.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Drag &amp; drop конструктор форм</span></li><li><span>Условная логика и многошаговые формы</span></li><li><span>Приём оплаты через ЮKassa и Stripe</span></li><li><span>Интеграции с amoCRM, Битрикс24, Telegram</span></li><li><span>Защита от спама без капчи</span></li><li><span>Экспорт заявок в CSV и Google Sheets</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / Elementor</span></div></section><section><div><h2>Последнее обновление</h2><span>1 марта 2026</span></div><div><span></span>Версия 3.8.0</div><ul><li>Исправлено предупреждение PHP 8.3 в настройках</li><li>Тёмный режим для панели управления</li><li>Мелкие исправления перевода и RTL</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 1490,
+      "regular_price": 1490,
+      "sale_price": "",
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "Формы",
+        "Elementor"
+      ],
+      "version": "3.8.0",
+      "wordpress": "6.0+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, Elementor",
+      "image": "products/formflow.jpg",
+      "sku": "WPP-DEMO-FORMFLOW"
+    },
+    {
+      "key": "product:glow",
+      "slug": "glow",
+      "name": "Glow",
+      "short_description": "Тема для бьюти-брендов и магазинов косметики",
+      "description": "<div><div><section><h2>О продукте Glow</h2><p>Glow — нежная и конверсионная тема для бьюти-брендов. Витрина с быстрым просмотром, подбор средств по типу кожи, наборы и подписка на уходовые средства прямо в WooCommerce.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>WooCommerce / Gutenberg</span></div></section><section><div><h2>Последнее обновление</h2><span>8 марта 2026</span></div><div><span></span>Версия 1.4.0</div><ul><li>Мелкие исправления перевода и RTL</li><li>Совместимость с WordPress 6.8 и WooCommerce 9.7</li><li>Ускорена загрузка стилей и скриптов на 18%</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 3290,
+      "regular_price": 3990,
+      "sale_price": 3290,
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Интернет-магазин",
+        "WooCommerce"
+      ],
+      "version": "1.4.0",
+      "wordpress": "6.3+",
+      "php": "8.0+",
+      "compatibility": "WooCommerce, Gutenberg",
+      "image": "products/glow.jpg",
+      "sku": "WPP-DEMO-GLOW"
+    },
+    {
+      "key": "product:habitat",
+      "slug": "habitat",
+      "name": "Habitat",
+      "short_description": "Тема для недвижимости и дизайнеров интерьеров",
+      "description": "<div><div><section><h2>О продукте Habitat</h2><p>Habitat — элегантная тема для агентств недвижимости и дизайнеров интерьеров. Каталог объектов с фильтрами, карты, ипотечный калькулятор и портфолио проектов с эффектом «до/после».</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / Elementor / WPML</span></div></section><section><div><h2>Последнее обновление</h2><span>10 марта 2026</span></div><div><span></span>Версия 2.4.3</div><ul><li>Тёмный режим для панели управления</li><li>Мелкие исправления перевода и RTL</li><li>Совместимость с WordPress 6.8 и WooCommerce 9.7</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 3490,
+      "regular_price": 3490,
+      "sale_price": "",
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Недвижимость",
+        "Elementor",
+        "WPML"
+      ],
+      "version": "2.4.3",
+      "wordpress": "6.2+",
+      "php": "8.0+",
+      "compatibility": "Gutenberg, Elementor, WPML",
+      "image": "products/habitat.jpg",
+      "sku": "WPP-DEMO-HABITAT"
+    },
+    {
+      "key": "product:mailpilot",
+      "slug": "mailpilot",
+      "name": "MailPilot",
+      "short_description": "Email-рассылки, автоворонки и брошенные корзины",
+      "description": "<div><div><section><h2>О продукте MailPilot</h2><p>MailPilot — email-маркетинг внутри WordPress: визуальный редактор писем, автоворонки, сегментация и возврат брошенных корзин WooCommerce. Без внешних сервисов и лимитов на контакты. Пожизненная лицензия навсегда.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Визуальный редактор писем</span></li><li><span>Автоворонки и триггерные письма</span></li><li><span>Брошенные корзины WooCommerce</span></li><li><span>Сегментация и A/B-тесты</span></li><li><span>Формы подписки и pop-up</span></li><li><span>Аналитика открытий и кликов</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>WooCommerce / Gutenberg</span></div></section><section><div><h2>Последнее обновление</h2><span>20 февраля 2026</span></div><div><span></span>Версия 1.5.2</div><ul><li>Совместимость с WordPress 6.8 и WooCommerce 9.7</li><li>Ускорена загрузка стилей и скриптов на 18%</li><li>Исправлено отображение меню в iOS Safari</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 1890,
+      "regular_price": 1890,
+      "sale_price": "",
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "Маркетинг",
+        "WooCommerce"
+      ],
+      "version": "1.5.2",
+      "wordpress": "6.1+",
+      "php": "7.4+",
+      "compatibility": "WooCommerce, Gutenberg",
+      "image": "products/mailpilot.jpg",
+      "sku": "WPP-DEMO-MAILPILOT"
+    },
+    {
+      "key": "product:nomad",
+      "slug": "nomad",
+      "name": "Nomad",
+      "short_description": "Тема для travel-блогов, журналов и медиа",
+      "description": "<div><div><section><h2>О продукте Nomad</h2><p>Nomad — лёгкая и быстрая тема для travel-блогеров и онлайн-журналов. Интерактивные карты маршрутов, галереи, партнёрские блоки для монетизации и идеальная читаемость длинных текстов.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / WPML</span></div></section><section><div><h2>Последнее обновление</h2><span>19 февраля 2026</span></div><div><span></span>Версия 2.1.0</div><ul><li>Переработан мастер импорта демо-контента</li><li>Исправлено предупреждение PHP 8.3 в настройках</li><li>Тёмный режим для панели управления</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 1990,
+      "regular_price": 2990,
+      "sale_price": 1990,
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Блог и медиа",
+        "WPML"
+      ],
+      "version": "2.1.0",
+      "wordpress": "6.1+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, WPML",
+      "image": "products/nomad.jpg",
+      "sku": "WPP-DEMO-NOMAD"
+    },
+    {
+      "key": "product:polyglot",
+      "slug": "polyglot",
+      "name": "Polyglot",
+      "short_description": "Мультиязычность и автоматический перевод сайта",
+      "description": "<div><div><section><h2>О продукте Polyglot</h2><p>Polyglot делает сайт мультиязычным за вечер: AI-перевод контента, перевод WooCommerce и URL, SEO-разметка hreflang и удобный редактор переводов. Пожизненная лицензия навсегда.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Неограниченное число языков</span></li><li><span>Автоперевод на базе AI</span></li><li><span>Перевод WooCommerce и URL</span></li><li><span>Переключатель языков в меню и блоках</span></li><li><span>hreflang и SEO для каждого языка</span></li><li><span>Совместимость с кэширующими плагинами</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / WooCommerce / Elementor</span></div></section><section><div><h2>Последнее обновление</h2><span>27 февраля 2026</span></div><div><span></span>Версия 2.2.5</div><ul><li>Тёмный режим для панели управления</li><li>Мелкие исправления перевода и RTL</li><li>Совместимость с WordPress 6.8 и WooCommerce 9.7</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 2290,
+      "regular_price": 2290,
+      "sale_price": "",
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "Мультиязычность",
+        "WooCommerce",
+        "Elementor"
+      ],
+      "version": "2.2.5",
+      "wordpress": "6.1+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, WooCommerce, Elementor",
+      "image": "products/polyglot.jpg",
+      "sku": "WPP-DEMO-POLYGLOT"
+    },
+    {
+      "key": "product:pulse",
+      "slug": "pulse",
+      "name": "Pulse",
+      "short_description": "Тема для фитнес-клубов, тренеров и студий йоги",
+      "description": "<div><div><section><h2>О продукте Pulse</h2><p>Pulse — энергичная тема для фитнес-клубов, персональных тренеров и студий йоги. Расписание занятий, абонементы с онлайн-оплатой, профили тренеров и калькуляторы для клиентов.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Elementor / WooCommerce</span></div></section><section><div><h2>Последнее обновление</h2><span>2 марта 2026</span></div><div><span></span>Версия 1.6.2</div><ul><li>Исправлено предупреждение PHP 8.3 в настройках</li><li>Тёмный режим для панели управления</li><li>Мелкие исправления перевода и RTL</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 2490,
+      "regular_price": 2490,
+      "sale_price": "",
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Спорт и фитнес",
+        "Elementor",
+        "WooCommerce"
+      ],
+      "version": "1.6.2",
+      "wordpress": "6.2+",
+      "php": "8.0+",
+      "compatibility": "Elementor, WooCommerce",
+      "image": "products/pulse.jpg",
+      "sku": "WPP-DEMO-PULSE"
+    },
+    {
+      "key": "product:savora",
+      "slug": "savora",
+      "name": "Savora",
+      "short_description": "Тема для ресторанов с меню и онлайн-бронированием",
+      "description": "<div><div><section><h2>О продукте Savora</h2><p>Savora — тема для ресторанов и гастробаров: интерактивное меню, онлайн-бронирование столиков, события и дегустации. Выглядит дорого и загружается мгновенно.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / Elementor</span></div></section><section><div><h2>Последнее обновление</h2><span>24 февраля 2026</span></div><div><span></span>Версия 1.3.1</div><ul><li>Совместимость с WordPress 6.8 и WooCommerce 9.7</li><li>Ускорена загрузка стилей и скриптов на 18%</li><li>Исправлено отображение меню в iOS Safari</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 2790,
+      "regular_price": 2790,
+      "sale_price": "",
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Кафе и рестораны",
+        "Elementor"
+      ],
+      "version": "1.3.1",
+      "wordpress": "6.2+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, Elementor",
+      "image": "products/savora.jpg",
+      "sku": "WPP-DEMO-SAVORA"
+    },
+    {
+      "key": "product:seo-rocket",
+      "slug": "seo-rocket",
+      "name": "SEO Rocket",
+      "short_description": "SEO-оптимизация, Schema-разметка и карта сайта",
+      "description": "<div><div><section><h2>О продукте SEO Rocket</h2><p>SEO Rocket закрывает все задачи технического SEO: мета-теги, Schema-разметка, карта сайта, редиректы и анализ контента прямо в редакторе. Работает с Яндексом и Google из коробки. Пожизненная лицензия со всеми обновлениями.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Мета-теги и Open Graph для всех типов записей</span></li><li><span>Schema.org: товары, статьи, FAQ, организации</span></li><li><span>XML-карта сайта и управление robots.txt</span></li><li><span>Анализ контента и SEO-оценка в редакторе</span></li><li><span>Редиректы 301 и мониторинг ошибок 404</span></li><li><span>Интеграция с Яндекс Вебмастером и Search Console</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / WooCommerce / Elementor</span></div></section><section><div><h2>Последнее обновление</h2><span>14 марта 2026</span></div><div><span></span>Версия 5.4.2</div><ul><li>Ускорена загрузка стилей и скриптов на 18%</li><li>Исправлено отображение меню в iOS Safari</li><li>Новые блоки Gutenberg: «Тарифы» и «Отзывы»</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 2490,
+      "regular_price": 3290,
+      "sale_price": 2490,
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "SEO",
+        "WooCommerce",
+        "Elementor"
+      ],
+      "version": "5.4.2",
+      "wordpress": "6.0+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, WooCommerce, Elementor",
+      "image": "products/seo-rocket.jpg",
+      "sku": "WPP-DEMO-SEO-ROCKET"
+    },
+    {
+      "key": "product:shieldy",
+      "slug": "shieldy",
+      "name": "Shieldy",
+      "short_description": "Файрвол, защита от ботов и двухфакторная авторизация",
+      "description": "<div><div><section><h2>О продукте Shieldy</h2><p>Shieldy защищает сайт на WordPress от взлома, спама и ботов. Файрвол, двухфакторная авторизация, сканер вредоносного кода и журнал активности — в одной панели. Пожизненная лицензия навсегда.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Файрвол уровня приложения (WAF)</span></li><li><span>Защита от брутфорса и ботов</span></li><li><span>Двухфакторная авторизация</span></li><li><span>Сканер вредоносного кода</span></li><li><span>Журнал активности пользователей</span></li><li><span>Скрытие страницы входа</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / WooCommerce</span></div></section><section><div><h2>Последнее обновление</h2><span>11 марта 2026</span></div><div><span></span>Версия 3.1.0</div><ul><li>Исправлено отображение меню в iOS Safari</li><li>Новые блоки Gutenberg: «Тарифы» и «Отзывы»</li><li>Переработан мастер импорта демо-контента</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 1990,
+      "regular_price": 1990,
+      "sale_price": "",
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "Безопасность",
+        "WooCommerce"
+      ],
+      "version": "3.1.0",
+      "wordpress": "6.0+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, WooCommerce",
+      "image": "products/shieldy.jpg",
+      "sku": "WPP-DEMO-SHIELDY"
+    },
+    {
+      "key": "product:turbocache",
+      "slug": "turbocache",
+      "name": "TurboCache",
+      "short_description": "Кэширование, WebP, CDN и отложенная загрузка",
+      "description": "<div><div><section><h2>О продукте TurboCache</h2><p>TurboCache ускоряет WordPress до 99 баллов PageSpeed: страничный кэш, WebP и AVIF, отложенная загрузка, минификация и CDN. Настройка в один клик, без конфликтов с WooCommerce. Пожизненная лицензия навсегда.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Страничный кэш и кэш объектов</span></li><li><span>Конвертация изображений в WebP и AVIF</span></li><li><span>Отложенная загрузка изображений и iframe</span></li><li><span>Минификация и объединение CSS/JS</span></li><li><span>Интеграция с CDN</span></li><li><span>Предзагрузка кэша по карте сайта</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>Gutenberg / Elementor / WooCommerce</span></div></section><section><div><h2>Последнее обновление</h2><span>9 марта 2026</span></div><div><span></span>Версия 4.0.3</div><ul><li>Новые блоки Gutenberg: «Тарифы» и «Отзывы»</li><li>Переработан мастер импорта демо-контента</li><li>Исправлено предупреждение PHP 8.3 в настройках</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 1790,
+      "regular_price": 1790,
+      "sale_price": "",
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "Скорость",
+        "Elementor",
+        "WooCommerce"
+      ],
+      "version": "4.0.3",
+      "wordpress": "6.0+",
+      "php": "7.4+",
+      "compatibility": "Gutenberg, Elementor, WooCommerce",
+      "image": "products/turbocache.jpg",
+      "sku": "WPP-DEMO-TURBOCACHE"
+    },
+    {
+      "key": "product:vesta",
+      "slug": "vesta",
+      "name": "Vesta",
+      "short_description": "Тема для магазинов одежды и аксессуаров на WooCommerce",
+      "description": "<div><div><section><h2>О продукте Vesta</h2><p>Vesta — тема для fashion-магазинов на WooCommerce: быстрый каталог, фильтры без перезагрузки, lookbook-блоки и одностраничный чекаут. Оптимизирована для мобильных покупок и больших каталогов.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>40+ готовых демо-сайтов с импортом в один клик</span></li><li><span>Визуальный конструктор шапки, подвала и страниц</span></li><li><span>Полная совместимость с Gutenberg и Elementor</span></li><li><span>Готовые шаблоны WooCommerce: каталог, товар, чекаут</span></li><li><span>PageSpeed 95+ и валидная Schema-разметка</span></li><li><span>Адаптивность, Retina и поддержка RTL</span></li></ul></section><section><h2>Продумана до деталей</h2><p>Посмотрите внутренние страницы и мобильную версию в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Архив темы и дочерняя тема</li><li>Демо-контент для быстрого старта</li><li>Лицензионный ключ на 1 или 5 сайтов</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>WooCommerce / Gutenberg / Elementor</span></div></section><section><div><h2>Последнее обновление</h2><span>5 марта 2026</span></div><div><span></span>Версия 2.8.0</div><ul><li>Исправлено отображение меню в iOS Safari</li><li>Новые блоки Gutenberg: «Тарифы» и «Отзывы»</li><li>Переработан мастер импорта демо-контента</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 4490,
+      "regular_price": 5990,
+      "sale_price": 4490,
+      "type": "variable",
+      "license_options": [
+        "1 сайт",
+        "5 сайтов"
+      ],
+      "category": "wordpress-themes",
+      "tags": [
+        "WordPress",
+        "Интернет-магазин",
+        "WooCommerce",
+        "Elementor"
+      ],
+      "version": "2.8.0",
+      "wordpress": "6.3+",
+      "php": "8.0+",
+      "compatibility": "WooCommerce, Gutenberg, Elementor",
+      "image": "products/vesta.jpg",
+      "sku": "WPP-DEMO-VESTA"
+    },
+    {
+      "key": "product:wooboost",
+      "slug": "wooboost",
+      "name": "WooBoost",
+      "short_description": "Допродажи, бандлы и быстрый чекаут для WooCommerce",
+      "description": "<div><div><section><h2>О продукте WooBoost</h2><p>WooBoost увеличивает средний чек магазина на WooCommerce: умные допродажи, бандлы, боковая корзина, одностраничный чекаут и возврат брошенных корзин. Пожизненный доступ навсегда.</p><p>Установите продукт на свой сайт, активируйте ключ и приступайте к работе. Демо-товар: архив продукта, лицензионный сервер и поддержка в эту тему не входят.</p></section><section><h2>Основные возможности</h2><ul><li><span>Допродажи и кросс-продажи в корзине и чекауте</span></li><li><span>Одностраничный чекаут и покупка в 1 клик</span></li><li><span>Боковая корзина и мини-корзина</span></li><li><span>Напоминания о брошенных корзинах</span></li><li><span>Бандлы и динамические скидки</span></li><li><span>A/B-тесты предложений</span></li></ul></section><section><h2>Простое управление в WordPress</h2><p>Все настройки под рукой. Посмотрите возможности и интерфейс плагина в галерее.</p><div></div></section><section><h2>Что входит в покупку</h2><ul><li>Установочный ZIP-архив плагина</li><li>Бессрочный лицензионный ключ</li><li>Будущие обновления без доплат</li><li>Документация и файлы перевода</li></ul><div><span>Совместимость:</span><span>WooCommerce</span></div></section><section><div><h2>Последнее обновление</h2><span>6 марта 2026</span></div><div><span></span>Версия 2.6.1</div><ul><li>Переработан мастер импорта демо-контента</li><li>Исправлено предупреждение PHP 8.3 в настройках</li><li>Тёмный режим для панели управления</li></ul></section><div><div><h3>Нужна помощь с установкой?</h3><p>Пошаговые инструкции уже есть в базе знаний.</p></div></div></div></div></div><p><strong>Важно:</strong> демонстрационный товар. Перед запуском магазина укажите реальные файлы, цену и условия лицензирования.</p>",
+      "price": 2990,
+      "regular_price": 3990,
+      "sale_price": 2990,
+      "type": "simple",
+      "license_options": [],
+      "category": "wordpress-plugins",
+      "tags": [
+        "WordPress",
+        "WooCommerce",
+        "WooCommerce"
+      ],
+      "version": "2.6.1",
+      "wordpress": "6.2+",
+      "php": "8.0+",
+      "compatibility": "WooCommerce",
+      "image": "products/wooboost.jpg",
+      "sku": "WPP-DEMO-WOOBOOST"
+    }
+  ],
+  "posts": [
+    {
+      "key": "post:backup-wordpress",
+      "slug": "backup-wordpress",
+      "title": "Резервные копии WordPress: стратегия, которая спасает сайт",
+      "excerpt": "Как часто делать бэкапы, где их хранить и как восстановиться за 15 минут после сбоя или неудачного обновления.",
+      "category": "Безопасность",
+      "date": "2026-01-21 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Дмитрий Белов, Специалист по безопасности</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/backup-wordpress.jpg"
+    },
+    {
+      "key": "post:checkout-optimizaciya",
+      "slug": "checkout-optimizaciya",
+      "title": "Оформление заказа в WooCommerce: 7 приёмов роста конверсии",
+      "excerpt": "Убираем лишние поля, добавляем экспресс-оплату и допродажи — разбираем чекаут, который не отпугивает покупателей.",
+      "category": "Гайды",
+      "date": "2026-01-28 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Мария Орлова, UX-дизайнер</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/checkout-optimizaciya.jpg"
+    },
+    {
+      "key": "post:dochernyaya-tema",
+      "slug": "dochernyaya-tema",
+      "title": "Дочерняя тема WordPress: зачем она нужна и как её создать",
+      "excerpt": "Пошагово создаём дочернюю тему, переопределяем шаблоны и подключаем стили так, чтобы обновления ничего не сломали.",
+      "category": "Разработка",
+      "date": "2026-02-04 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Иван Сергеев, WordPress-разработчик</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/dochernyaya-tema.jpg"
+    },
+    {
+      "key": "post:email-vozvrat-klientov",
+      "slug": "email-vozvrat-klientov",
+      "title": "Email для WooCommerce: брошенные корзины и повторные продажи",
+      "excerpt": "Настраиваем триггерные письма, которые возвращают клиентов: шаблоны, тайминги и метрики для оценки результата.",
+      "category": "Подборки",
+      "date": "2025-12-28 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Мария Орлова, UX-дизайнер</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/email-vozvrat-klientov.jpg"
+    },
+    {
+      "key": "post:gutenberg-vs-elementor",
+      "slug": "gutenberg-vs-elementor",
+      "title": "Gutenberg или Elementor: что выбрать для нового проекта",
+      "excerpt": "Сравнили скорость, удобство, стоимость владения и экосистему двух главных конструкторов WordPress на реальных проектах.",
+      "category": "Обзоры",
+      "date": "2026-03-09 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Иван Сергеев, WordPress-разработчик</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/gutenberg-vs-elementor.jpg"
+    },
+    {
+      "key": "post:hosting-dlya-wordpress",
+      "slug": "hosting-dlya-wordpress",
+      "title": "Как выбрать хостинг для WordPress в 2026 году",
+      "excerpt": "PHP 8, NVMe, HTTP/3 и грамотный кэш: на что смотреть в тарифах и когда пора переезжать на VPS.",
+      "category": "Гайды",
+      "date": "2026-01-07 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Иван Сергеев, WordPress-разработчик</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/hosting-dlya-wordpress.jpg"
+    },
+    {
+      "key": "post:multiyazychnost-saita",
+      "slug": "multiyazychnost-saita",
+      "title": "Мультиязычный сайт на WordPress: WPML, Polylang и AI-перевод",
+      "excerpt": "Сравниваем подходы к переводу каталога и блога: структура URL, SEO, производительность и стоимость владения.",
+      "category": "Обзоры",
+      "date": "2026-01-14 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Анна Ковалёва, Редактор блога</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/multiyazychnost-saita.jpg"
+    },
+    {
+      "key": "post:pagespeed-100",
+      "slug": "pagespeed-100",
+      "title": "Разгоняем WordPress до 100 баллов PageSpeed: чек-лист",
+      "excerpt": "Кэш, изображения, шрифты, скрипты и хостинг — пошаговый план, который мы используем на всех клиентских сайтах.",
+      "category": "Гайды",
+      "date": "2026-03-03 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Иван Сергеев, WordPress-разработчик</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/pagespeed-100.jpg"
+    },
+    {
+      "key": "post:plaginy-woocommerce",
+      "slug": "plaginy-woocommerce",
+      "title": "10 плагинов, без которых не обходится магазин на WooCommerce",
+      "excerpt": "Оплата, доставка, допродажи, SEO и защита — собрали проверенный набор для магазина, который продаёт.",
+      "category": "Подборки",
+      "date": "2026-02-18 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Мария Орлова, UX-дизайнер</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/plaginy-woocommerce.jpg"
+    },
+    {
+      "key": "post:tema-dlya-magazina",
+      "slug": "tema-dlya-magazina",
+      "title": "Как выбрать тему WordPress для интернет-магазина в 2026 году",
+      "excerpt": "Разбираем 9 критериев: скорость, совместимость с WooCommerce, мобильная версия, SEO и поддержка — и показываем, на что смотреть в демо.",
+      "category": "Гайды",
+      "date": "2026-03-14 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Анна Ковалёва, Редактор блога</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/tema-dlya-magazina.jpg"
+    },
+    {
+      "key": "post:wordpress-6-8",
+      "slug": "wordpress-6-8",
+      "title": "WordPress 6.8: разбираем ключевые изменения и новые блоки",
+      "excerpt": "Что изменилось в редакторе сайта, какие API появились для разработчиков и стоит ли обновляться прямо сейчас.",
+      "category": "Новости",
+      "date": "2026-02-26 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Анна Ковалёва, Редактор блога</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/wordpress-6-8.jpg"
+    },
+    {
+      "key": "post:zashchita-wordpress",
+      "slug": "zashchita-wordpress",
+      "title": "Как защитить сайт на WordPress от взлома: 12 правил",
+      "excerpt": "От обновлений и паролей до файрвола и резервных копий — базовая гигиена, которая спасает 99% сайтов.",
+      "category": "Безопасность",
+      "date": "2026-02-11 10:00:00",
+      "content": "<p>WordPress остаётся самой популярной платформой для сайтов: на нём работает больше 40% интернета. Но именно из-за огромного выбора тем и плагинов легко ошибиться и потерять недели на переделки. Разбираемся, как принимать решения быстро и без сожалений.</p><h2 id=\"intro\">С чего начать</h2><p>Сначала сформулируйте цель сайта: продажи, заявки, контент или портфолио. От этого зависит всё остальное — от структуры страниц до набора плагинов. Запишите 3–5 ключевых сценариев пользователя и держите их перед глазами.</p><p>Затем проверьте ограничения: бюджет, сроки, хостинг и то, кто будет поддерживать сайт после запуска. Это поможет отсеять заведомо неподходящие решения.</p><h2 id=\"criteria\">Ключевые критерии</h2><ul><li><span></span><span><b>Скорость</b> — тема должна набирать 90+ в PageSpeed без дополнительной оптимизации</span></li><li><span></span><span><b>Совместимость</b> — поддержка Gutenberg, WooCommerce и популярных конструкторов</span></li><li><span></span><span><b>Обновления</b> — релизы хотя бы раз в квартал и быстрые фиксы под новые версии WordPress</span></li><li><span></span><span><b>Поддержка</b> — живые люди, которые отвечают в течение дня, а не через неделю</span></li><li><span></span><span><b>Документация</b> — подробные инструкции и видео, чтобы не зависеть от разработчика</span></li></ul><blockquote>«Хорошая тема — не та, в которой больше всего настроек, а та, которая быстро загружается и не мешает вам продавать».<span>— Дмитрий Белов, Специалист по безопасности</span></blockquote><h2 id=\"steps\">Пошаговый план</h2><div><div><span>1</span><div><div>Изучите демо на телефоне</div><p>Больше половины трафика — мобильный. Откройте демо на смартфоне и пройдите ключевые сценарии.</p></div></div><div><span>2</span><div><div>Проверьте скорость демо</div><p>Прогоните главную и внутренние страницы через PageSpeed Insights и сравните результаты.</p></div></div><div><span>3</span><div><div>Почитайте историю версий</div><p>Регулярные обновления — лучший индикатор того, что продукт живой и поддерживается.</p></div></div><div><span>4</span><div><div>Задайте вопрос в поддержку</div><p>Скорость и качество ответа до покупки многое скажут о сервисе после неё.</p></div></div></div><h2 id=\"code\">Полезный сниппет</h2><p>Добавьте этот код в functions.php дочерней темы, чтобы правильно подключить стили родительской темы и не потерять правки при обновлении:</p><div><div><span>functions.php</span></div><pre><code>&lt;?php\n// functions.php дочерней темы\nadd_action( 'wp_enqueue_scripts', function () {\n    wp_enqueue_style(\n        'parent-style',\n        get_template_directory_uri() . '/style.css'\n    );\n    wp_enqueue_style(\n        'child-style',\n        get_stylesheet_uri(),\n        [ 'parent-style' ],\n        wp_get_theme()-&gt;get( 'Version' )\n    );\n} );</code></pre></div><h2 id=\"mistakes\">Частые ошибки</h2><div><div><div>Правки в родительской теме</div><p>Все изменения пропадут после обновления. Используйте дочернюю тему.</p></div><div><div>20+ плагинов «на всякий случай»</div><p>Каждый лишний плагин замедляет сайт и добавляет уязвимостей.</p></div><div><div>Nulled-версии</div><p>Взломанные темы часто содержат вредоносный код и не получают обновлений.</p></div><div><div>Отказ от резервных копий</div><p>Настройте автоматические бэкапы до первого обновления.</p></div></div><h2 id=\"summary\">Итоги</h2><p>Выбирайте продукты, которые регулярно обновляются, быстро работают и сопровождаются нормальной поддержкой. Это сэкономит больше денег, чем любая скидка на старте.</p>",
+      "image": "articles/zashchita-wordpress.jpg"
+    }
+  ],
+  "kb_articles": [
+    {
+      "key": "kb:auto-updates",
+      "slug": "auto-updates",
+      "title": "Как включить автоматические обновления",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Обновления и ошибки",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:cache-rules",
+      "slug": "cache-rules",
+      "title": "Правила кэширования TurboCache",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Плагины навсегда",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:checkout-speed",
+      "slug": "checkout-speed",
+      "title": "Ускорение чекаута WooCommerce",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "WooCommerce",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:child-theme",
+      "slug": "child-theme",
+      "title": "Создание дочерней темы",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Настройка тем",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:demo-import",
+      "slug": "demo-import",
+      "title": "Импорт демо-контента в один клик",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Начало работы",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:fonts-colors",
+      "slug": "fonts-colors",
+      "title": "Шрифты и цветовые схемы",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Настройка тем",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:forms-crm",
+      "slug": "forms-crm",
+      "title": "Интеграция FormFlow с amoCRM",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Плагины навсегда",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:header-builder",
+      "slug": "header-builder",
+      "title": "Настройка шапки и меню",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Настройка тем",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:hooks",
+      "slug": "hooks",
+      "title": "Хуки и фильтры темы Aurora",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Разработчикам",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:install-theme",
+      "slug": "install-theme",
+      "title": "Установка темы через консоль WordPress",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Начало работы",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:invoices",
+      "slug": "invoices",
+      "title": "Счёт и закрывающие документы для юрлиц",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Оплата и возвраты",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:license-key",
+      "slug": "license-key",
+      "title": "Где найти и как активировать лицензионный ключ",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Активация и ключи",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:license-types",
+      "slug": "license-types",
+      "title": "Лицензии тем: 1 сайт или 5 сайтов",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Активация и ключи",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:move-license",
+      "slug": "move-license",
+      "title": "Как перенести лицензию на другой домен",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Активация и ключи",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:refund",
+      "slug": "refund",
+      "title": "Условия возврата средств",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Оплата и возвраты",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:requirements",
+      "slug": "requirements",
+      "title": "Требования к хостингу и серверу",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Начало работы",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:rest-api",
+      "slug": "rest-api",
+      "title": "REST API лицензий",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Разработчикам",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:rollback",
+      "slug": "rollback",
+      "title": "Откат к предыдущей версии",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Обновления и ошибки",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:seo-setup",
+      "slug": "seo-setup",
+      "title": "Первичная настройка SEO Rocket",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Плагины навсегда",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:white-screen",
+      "slug": "white-screen",
+      "title": "Белый экран после обновления: что делать",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "Обновления и ошибки",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    },
+    {
+      "key": "kb:woo-payments",
+      "slug": "woo-payments",
+      "title": "Настройка оплаты и доставки в WooCommerce",
+      "excerpt": "В этой инструкции — всё, что нужно сделать после покупки: от скачивания архива до активации лицензии и автообновлений. Займёт не больше 10 минут.",
+      "category": "WooCommerce",
+      "content": "<div><div><b>Перед началом.</b> Убедитесь, что на сервере WordPress 6.2+ и PHP 8.0+, а лимит памяти — не меньше 256 МБ. Проверить это можно в разделе «Инструменты → Здоровье сайта».</div></div><h2 id=\"kb-1\">1. Скачайте архив</h2><p>Откройте <a>Личный кабинет → Загрузки</a> и нажмите «Скачать .zip» рядом с нужным продуктом. Архив распаковывать не нужно.</p><h2 id=\"kb-2\">2. Установка</h2><div><div><span>1</span><div><div>Откройте консоль WordPress</div><p>Перейдите в «Внешний вид → Темы» (для плагинов — «Плагины → Добавить новый»).</p></div></div><div><span>2</span><div><div>Загрузите архив</div><p>Нажмите «Добавить новую → Загрузить тему», выберите ZIP-файл и нажмите «Установить».</p></div></div><div><span>3</span><div><div>Активируйте тему</div><p>После установки нажмите «Активировать» — появится мастер первоначальной настройки.</p></div></div><div><span>4</span><div><div>Импортируйте демо</div><p>В мастере выберите демо-сайт и нажмите «Импортировать». Процесс занимает 1–3 минуты.</p></div></div></div><figure><div><div><div></div><div><div><span></span><span></span><span></span><span>aurora.wppanda.demo</span></div><div><span><span></span>Aurora</span><span><span>Главная</span><span>Каталог</span><span>О нас</span><span>Связаться</span></span></div><div><div></div><div><div>Digital-агентство</div><div>Создаём бренды, которые запоминают</div><div><span>Подробнее</span><span>Смотреть</span></div></div></div><div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div><div><div></div><div></div><div></div><div></div></div></div></div></div></div><figcaption>Так выглядит сайт после импорта демо «Agency» темы Aurora</figcaption></figure><h2 id=\"kb-3\">3. Активация лицензии</h2><p>Перейдите в «Wp Panda → Лицензия» и вставьте ключ из личного кабинета. На сайтах с ограниченным доступом к админке ключ можно указать константой в wp-config.php:</p><div><div><span>wp-config.php</span></div><pre><code>// wp-config.php\ndefine( 'WPP_LICENSE_KEY', 'WPP-XXXX-XXXX-XXXX' );\ndefine( 'WP_MEMORY_LIMIT', '256M' );</code></pre></div><h2 id=\"kb-4\">Если что-то пошло не так</h2><div><div><div>Ошибка «Архив не содержит style.css»</div><p>Вы загружаете полный пакет вместо архива темы. Распакуйте скачанный файл — внутри лежит aurora.zip, его и нужно загрузить.</p></div><div><div>Импорт демо останавливается на середине</div><p>Увеличьте max_execution_time до 300 секунд в панели хостинга и запустите импорт повторно — загруженные файлы пропустятся.</p></div></div>"
+    }
+  ],
+  "faq": [
+    {
+      "category": "Покупка",
+      "q": "Как быстро я получу доступ к покупке?",
+      "a": "После подтверждения оплаты файлы и ключ появляются в личном кабинете и отправляются на email. Обычно это занимает меньше минуты."
+    },
+    {
+      "category": "Темы и плагины",
+      "q": "Совместимы ли продукты с Elementor и WooCommerce?",
+      "a": "Совместимость указана на странице каждого товара. Темы и плагины тестируются с актуальными версиями WordPress, Elementor и WooCommerce, если эти интеграции перечислены в характеристиках."
+    },
+    {
+      "category": "Темы и плагины",
+      "q": "Получаю ли я обновления после покупки?",
+      "a": "Да. Обновления включены: для плагинов — навсегда, для тем — в рамках выбранной лицензии. Новые версии можно установить из консоли WordPress или скачать в личном кабинете."
+    },
+    {
+      "category": "Установка",
+      "q": "Как активировать лицензионный ключ?",
+      "a": "Установите тему или плагин, откройте «Wp Panda → Лицензия» в консоли WordPress и вставьте ключ из личного кабинета. Активация займёт несколько секунд и включит обновления."
+    },
+    {
+      "category": "Установка",
+      "q": "Как скачать купленную тему или плагин?",
+      "a": "Откройте личный кабинет и перейдите в «Загрузки». Архив ZIP и лицензионный ключ доступны сразу после оплаты."
+    },
+    {
+      "category": "Лицензии",
+      "q": "Как работают лицензии на плагины?",
+      "a": "Все плагины продаются с бессрочной лицензией — покупаете один раз и пользуетесь навсегда. Все будущие обновления плагина также бесплатны."
+    },
+    {
+      "category": "Лицензии",
+      "q": "Какие лицензии у тем WordPress?",
+      "a": "У каждой темы два варианта: «1 сайт» для одного проекта и «5 сайтов» для одновременной установки на пять доменов."
+    },
+    {
+      "category": "Оплата и возвраты",
+      "q": "Какие способы оплаты доступны?",
+      "a": "В демонстрационном макете перечислены банковские карты, СБП, SberPay, ЮMoney, криптовалюта и оплата по счёту. Фактические способы зависят от подключённых платёжных шлюзов магазина."
+    },
+    {
+      "category": "Оплата и возвраты",
+      "q": "Можно ли вернуть деньги?",
+      "a": "В макете показан 14-дневный период возврата при технической проблеме. Перед запуском замените этот текст на утверждённую вами политику возврата."
+    },
+    {
+      "category": "Оплата и возвраты",
+      "q": "Работаете ли вы с юридическими лицами?",
+      "a": "В исходной верстке предусмотрена оплата по счёту для юридических лиц и закрывающие документы. Для приёма таких заказов подключите соответствующий платёжный процесс."
+    }
+  ],
+  "demo_notice": "Демонстрационные материалы. Укажите свои цены, условия, платёжные способы, файлы продуктов и контакты поддержки перед запуском магазина."
+}

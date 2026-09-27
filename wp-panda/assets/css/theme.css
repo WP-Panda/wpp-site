@@ -482,3 +482,20 @@ img { max-width: 100%; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Imported demo pages remain editable WordPress content with a little layout polish. */
+.prose-content .wpp-demo-notice { padding: 15px 18px; border: 1px solid #f2d785; border-radius: 14px; background: #fff8df; color: #5d4a18; font-size: 13px; }
+.prose-content .wpp-demo-faq-group { margin-top: 30px; }
+.prose-content .wpp-demo-faq-group h2, .prose-content .wpp-demo-kb-group h2 { margin-top: 0; }
+.prose-content .wpp-demo-faq { margin: 9px 0; border: 1px solid var(--wpp-line); border-radius: 15px; background: #fff; }
+.prose-content .wpp-demo-faq summary { padding: 15px 18px; color: var(--wpp-ink); font-size: 14px; font-weight: 700; cursor: pointer; list-style-position: inside; }
+.prose-content .wpp-demo-faq[open] summary { border-bottom: 1px solid var(--wpp-line); }
+.prose-content .wpp-demo-faq > div { padding: 14px 18px 1px; color: var(--wpp-muted); font-size: 13px; }
+.prose-content .wpp-demo-faq > div p { margin-bottom: 14px; }
+.prose-content .wpp-demo-kb-group { margin-top: 32px; }
+.prose-content .wpp-demo-kb-list { display: grid; gap: 10px; padding: 0; list-style: none; }
+.prose-content .wpp-demo-kb-list li { padding: 16px 18px; border: 1px solid var(--wpp-line); border-radius: 15px; background: #fff; }
+.prose-content .wpp-demo-kb-list h3 { margin: 0 0 5px; font-size: 16px; }
+.prose-content .wpp-demo-kb-list h3 a { color: var(--wpp-ink); text-decoration: none; }
+.prose-content .wpp-demo-kb-list p { margin: 0; color: var(--wpp-muted); font-size: 13px; }
+.prose-content .wpp-demo-standfirst { color: var(--wpp-muted); font-size: 17px; }

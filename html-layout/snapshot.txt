@@ -4,4 +4,4 @@
 Переходы: JS-кнопки заменены настоящими ссылками <a href="*.html">
 Скрипты и стили вынесены: app.js, styles.css (подключены внешне)
 Не минимифицированные версии: app.pretty.js, styles.pretty.css
-Исходник SPA: _app.html; рендер: scripts/snapshot/render-spa-snapshot.mjs (jsdom)
+Исходник SPA: _app.html; рендер: jsdom (харнес — в истории репозитория: scripts/snapshot/render-spa-snapshot.mjs)

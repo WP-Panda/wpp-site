@@ -73,6 +73,81 @@ function wpp_catalog_filter_url( $url, $tag_slug = null, $view = null ) {
 	return $args ? add_query_arg( $args, $url ) : $url;
 }
 
+/** Build the three native product-category archive tabs. */
+function wpp_catalog_tabs() {
+	$shop_url   = wc_get_page_permalink( 'shop' );
+	$shop_url   = $shop_url ? $shop_url : home_url( '/shop/' );
+	$shop_url   = remove_query_arg( array( 'wpp_tag', 'wpp_view', 'paged', 'product-page' ), $shop_url );
+	$counts     = wp_count_posts( 'product' );
+	$all_count  = $counts && isset( $counts->publish ) ? (int) $counts->publish : 0;
+	$theme_term = get_term_by( 'slug', 'wordpress-themes', 'product_cat' );
+	$plugin_term = get_term_by( 'slug', 'wordpress-plugins', 'product_cat' );
+
+	$theme_url = $theme_term && ! is_wp_error( $theme_term ) ? get_term_link( $theme_term ) : $shop_url;
+	$plugin_url = $plugin_term && ! is_wp_error( $plugin_term ) ? get_term_link( $plugin_term ) : $shop_url;
+	$theme_url = is_wp_error( $theme_url ) ? $shop_url : $theme_url;
+	$plugin_url = is_wp_error( $plugin_url ) ? $shop_url : $plugin_url;
+
+	return array(
+		'all' => array(
+			'label' => __( 'Все', 'wp-panda' ),
+			'count' => $all_count,
+			'url'   => wpp_catalog_filter_url( $shop_url, '' ),
+		),
+		'themes' => array(
+			'label' => __( 'Темы', 'wp-panda' ),
+			'count' => $theme_term && ! is_wp_error( $theme_term ) ? (int) $theme_term->count : 0,
+			'url'   => wpp_catalog_filter_url( $theme_url, null ),
+		),
+		'plugins' => array(
+			'label' => __( 'Плагины', 'wp-panda' ),
+			'count' => $plugin_term && ! is_wp_error( $plugin_term ) ? (int) $plugin_term->count : 0,
+			'url'   => wpp_catalog_filter_url( $plugin_url, null ),
+		),
+	);
+}
+
+/** Identify the active WooCommerce product category tab. */
+function wpp_catalog_current_tab() {
+	$search_type = is_search() ? get_query_var( 'post_type' ) : '';
+	$is_product_search = 'product' === $search_type || ( is_array( $search_type ) && in_array( 'product', $search_type, true ) );
+	$current_tab = is_shop() || $is_product_search ? 'all' : '';
+
+	if ( ! is_product_category() ) {
+		return $current_tab;
+	}
+
+	$current_term = get_queried_object();
+	$theme_term   = get_term_by( 'slug', 'wordpress-themes', 'product_cat' );
+	$plugin_term  = get_term_by( 'slug', 'wordpress-plugins', 'product_cat' );
+	if ( ! $current_term || is_wp_error( $current_term ) ) {
+		return $current_tab;
+	}
+
+	if ( $theme_term && ! is_wp_error( $theme_term ) && ( (int) $current_term->term_id === (int) $theme_term->term_id || term_is_ancestor_of( $theme_term->term_id, $current_term->term_id, 'product_cat' ) ) ) {
+		return 'themes';
+	}
+	if ( $plugin_term && ! is_wp_error( $plugin_term ) && ( (int) $current_term->term_id === (int) $plugin_term->term_id || term_is_ancestor_of( $plugin_term->term_id, $current_term->term_id, 'product_cat' ) ) ) {
+		return 'plugins';
+	}
+
+	return '';
+}
+
+/** A clean archive URL for filter and view links, without the current page number. */
+function wpp_catalog_filter_base_url() {
+	return remove_query_arg( array( 'wpp_tag', 'wpp_view', 'paged', 'product-page' ), get_pagenum_link( 1 ) );
+}
+
+/** Current grid/list presentation requested by the visitor. */
+function wpp_catalog_current_view() {
+	if ( isset( $_GET['wpp_view'] ) && is_string( $_GET['wpp_view'] ) && 'list' === sanitize_key( wp_unslash( $_GET['wpp_view'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		return 'list';
+	}
+
+	return 'grid';
+}
+
 /** Return visible product tags used as topic filters, excluding platform/compatibility labels. */
 function wpp_catalog_topic_tags() {
 	$terms = get_terms( array(
@@ -152,6 +227,29 @@ function wpp_catalog_filter_product_query( $query ) {
 	$query->set( 'tax_query', $tax_query );
 }
 add_action( 'woocommerce_product_query', 'wpp_catalog_filter_product_query', 20 );
+
+/** Render each card detail through WooCommerce's template loader. */
+function wpp_catalog_loop_product_meta() {
+	wc_get_template( 'loop/product-card-meta.php' );
+}
+add_action( 'woocommerce_shop_loop_item_title', 'wpp_catalog_loop_product_meta', 5 );
+
+function wpp_catalog_loop_product_description() {
+	wc_get_template( 'single-product/short-description.php' );
+}
+add_action( 'woocommerce_shop_loop_item_title', 'wpp_catalog_loop_product_description', 20 );
+
+function wpp_catalog_loop_product_compatibility() {
+	wc_get_template( 'loop/product-card-compatibility.php' );
+}
+add_action( 'woocommerce_shop_loop_item_title', 'wpp_catalog_loop_product_compatibility', 25 );
+
+/** Keep the standard thumbnail hook but load its markup from a theme WooCommerce template. */
+function wpp_catalog_loop_product_thumbnail() {
+	wc_get_template( 'loop/product-thumbnail.php' );
+}
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+add_action( 'woocommerce_before_shop_loop_item_title', 'wpp_catalog_loop_product_thumbnail', 10 );
 
 /** Toggle grid/list presentation without replacing WooCommerce's loop query or templates. */
 function wpp_catalog_view_body_class( $classes ) {

@@ -54,14 +54,15 @@ defined( 'ABSPATH' ) || exit;
 						<summary class="header-tool" aria-label="<?php esc_attr_e( 'Открыть поиск', 'wp-panda' ); ?>">
 							<?php echo wpp_icon( 'search', 'h-[18px] w-[18px]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 						</summary>
-						<form class="header-search__form" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-							<label class="screen-reader-text" for="wpp-header-search"><?php esc_html_e( 'Поиск товаров', 'wp-panda' ); ?></label>
-							<input id="wpp-header-search" type="search" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" placeholder="<?php esc_attr_e( 'Найти товар…', 'wp-panda' ); ?>">
-							<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-								<input type="hidden" name="post_type" value="product">
-							<?php endif; ?>
-							<button type="submit" class="button button--dark"><?php esc_html_e( 'Найти', 'wp-panda' ); ?></button>
-						</form>
+						<div class="header-search__form">
+							<?php
+							if ( function_exists( 'get_product_search_form' ) ) {
+								get_product_search_form();
+						} else {
+								get_search_form();
+						}
+							?>
+						</div>
 					</details>
 
 					<?php if ( function_exists( 'wc_get_page_permalink' ) ) : ?>

@@ -60,13 +60,15 @@ function wpp_theme_setup() {
 }
 add_action( 'after_setup_theme', 'wpp_theme_setup' );
 
-/** Enqueue the supplied layout styles and small progressive-enhancement script. */
+/**
+ * Enqueue only the stylesheet supplied with the static layout.
+ *
+ * Core, block and plugin styles are enqueued by WordPress before this callback.
+ * The late priority deliberately places the original layout stylesheet last.
+ */
 function wpp_enqueue_assets() {
-	$theme_version = wp_get_theme()->get( 'Version' );
-	$layout_path   = get_template_directory() . '/assets/css/layout.css';
-	$theme_path    = get_template_directory() . '/assets/css/theme.css';
-	$match_path    = get_template_directory() . '/assets/css/layout-match.css';
-	$script_path   = get_template_directory() . '/assets/js/theme.js';
+	$layout_path = get_template_directory() . '/assets/css/layout.css';
+	$script_path = get_template_directory() . '/assets/js/theme.js';
 
 	wp_enqueue_style(
 		'wpp-fonts',
@@ -76,31 +78,10 @@ function wpp_enqueue_assets() {
 	);
 
 	wp_enqueue_style(
-		'wpp-theme-meta',
-		get_stylesheet_uri(),
-		array( 'wpp-fonts' ),
-		$theme_version
-	);
-
-	wp_enqueue_style(
 		'wpp-layout',
 		get_template_directory_uri() . '/assets/css/layout.css',
-		array( 'wpp-theme-meta' ),
+		array( 'wpp-fonts' ),
 		file_exists( $layout_path ) ? (string) filemtime( $layout_path ) : WPP_THEME_VERSION
-	);
-
-	wp_enqueue_style(
-		'wpp-theme',
-		get_template_directory_uri() . '/assets/css/theme.css',
-		array( 'wpp-layout' ),
-		file_exists( $theme_path ) ? (string) filemtime( $theme_path ) : WPP_THEME_VERSION
-	);
-
-	wp_enqueue_style(
-		'wpp-layout-match',
-		get_template_directory_uri() . '/assets/css/layout-match.css',
-		array( 'wpp-theme' ),
-		file_exists( $match_path ) ? (string) filemtime( $match_path ) : WPP_THEME_VERSION
 	);
 
 	wp_enqueue_script(
@@ -122,15 +103,4 @@ function wpp_enqueue_assets() {
 		wp_enqueue_script( 'wc-cart-fragments' );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'wpp_enqueue_assets', 30 );
-
-/**
- * The supplied layout is a complete design system. Loading WooCommerce's
- * opinionated classic stylesheet on top of it changes grids, buttons, prices
- * and gallery dimensions, so classic WooCommerce CSS is intentionally disabled.
- * WooCommerce scripts and block assets remain untouched.
- */
-function wpp_disable_woocommerce_classic_styles() {
-	return array();
-}
-add_filter( 'woocommerce_enqueue_styles', 'wpp_disable_woocommerce_classic_styles' );
+add_action( 'wp_enqueue_scripts', 'wpp_enqueue_assets', 999 );

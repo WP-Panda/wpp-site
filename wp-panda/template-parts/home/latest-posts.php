@@ -1,7 +1,7 @@
 <?php
 /** Recent WordPress posts in the supplied landing-page grid. */
 defined( 'ABSPATH' ) || exit;
-$recent_posts = new WP_Query( array( 'post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => 3, 'ignore_sticky_posts' => true, 'no_found_rows' => true ) );
+$recent_posts = new WP_Query( array( 'post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => 3, 'post_name__not_in' => array( 'hello-world' ), 'ignore_sticky_posts' => true, 'no_found_rows' => true ) );
 $blog_id      = (int) get_option( 'page_for_posts' );
 $blog_url     = $blog_id ? get_permalink( $blog_id ) : home_url( '/blog/' );
 ?>

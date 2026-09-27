@@ -30,17 +30,19 @@ if ( $tags && ! is_wp_error( $tags ) ) {
 if ( ! $category ) {
 	$category = $is_theme ? __( 'Темы WordPress', 'wp-panda' ) : __( 'Плагины WordPress', 'wp-panda' );
 }
-$button_text = $product->is_purchasable() && $product->is_in_stock() ? __( 'Купить', 'wp-panda' ) : __( 'Подробнее', 'wp-panda' );
-$button_url  = $product->add_to_cart_url();
+$is_in_cart  = in_array( $product_id, wpp_get_cart_product_ids(), true );
+$button_text = $is_in_cart ? __( 'В корзине', 'wp-panda' ) : ( $product->is_purchasable() && $product->is_in_stock() ? __( 'Купить', 'wp-panda' ) : __( 'Подробнее', 'wp-panda' ) );
+$button_url  = $is_in_cart ? wc_get_cart_url() : $product->add_to_cart_url();
 $button_class = implode( ' ', array_filter( array(
 	'button',
 	'wpp-product-card__buy',
-	'product_type_' . $product->get_type(),
-	$product->supports( 'ajax_add_to_cart' ) ? 'add_to_cart_button ajax_add_to_cart' : '',
+	$product->supports( 'ajax_add_to_cart' ) ? 'product_type_' . $product->get_type() : '',
+	! $is_in_cart && $product->supports( 'ajax_add_to_cart' ) ? 'add_to_cart_button ajax_add_to_cart' : '',
+	$is_in_cart ? 'is-in-cart' : '',
 ) ) );
 ?>
 <li <?php wc_product_class( 'wpp-product-card-wrap', $product ); ?>>
-	<article class="wpp-product-card group">
+	<article class="wpp-product-card group<?php echo $is_in_cart ? ' is-in-cart' : ''; ?>" data-product-id="<?php echo esc_attr( $product_id ); ?>">
 		<div class="wpp-product-card__media">
 			<a class="wpp-product-card__media-link" href="<?php echo esc_url( $product_url ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Открыть товар %s', 'wp-panda' ), $product->get_name() ) ); ?>">
 				<?php echo wp_kses_post( $product->get_image( 'wpp-product-card', array( 'loading' => 'lazy' ) ) ); ?>
@@ -55,7 +57,7 @@ $button_class = implode( ' ', array_filter( array(
 			<div class="wpp-product-card__author"><?php esc_html_e( 'от', 'wp-panda' ); ?> <strong><?php bloginfo( 'name' ); ?></strong><span>·</span><?php echo esc_html( $category ); ?></div>
 			<?php if ( $description ) : ?><p class="wpp-product-card__description"><?php echo esc_html( $description ); ?></p><?php endif; ?>
 			<div class="wpp-product-card__stats"><span class="wpp-product-card__rating"><span class="wpp-product-card__stars" aria-label="<?php echo esc_attr( sprintf( __( 'Рейтинг: %s из 5', 'wp-panda' ), $rating ? number_format_i18n( $rating, 1 ) : '5.0' ) ); ?>" aria-hidden="true">★★★★★</span><b><?php echo esc_html( $rating ? number_format_i18n( $rating, 1 ) : '5.0' ); ?></b><small>(<?php echo esc_html( number_format_i18n( $reviews ) ); ?>)</small></span><span class="wpp-product-card__sales"><?php echo wpp_icon( 'cart', 'h-3 w-3' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo esc_html( number_format_i18n( $sales ) ); ?> <?php esc_html_e( 'продаж', 'wp-panda' ); ?></span></div>
-			<div class="wpp-product-card__purchase"><div><small><?php echo $is_theme ? esc_html__( '1 сайт / 5 сайтов', 'wp-panda' ) : esc_html__( 'Навсегда', 'wp-panda' ); ?></small><div class="price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div></div><a href="<?php echo esc_url( $button_url ); ?>" data-quantity="1" class="<?php echo esc_attr( $button_class ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" aria-label="<?php echo esc_attr( $product->add_to_cart_description() ); ?>" rel="nofollow"><?php echo wpp_icon( 'cart', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( $button_text ); ?><?php echo wpp_icon( 'chevron', 'h-3.5 w-3.5' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div>
+			<div class="wpp-product-card__purchase"><div><small><?php echo $is_theme ? esc_html__( '1 сайт / 5 сайтов', 'wp-panda' ) : esc_html__( 'Навсегда', 'wp-panda' ); ?></small><div class="price"><?php echo wp_kses_post( $product->get_price_html() ); ?></div></div><a href="<?php echo esc_url( $button_url ); ?>" data-quantity="1" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-add-url="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-add-text="<?php echo esc_attr( $product->is_purchasable() && $product->is_in_stock() ? __( 'Купить', 'wp-panda' ) : __( 'Подробнее', 'wp-panda' ) ); ?>" data-default-label="<?php echo esc_attr( $product->add_to_cart_description() ); ?>" data-ajax-add="<?php echo $product->supports( 'ajax_add_to_cart' ) ? '1' : '0'; ?>" class="<?php echo esc_attr( $button_class ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" aria-label="<?php echo esc_attr( $is_in_cart ? sprintf( __( '%s уже в корзине', 'wp-panda' ), $product->get_name() ) : $product->add_to_cart_description() ); ?>" rel="nofollow"><?php echo wpp_icon( $is_in_cart ? 'check' : 'cart', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( $button_text ); ?><?php if ( ! $is_in_cart ) : ?><?php echo wpp_icon( 'chevron', 'h-3.5 w-3.5' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php endif; ?></a></div>
 		</div>
 	</article>
 </li>

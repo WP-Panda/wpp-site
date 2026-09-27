@@ -50,6 +50,54 @@ function wpp_register_support_ticket_type() {
 	) );
 }
 
+/** Page title and intro for the account screens represented in the static account layouts. */
+function wpp_account_page_heading() {
+	$pages = array(
+		'orders'         => array( __( 'Заказы', 'wp-panda' ), __( 'История покупок, счета и чеки', 'wp-panda' ) ),
+		'downloads'      => array( __( 'Загрузки', 'wp-panda' ), __( 'Свежие версии купленных продуктов', 'wp-panda' ) ),
+		'licenses'       => array( __( 'Лицензии и ключи', 'wp-panda' ), __( 'Ключи для тем (1 или 5 сайтов) и плагинов (навсегда)', 'wp-panda' ) ),
+		'support'        => array( __( 'Тикеты поддержки', 'wp-panda' ), __( 'Ваши обращения и ответы инженеров', 'wp-panda' ) ),
+		'wishlist'       => array( __( 'Избранное', 'wp-panda' ), __( 'Сохранённые темы и плагины', 'wp-panda' ) ),
+		'edit-address'   => array( __( 'Платёжный адрес', 'wp-panda' ), __( 'Данные для счетов и закрывающих документов', 'wp-panda' ) ),
+		'payment-methods'=> array( __( 'Способы оплаты', 'wp-panda' ), __( 'Сохранённые способы оплаты', 'wp-panda' ) ),
+		'edit-account'   => array( __( 'Данные аккаунта', 'wp-panda' ), __( 'Профиль, пароль, безопасность и уведомления', 'wp-panda' ) ),
+	);
+	$current = 'dashboard';
+	foreach ( array_keys( $pages ) as $endpoint ) {
+		if ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url( $endpoint ) ) {
+			$current = $endpoint;
+			break;
+		}
+	}
+	if ( 'support' === $current && 'new' === get_query_var( 'support' ) ) {
+		return array( __( 'Новое обращение', 'wp-panda' ), __( 'Создайте тикет — переписка останется в личном кабинете', 'wp-panda' ) );
+	}
+	if ( isset( $pages[ $current ] ) ) {
+		return $pages[ $current ];
+	}
+	return array( __( 'Панель управления', 'wp-panda' ), __( 'Обзор купленных тем, плагинов и обновлений', 'wp-panda' ) );
+}
+
+/** Counts shown beside account navigation items, calculated from this customer's real data. */
+function wpp_account_menu_count( $endpoint ) {
+	$user_id = get_current_user_id();
+	if ( 'orders' === $endpoint && function_exists( 'wc_get_customer_order_count' ) ) {
+		return (int) wc_get_customer_order_count( $user_id );
+	}
+	if ( 'wishlist' === $endpoint ) {
+		$ids = get_user_meta( $user_id, 'wpp_wishlist_product_ids', true );
+		return is_array( $ids ) ? count( array_unique( array_map( 'absint', $ids ) ) ) : 0;
+	}
+	if ( 'support' === $endpoint ) {
+		return count( get_posts( array( 'post_type' => 'wpp_support_ticket', 'post_status' => array( 'private', 'publish' ), 'author' => $user_id, 'posts_per_page' => -1, 'fields' => 'ids', 'no_found_rows' => true ) ) );
+	}
+	if ( 'licenses' === $endpoint && function_exists( 'wc_get_orders' ) ) {
+		$orders = wc_get_orders( array( 'customer_id' => $user_id, 'status' => array( 'wc-processing', 'wc-completed' ), 'limit' => -1, 'return' => 'ids' ) );
+		return count( $orders );
+	}
+	return 0;
+}
+
 /** Add licenses, support tickets and wishlist to WooCommerce's standard account navigation. */
 function wpp_account_menu_items( $items ) {
 	$logout = isset( $items['customer-logout'] ) ? $items['customer-logout'] : '';

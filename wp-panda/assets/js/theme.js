@@ -66,6 +66,71 @@
     });
   });
 
+  function syncProductCardsWithCart(addedProductId) {
+    var state = document.querySelector('.wpp-cart-state');
+    var productIds = [];
+    try {
+      productIds = state ? JSON.parse(state.getAttribute('data-product-ids') || '[]') : [];
+    } catch (error) { productIds = []; }
+    if (addedProductId) productIds.push(parseInt(addedProductId, 10));
+    productIds = productIds.filter(function (id, index, all) { return id && all.indexOf(id) === index; });
+    if (state && addedProductId) state.setAttribute('data-product-ids', JSON.stringify(productIds));
+
+    document.querySelectorAll('.wpp-product-card[data-product-id]').forEach(function (card) {
+      var id = parseInt(card.getAttribute('data-product-id') || '0', 10);
+      var inCart = productIds.indexOf(id) !== -1;
+      var previouslyInCart = card.classList.contains('is-in-cart');
+      if (previouslyInCart === inCart) return;
+      var button = card.querySelector('.wpp-product-card__buy');
+      card.classList.toggle('is-in-cart', inCart);
+      if (!button) return;
+      button.classList.toggle('is-in-cart', inCart);
+      button.classList.toggle('added', inCart);
+      if (inCart) {
+        button.href = window.wppTheme && window.wppTheme.cartUrl ? window.wppTheme.cartUrl : button.href;
+        button.classList.remove('add_to_cart_button', 'ajax_add_to_cart');
+        button.setAttribute('aria-label', 'Товар уже в корзине');
+        button.innerHTML = '<svg class="wpp-icon h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4L19 6"></path></svg>В корзине';
+      } else {
+        button.href = button.getAttribute('data-add-url') || button.href;
+        button.setAttribute('aria-label', button.getAttribute('data-default-label') || 'Добавить в корзину');
+        if (button.getAttribute('data-ajax-add') === '1') button.classList.add('add_to_cart_button', 'ajax_add_to_cart');
+        button.textContent = button.getAttribute('data-add-text') || 'Купить';
+      }
+    });
+  }
+
+  syncProductCardsWithCart();
+  if (window.jQuery) {
+    window.jQuery(document.body).on('added_to_cart', function (event, fragments, cartHash, button) {
+      var productId = button && button.data ? button.data('product_id') : 0;
+      syncProductCardsWithCart(productId);
+    });
+    window.jQuery(document.body).on('wc_fragments_refreshed removed_from_cart', function () {
+      syncProductCardsWithCart();
+    });
+    window.jQuery(document).on('click', '[data-wpp-apply-coupon]', function () {
+      var params = window.wc_checkout_params;
+      var $button = window.jQuery(this);
+      var $row = $button.closest('.wpp-checkout-coupon');
+      var $input = $row.find('input');
+      var code = ($input.val() || '').trim();
+      if (!code || !params) { if ($input.length) $input.trigger('focus'); return; }
+      $button.prop('disabled', true).text('Проверяем…');
+      window.jQuery.ajax({
+        type: 'POST',
+        url: params.wc_ajax_url.toString().replace('%%endpoint%%', 'apply_coupon'),
+        data: { security: params.apply_coupon_nonce, coupon_code: code }
+      }).done(function (response) {
+        window.jQuery('.woocommerce-error, .woocommerce-message, .is-error, .is-success').remove();
+        if (response) window.jQuery('#order_review').before(response);
+        if (response && response.indexOf('woocommerce-error') === -1) window.jQuery(document.body).trigger('update_checkout', { update_shipping_method: false });
+      }).always(function () {
+        $button.prop('disabled', false).text('Применить');
+      });
+    });
+  }
+
   document.addEventListener('click', function (event) {
     var button = event.target.closest('[data-cart-variation]');
     if (!button || !window.wppTheme || !window.wppTheme.ajaxUrl) return;

@@ -8,6 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 add_action( 'admin_menu', 'wpp_demo_register_admin_page' );
+add_action( 'admin_enqueue_scripts', 'wpp_demo_importer_preloader_assets' );
 add_action( 'admin_post_wpp_import_demo_content', 'wpp_demo_handle_import' );
 
 /** Register the demo importer under Tools. */
@@ -19,6 +20,45 @@ function wpp_demo_register_admin_page() {
 		'wpp-demo-content',
 		'wpp_demo_render_admin_page'
 	);
+}
+
+/** Add a blocking, accessible progress overlay while the demo import request runs. */
+function wpp_demo_importer_preloader_assets( $hook_suffix ) {
+	if ( 'tools_page_wpp-demo-content' !== $hook_suffix ) {
+		return;
+	}
+
+	wp_register_style( 'wpp-demo-importer', false, array(), WPP_THEME_VERSION );
+	wp_enqueue_style( 'wpp-demo-importer' );
+	wp_add_inline_style(
+		'wpp-demo-importer',
+		'.wpp-demo-import-overlay{position:fixed;z-index:100000;inset:0;display:grid;place-items:center;padding:24px;background:rgba(20,20,28,.48);backdrop-filter:blur(5px)}.wpp-demo-import-overlay__card{width:min(100%,420px);padding:34px 30px;border:1px solid #e8e8ed;border-radius:22px;background:#fff;text-align:center;box-shadow:0 24px 80px rgba(20,20,28,.22)}.wpp-demo-import-overlay__spinner{width:48px;height:48px;margin:0 auto 18px;border:4px solid #f1e7c7;border-top-color:#ffc21f;border-radius:50%;animation:wpp-demo-spin .8s linear infinite}.wpp-demo-import-overlay__title{display:block;margin-bottom:7px;color:#1c1c21;font-size:18px;font-weight:700}.wpp-demo-import-overlay__text{margin:0;color:#70707a;font-size:13px;line-height:1.55}.wpp-demo-import-overlay__progress{height:4px;overflow:hidden;margin-top:22px;border-radius:99px;background:#f0f0f2}.wpp-demo-import-overlay__progress:after{display:block;width:35%;height:100%;border-radius:99px;background:#ffc21f;content:"";animation:wpp-demo-progress 1.6s ease-in-out infinite}@keyframes wpp-demo-spin{to{transform:rotate(360deg)}}@keyframes wpp-demo-progress{0%{transform:translateX(-110%)}100%{transform:translateX(310%)}}@media(prefers-reduced-motion:reduce){.wpp-demo-import-overlay__spinner,.wpp-demo-import-overlay__progress:after{animation-duration:2.5s}}'
+	);
+	wp_enqueue_script( 'jquery' );
+	$script = <<<'JS'
+jQuery(function($) {
+	var form = document.querySelector('.wrap form[action*="admin-post.php"]');
+	if (!form) return;
+	form.addEventListener('submit', function() {
+		if (form.dataset.importing === '1') return;
+		form.dataset.importing = '1';
+		form.setAttribute('aria-busy', 'true');
+		var overlay = document.createElement('div');
+		overlay.className = 'wpp-demo-import-overlay';
+		overlay.setAttribute('role', 'status');
+		overlay.setAttribute('aria-live', 'polite');
+		overlay.innerHTML = '<div class="wpp-demo-import-overlay__card"><div class="wpp-demo-import-overlay__spinner" aria-hidden="true"></div><strong class="wpp-demo-import-overlay__title">Импортируем демо-контент</strong><p class="wpp-demo-import-overlay__text">Создаём страницы, товары, изображения и меню. Не закрывайте эту страницу.</p><div class="wpp-demo-import-overlay__progress" aria-hidden="true"></div></div>';
+		document.body.appendChild(overlay);
+		var button = form.querySelector('button[type=submit],input[type=submit]');
+		if (button) {
+			button.disabled = true;
+			if (button.tagName === 'INPUT') button.value = 'Импорт выполняется…';
+			else button.textContent = 'Импорт выполняется…';
+		}
+	});
+});
+JS;
+	wp_add_inline_script( 'jquery', $script, 'after' );
 }
 
 /** Render the one-click importer screen. */
@@ -720,6 +760,11 @@ function wpp_demo_import_product( $data, $category_id, &$result ) {
 	$product_id = wpp_demo_find_post_id( 'product', $data['key'] );
 	if ( $product_id ) {
 		$result['products_skipped']++;
+		// Keep the curated home-page order in sync across importer updates without
+		// touching merchant-edited product content, pricing, or featured images.
+		if ( ! empty( $data['featured_order'] ) ) {
+			update_post_meta( $product_id, '_wpp_demo_featured_order', absint( $data['featured_order'] ) );
+		}
 		wpp_demo_sync_product_tags( $product_id, $data );
 		if ( 'variable' === $data['type'] ) {
 			wpp_demo_ensure_theme_variations( $product_id, $data, $result );

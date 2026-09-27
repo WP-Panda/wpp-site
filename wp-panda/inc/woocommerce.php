@@ -3,6 +3,183 @@
 
 defined( 'ABSPATH' ) || exit;
 
+/** Keep checkout fields in line with the reference while retaining WooCommerce field processing. */
+function wpp_customize_checkout_fields( $fields ) {
+	if ( empty( $fields['billing'] ) ) {
+		return $fields;
+	}
+
+	// Digital products do not need a postal street, region, or postcode; keep
+	// country and city so tax and billing-address integrations still work.
+	if ( ! WC()->cart || ! WC()->cart->needs_shipping() ) {
+		foreach ( array( 'billing_address_1', 'billing_address_2', 'billing_state', 'billing_postcode' ) as $field_key ) {
+			unset( $fields['billing'][ $field_key ] );
+		}
+	}
+
+	$priorities = array(
+		'billing_first_name' => 10,
+		'billing_last_name'  => 20,
+		'billing_email'      => 30,
+		'billing_phone'      => 40,
+		'billing_country'    => 50,
+		'billing_city'       => 60,
+		'billing_company'    => 70,
+	);
+	$columns = array(
+		'billing_first_name' => 'form-row-first',
+		'billing_last_name'  => 'form-row-last',
+		'billing_email'      => 'form-row-first',
+		'billing_phone'      => 'form-row-last',
+		'billing_country'    => 'form-row-first',
+		'billing_city'       => 'form-row-last',
+		'billing_company'    => 'form-row-first',
+	);
+	foreach ( $priorities as $key => $priority ) {
+		if ( isset( $fields['billing'][ $key ] ) ) {
+			$fields['billing'][ $key ]['priority'] = $priority;
+			$fields['billing'][ $key ]['class']    = array( isset( $columns[ $key ] ) ? $columns[ $key ] : 'form-row-wide' );
+		}
+	}
+
+	if ( isset( $fields['billing']['billing_phone'] ) ) {
+		$fields['billing']['billing_phone']['required'] = false;
+	}
+	$labels = array(
+		'billing_first_name' => __( 'Имя', 'wp-panda' ),
+		'billing_last_name'  => __( 'Фамилия', 'wp-panda' ),
+		'billing_email'      => __( 'Email', 'wp-panda' ),
+		'billing_phone'      => __( 'Телефон', 'wp-panda' ),
+		'billing_country'    => __( 'Страна', 'wp-panda' ),
+		'billing_city'       => __( 'Город', 'wp-panda' ),
+	);
+	foreach ( $labels as $key => $label ) {
+		if ( isset( $fields['billing'][ $key ] ) ) {
+			$fields['billing'][ $key ]['label'] = $label;
+		}
+	}
+
+	$placeholders = array(
+		'billing_first_name' => __( 'Введите имя', 'wp-panda' ),
+		'billing_last_name'  => __( 'Введите фамилию', 'wp-panda' ),
+		'billing_email'      => 'you@example.ru',
+		'billing_phone'      => '+7 (___) ___-__-__',
+		'billing_city'       => __( 'Москва', 'wp-panda' ),
+	);
+	foreach ( $placeholders as $key => $placeholder ) {
+		if ( isset( $fields['billing'][ $key ] ) ) {
+			$fields['billing'][ $key ]['placeholder'] = $placeholder;
+		}
+	}
+	if ( isset( $fields['billing']['billing_company'] ) ) {
+		$fields['billing']['billing_company']['required']    = false;
+		$fields['billing']['billing_company']['label']       = __( 'Компания', 'wp-panda' );
+		$fields['billing']['billing_company']['placeholder'] = __( 'ООО «Пиксель»', 'wp-panda' );
+	}
+
+	$fields['billing']['billing_tax_id'] = array(
+		'type'        => 'text',
+		'label'       => __( 'ИНН', 'wp-panda' ),
+		'placeholder' => __( 'Для закрывающих документов', 'wp-panda' ),
+		'required'    => false,
+		'class'       => array( 'form-row-last' ),
+		'priority'    => 80,
+		'autocomplete'=> 'off',
+	);
+	$fields['billing']['billing_activation_domain'] = array(
+		'type'        => 'text',
+		'label'       => __( 'Домен для активации', 'wp-panda' ),
+		'placeholder' => __( 'example.ru', 'wp-panda' ),
+		'required'    => false,
+		'class'       => array( 'form-row-wide' ),
+		'priority'    => 90,
+		'description' => __( 'Ключ можно активировать и позже.', 'wp-panda' ),
+	);
+	$fields['billing']['billing_referral_source'] = array(
+		'type'     => 'select',
+		'label'    => __( 'Откуда вы о нас узнали?', 'wp-panda' ),
+		'required' => false,
+		'class'    => array( 'form-row-wide' ),
+		'priority' => 100,
+		'options'  => array(
+			''             => __( 'Выберите вариант', 'wp-panda' ),
+			'search'       => __( 'Поиск Яндекс / Google', 'wp-panda' ),
+			'recommendation' => __( 'Рекомендация коллег', 'wp-panda' ),
+			'article'      => __( 'Блог или статья', 'wp-panda' ),
+			'telegram'     => __( 'Telegram-канал', 'wp-panda' ),
+			'other'        => __( 'Другое', 'wp-panda' ),
+		),
+	);
+
+	if ( is_user_logged_in() ) {
+		foreach ( array( 'billing_tax_id', 'billing_activation_domain', 'billing_referral_source' ) as $custom_field ) {
+			$saved_value = get_user_meta( get_current_user_id(), '_' . $custom_field, true );
+			if ( '' !== $saved_value && isset( $fields['billing'][ $custom_field ] ) ) {
+				$fields['billing'][ $custom_field ]['default'] = $saved_value;
+			}
+		}
+	}
+
+	if ( isset( $fields['order']['order_comments'] ) ) {
+		$fields['order']['order_comments']['label']       = __( 'Комментарий к заказу', 'wp-panda' );
+		$fields['order']['order_comments']['placeholder'] = __( 'Например: нужны закрывающие документы через ЭДО', 'wp-panda' );
+	}
+
+	return $fields;
+}
+
+/** Persist the additional checkout details on the WooCommerce order and customer profile. */
+function wpp_save_checkout_order_fields( $order, $data ) {
+	$meta_fields = array(
+		'billing_tax_id'           => '_billing_tax_id',
+		'billing_activation_domain'=> '_billing_activation_domain',
+		'billing_referral_source'  => '_billing_referral_source',
+	);
+	foreach ( $meta_fields as $post_key => $meta_key ) {
+		if ( ! isset( $_POST[ $post_key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			continue;
+		}
+		$value = wc_clean( wp_unslash( $_POST[ $post_key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$order->update_meta_data( $meta_key, $value );
+		if ( $order->get_user_id() ) {
+			update_user_meta( $order->get_user_id(), $meta_key, $value );
+		}
+	}
+}
+
+/** Show the additional details where store staff and customers can use them. */
+function wpp_display_checkout_order_fields_admin( $order ) {
+	$labels = array(
+		'_billing_tax_id'            => __( 'ИНН', 'wp-panda' ),
+		'_billing_activation_domain' => __( 'Домен для активации', 'wp-panda' ),
+		'_billing_referral_source'   => __( 'Источник знакомства', 'wp-panda' ),
+	);
+	foreach ( $labels as $key => $label ) {
+		$value = $order->get_meta( $key );
+		if ( '' !== $value ) {
+			echo '<p><strong>' . esc_html( $label ) . ':</strong> ' . esc_html( $value ) . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+	}
+}
+
+function wpp_add_checkout_order_email_fields( $fields, $sent_to_admin, $order ) {
+	$labels = array(
+		'_billing_tax_id'            => __( 'ИНН', 'wp-panda' ),
+		'_billing_activation_domain' => __( 'Домен для активации', 'wp-panda' ),
+		'_billing_referral_source'   => __( 'Источник знакомства', 'wp-panda' ),
+	);
+	foreach ( $labels as $key => $label ) {
+		$value = $order->get_meta( $key );
+		if ( '' !== $value ) {
+			$fields[ ltrim( $key, '_' ) ] = array(
+				'label' => $label,
+				'value' => $value,
+			);
+		}
+	}
+	return $fields;
+}
+
 /** Update the header cart count through WooCommerce's normal AJAX fragment mechanism. */
 function wpp_cart_count_fragment( $fragments ) {
 	$count = wpp_get_cart_count();
@@ -17,6 +194,10 @@ function wpp_cart_count_fragment( $fragments ) {
 	return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'wpp_cart_count_fragment' );
+add_filter( 'woocommerce_checkout_fields', 'wpp_customize_checkout_fields', 20 );
+add_action( 'woocommerce_checkout_create_order', 'wpp_save_checkout_order_fields', 20, 2 );
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'wpp_display_checkout_order_fields_admin' );
+add_filter( 'woocommerce_email_order_meta_fields', 'wpp_add_checkout_order_email_fields', 10, 3 );
 add_filter( 'woocommerce_add_to_cart_fragments', 'wpp_catalog_cart_bar_fragment' );
 add_action( 'wp_footer', 'wpp_render_catalog_cart_bar', 15 );
 add_action( 'wp', 'wpp_prepare_single_product_hooks', 30 );
@@ -287,6 +468,32 @@ function wpp_single_product_purchase_benefits() {
 	<?php
 }
 
+/** Return unique parent and variation product IDs represented in the WooCommerce cart. */
+function wpp_get_cart_product_ids() {
+	static $product_ids = null;
+	if ( null !== $product_ids ) {
+		return $product_ids;
+	}
+	$product_ids = array();
+	if ( function_exists( 'WC' ) && WC() && WC()->cart ) {
+		foreach ( WC()->cart->get_cart() as $cart_item ) {
+			$product_id = isset( $cart_item['product_id'] ) ? absint( $cart_item['product_id'] ) : 0;
+			if ( $product_id ) {
+				$product_ids[] = $product_id;
+			}
+			if ( ! empty( $cart_item['variation_id'] ) ) {
+				$product_ids[] = absint( $cart_item['variation_id'] );
+			}
+		}
+	}
+	return array_values( array_unique( $product_ids ) );
+}
+
+/** Provide a live cart-state fragment so product cards can stay highlighted after AJAX changes. */
+function wpp_cart_state_markup() {
+	return '<div class="wpp-cart-state" hidden data-product-ids="' . esc_attr( wp_json_encode( wpp_get_cart_product_ids() ) ) . '"></div>';
+}
+
 /** Return the cart's current product names and total for the catalog's sticky summary. */
 function wpp_catalog_cart_bar_markup() {
 	if ( ! function_exists( 'WC' ) || ! WC() || ! WC()->cart ) {
@@ -322,6 +529,7 @@ function wpp_catalog_cart_bar_markup() {
 
 /** Replace the sticky cart summary after WooCommerce updates its normal fragments. */
 function wpp_catalog_cart_bar_fragment( $fragments ) {
+	$fragments['div.wpp-cart-state'] = wpp_cart_state_markup();
 	$markup = wpp_catalog_cart_bar_markup();
 	if ( $markup ) {
 		$fragments['div.wpp-catalog-cart-bar'] = $markup;
@@ -330,17 +538,17 @@ function wpp_catalog_cart_bar_fragment( $fragments ) {
 	return $fragments;
 }
 
-/** Render the real, session-backed cart bar on WooCommerce catalog archives. */
+/** Render the persistent, session-backed cart summary across the storefront, like the static layout. */
 function wpp_render_catalog_cart_bar() {
-	$is_catalog = ( function_exists( 'is_shop' ) && is_shop() ) || ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() );
-	if ( is_search() ) {
-		$search_type = get_query_var( 'post_type' );
-		$is_catalog  = $is_catalog || 'product' === $search_type || ( is_array( $search_type ) && in_array( 'product', $search_type, true ) );
+	if ( is_admin() || ! function_exists( 'WC' ) || ! WC() || ! WC()->cart ) {
+		return;
 	}
 
-	if ( $is_catalog ) {
-		echo wpp_catalog_cart_bar_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	echo wpp_cart_state_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+		return;
 	}
+	echo wpp_catalog_cart_bar_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /** Use the catalog label from the reference layout while keeping WooCommerce's title hook. */

@@ -3,6 +3,14 @@
 
   var menuToggle = document.querySelector('[data-menu-toggle]');
   var navigation = document.getElementById('site-navigation');
+  var siteHeader = document.querySelector('.site-header');
+
+  function syncHeaderSurface() {
+    if (siteHeader) siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+  }
+
+  syncHeaderSurface();
+  window.addEventListener('scroll', syncHeaderSurface, { passive: true });
 
   if (menuToggle && navigation) {
     menuToggle.addEventListener('click', function () {

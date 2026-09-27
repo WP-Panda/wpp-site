@@ -65,12 +65,20 @@ function wpp_enqueue_assets() {
 	$theme_version = wp_get_theme()->get( 'Version' );
 	$layout_path   = get_template_directory() . '/assets/css/layout.css';
 	$theme_path    = get_template_directory() . '/assets/css/theme.css';
+	$match_path    = get_template_directory() . '/assets/css/layout-match.css';
 	$script_path   = get_template_directory() . '/assets/js/theme.js';
+
+	wp_enqueue_style(
+		'wpp-fonts',
+		'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap',
+		array(),
+		null
+	);
 
 	wp_enqueue_style(
 		'wpp-theme-meta',
 		get_stylesheet_uri(),
-		array(),
+		array( 'wpp-fonts' ),
 		$theme_version
 	);
 
@@ -86,6 +94,13 @@ function wpp_enqueue_assets() {
 		get_template_directory_uri() . '/assets/css/theme.css',
 		array( 'wpp-layout' ),
 		file_exists( $theme_path ) ? (string) filemtime( $theme_path ) : WPP_THEME_VERSION
+	);
+
+	wp_enqueue_style(
+		'wpp-layout-match',
+		get_template_directory_uri() . '/assets/css/layout-match.css',
+		array( 'wpp-theme' ),
+		file_exists( $match_path ) ? (string) filemtime( $match_path ) : WPP_THEME_VERSION
 	);
 
 	wp_enqueue_script(

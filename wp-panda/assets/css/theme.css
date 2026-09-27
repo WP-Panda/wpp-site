@@ -563,7 +563,7 @@ img { max-width: 100%; }
 .prose-content .wpp-demo-standfirst { color: var(--wpp-muted); font-size: 17px; }
 
 /* Landing components use real WooCommerce products and separate visual modules. */
-:root { --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+:root { --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif; --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 body { font-family: var(--font-sans); }
 .wpp-home-tabs { display: flex; width: fit-content; max-width: 100%; gap: 4px; padding: 4px; margin: 0 0 18px; overflow-x: auto; border: 1px solid var(--wpp-line); border-radius: 999px; background: #f2f1ee; }
 .wpp-home-tabs__link { display: inline-flex; min-height: 37px; align-items: center; padding: 0 16px; border-radius: 999px; color: var(--wpp-muted); font-size: 12px; font-weight: 700; text-decoration: none; white-space: nowrap; }

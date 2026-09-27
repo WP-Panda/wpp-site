@@ -19,6 +19,243 @@ function wpp_cart_count_fragment( $fragments ) {
 add_filter( 'woocommerce_add_to_cart_fragments', 'wpp_cart_count_fragment' );
 add_filter( 'woocommerce_add_to_cart_fragments', 'wpp_catalog_cart_bar_fragment' );
 add_action( 'wp_footer', 'wpp_render_catalog_cart_bar', 15 );
+add_action( 'wp', 'wpp_prepare_single_product_hooks', 30 );
+add_filter( 'woocommerce_product_tabs', 'wpp_customize_product_tabs', 25 );
+add_filter( 'woocommerce_product_tabs', 'wpp_add_product_version_history_tab', 30 );
+add_filter( 'woocommerce_product_related_products_heading', 'wpp_related_products_heading' );
+add_filter( 'woocommerce_dropdown_variation_attribute_options_html', 'wpp_product_variation_picker', 10, 2 );
+add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
+add_filter( 'woocommerce_product_additional_information_heading', 'wpp_additional_information_heading' );
+add_action( 'woocommerce_before_add_to_cart_button', 'wpp_single_product_purchase_benefits', 5 );
+
+/** Move WooCommerce's native title, rating, breadcrumb and related products into the reference layout. */
+function wpp_prepare_single_product_hooks() {
+	if ( ! function_exists( 'is_product' ) || ! is_product() ) {
+		return;
+	}
+
+	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+	remove_action( 'woocommerce_single_product_summary', 'wpp_single_product_wishlist_button', 39 );
+	remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+}
+
+/** Give WooCommerce's standard specifications heading a Russian storefront label. */
+function wpp_additional_information_heading( $heading ) {
+	return __( 'Характеристики', 'wp-panda' );
+}
+
+/** Return approved product comments that are not already represented by WooCommerce reviews. */
+function wpp_get_product_discussion_comments( $product ) {
+	if ( ! $product instanceof WC_Product ) {
+		return array();
+	}
+
+	static $comments_by_product = array();
+	$product_id = $product->get_id();
+	if ( isset( $comments_by_product[ $product_id ] ) ) {
+		return $comments_by_product[ $product_id ];
+	}
+
+	$comments = get_comments( array(
+		'post_id'       => $product_id,
+		'status'        => 'approve',
+		'orderby'       => 'comment_date_gmt',
+		'order'         => 'DESC',
+		'number'        => 0,
+		'type__not_in'  => array( 'review', 'order_note' ),
+		'meta_query'    => array(
+			array(
+				'key'     => 'rating',
+				'compare' => 'NOT EXISTS',
+			),
+		),
+	) );
+
+	$comments_by_product[ $product_id ] = is_array( $comments ) ? $comments : array();
+
+	return $comments_by_product[ $product_id ];
+}
+
+/** Keep specifications in the product sidebar and expose separate, genuine product discussions. */
+function wpp_customize_product_tabs( $tabs ) {
+	global $product;
+
+	unset( $tabs['additional_information'] );
+	$comments = wpp_get_product_discussion_comments( $product );
+	if ( $comments ) {
+		$tabs['wpp_comments'] = array(
+			'title'    => __( 'Комментарии', 'wp-panda' ),
+			'priority' => 35,
+			'callback' => 'wpp_render_product_comments_tab',
+		);
+	}
+
+	return $tabs;
+}
+
+/** Render non-review comments with WordPress's native comment list and form. */
+function wpp_render_product_comments_tab( $key = '', $tab = array() ) {
+	wc_get_template( 'single-product/tabs/comments.php' );
+}
+
+/** Render WooCommerce's real variation selects as radio-style license choices without replacing the form. */
+function wpp_product_variation_picker( $html, $args ) {
+	if ( ! is_product() || empty( $args['product'] ) || ! $args['product'] instanceof WC_Product_Variable ) {
+		return $html;
+	}
+
+	$attribute = isset( $args['attribute'] ) ? (string) $args['attribute'] : '';
+	if ( sanitize_title( $attribute ) !== sanitize_title( 'Количество сайтов' ) || empty( $args['options'] ) ) {
+		return $html;
+	}
+
+	$select_id = ! empty( $args['id'] ) ? (string) $args['id'] : sanitize_title( $attribute );
+	$selected  = isset( $args['selected'] ) ? (string) $args['selected'] : '';
+	$picker    = '<div class="wpp-variation-picker" data-wpp-variation-picker data-select-id="' . esc_attr( $select_id ) . '" role="radiogroup" aria-label="' . esc_attr__( 'Количество сайтов', 'wp-panda' ) . '" hidden>';
+
+	foreach ( (array) $args['options'] as $option ) {
+		$option = (string) $option;
+		if ( '' === $option ) {
+			continue;
+		}
+		$label = $option;
+		if ( taxonomy_exists( $attribute ) ) {
+			$term = get_term_by( 'slug', $option, $attribute );
+			if ( $term && ! is_wp_error( $term ) ) {
+				$label = $term->name;
+			}
+		}
+		$is_selected = $selected === $option || sanitize_title( $selected ) === sanitize_title( $option );
+		$picker     .= '<button class="wpp-variation-picker__option' . ( $is_selected ? ' is-selected' : '' ) . '" type="button" role="radio" aria-checked="' . ( $is_selected ? 'true' : 'false' ) . '" tabindex="' . ( $is_selected ? '0' : '-1' ) . '" data-wpp-variation-value="' . esc_attr( $option ) . '" data-wpp-variation-label="' . esc_attr( $label ) . '"><span class="wpp-variation-picker__dot" aria-hidden="true"></span><span>' . esc_html( $label ) . '</span></button>';
+	}
+
+	$picker .= '</div>';
+
+	return $picker . $html;
+}
+
+/** Label WooCommerce's genuine related-product loop like the source product-detail layout. */
+function wpp_related_products_heading( $heading ) {
+	global $product;
+	if ( ! $product instanceof WC_Product ) {
+		return $heading;
+	}
+
+	$categories = wp_get_post_terms( $product->get_id(), 'product_cat', array( 'fields' => 'slugs' ) );
+	if ( is_wp_error( $categories ) ) {
+		return $heading;
+	}
+
+	if ( in_array( 'wordpress-themes', $categories, true ) ) {
+		return __( 'Другие темы автора', 'wp-panda' );
+	}
+	if ( in_array( 'wordpress-plugins', $categories, true ) ) {
+		return __( 'Другие плагины автора', 'wp-panda' );
+	}
+
+	return $heading;
+}
+
+/** Find the existing release-notes section in the product description without fabricating updates. */
+function wpp_get_product_changelog_section( $product ) {
+	if ( ! $product instanceof WC_Product ) {
+		return '';
+	}
+
+	$description = $product->get_description();
+	if ( ! preg_match_all( '/<section\\b[^>]*>.*?<\\/section>/isu', $description, $sections ) ) {
+		return '';
+	}
+
+	foreach ( $sections[0] as $section ) {
+		if ( false === stripos( wp_strip_all_tags( $section ), 'Последнее обновление' ) ) {
+			continue;
+		}
+
+		return wp_kses_post( $section );
+	}
+
+	return '';
+}
+
+/** Add a real version-history tab only when the product description contains release notes. */
+function wpp_add_product_version_history_tab( $tabs ) {
+	global $product;
+
+	if ( ! $product instanceof WC_Product || ! wpp_get_product_changelog_section( $product ) ) {
+		return $tabs;
+	}
+
+	$tabs['wpp_version_history'] = array(
+		'title'    => __( 'История версий', 'wp-panda' ),
+		'priority' => 40,
+		'callback' => 'wpp_render_product_version_history_tab',
+	);
+
+	return $tabs;
+}
+
+/** Render the product's own release notes in the version-history tab. */
+function wpp_render_product_version_history_tab( $key = '', $tab = array() ) {
+	global $product;
+	$history = wpp_get_product_changelog_section( $product );
+
+	if ( $history ) {
+		echo $history; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Content is sanitized with wp_kses_post().
+	}
+}
+
+/** Add stable in-page targets to the demo description's real screenshot and release-note sections. */
+function wpp_add_product_description_anchors( $content ) {
+	$anchors = array(
+		'Продумана до деталей' => 'wpp-product-screenshots',
+		'Последнее обновление' => 'wpp-product-changelog',
+	);
+
+	return preg_replace_callback( '/<h2\\b([^>]*)>(.*?)<\\/h2>/isu', function ( $matches ) use ( $anchors ) {
+		$heading = trim( wp_strip_all_tags( $matches[2] ) );
+		foreach ( $anchors as $label => $anchor ) {
+			if ( false !== strpos( $heading, $label ) ) {
+				if ( preg_match( '/\\bid=/i', $matches[1] ) ) {
+					return $matches[0];
+				}
+				return '<h2 id="' . esc_attr( $anchor ) . '"' . $matches[1] . '>' . $matches[2] . '</h2>';
+			}
+		}
+		return $matches[0];
+	}, $content );
+}
+
+/** Set expectations honestly while retaining the WooCommerce add-to-cart form. */
+function wpp_single_product_purchase_benefits() {
+	global $product;
+	if ( ! $product instanceof WC_Product ) {
+		return;
+	}
+
+	$is_demo = (bool) get_post_meta( $product->get_id(), '_wpp_demo_key', true );
+	$benefits = array();
+	if ( $product->is_downloadable() ) {
+		$benefits[] = __( 'Файлы будут доступны через раздел загрузок заказа.', 'wp-panda' );
+	} elseif ( $is_demo ) {
+		$benefits[] = __( 'Демонстрационная карточка: файлы и активация лицензии не подключены.', 'wp-panda' );
+	} else {
+		$benefits[] = __( 'Способ предоставления цифрового товара указан продавцом.', 'wp-panda' );
+	}
+	$benefits[] = __( 'Заказ и статус покупки доступны в личном кабинете.', 'wp-panda' );
+	$benefits[] = __( 'Вопрос по товару можно задать через обращения поддержки.', 'wp-panda' );
+	?>
+	<ul class="wpp-product-purchase-benefits">
+		<?php foreach ( $benefits as $benefit ) : ?>
+			<li><span aria-hidden="true">✓</span><?php echo esc_html( $benefit ); ?></li>
+		<?php endforeach; ?>
+	</ul>
+	<?php
+}
 
 /** Return the cart's current product names and total for the catalog's sticky summary. */
 function wpp_catalog_cart_bar_markup() {

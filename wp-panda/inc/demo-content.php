@@ -821,6 +821,18 @@ function wpp_demo_ensure_theme_variations( $product_id, $data, &$result ) {
 	$product         = wc_get_product( $product_id );
 	$attribute_key   = sanitize_title( 'Количество сайтов' );
 	$existing_values = array();
+	if ( $product instanceof WC_Product_Variable && ! empty( $data['license_options'] ) ) {
+		$defaults = $product->get_default_attributes();
+		if ( empty( $defaults[ $attribute_key ] ) ) {
+			$defaults[ $attribute_key ] = (string) $data['license_options'][0];
+			$product->set_default_attributes( $defaults );
+			try {
+				$product->save();
+			} catch ( Exception $exception ) {
+				$result['errors'][] = sprintf( 'Не удалось выбрать вариант по умолчанию для товара «%s»: %s', sanitize_text_field( $data['name'] ), $exception->getMessage() );
+			}
+		}
+	}
 	if ( $product && method_exists( $product, 'get_children' ) ) {
 		foreach ( $product->get_children() as $variation_id ) {
 			$attribute_value = get_post_meta( $variation_id, 'attribute_' . $attribute_key, true );

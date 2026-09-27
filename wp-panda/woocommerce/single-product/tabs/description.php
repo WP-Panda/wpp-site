@@ -1,14 +1,6 @@
 <?php
 /**
- * Description tab
- *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/tabs/description.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
+ * Description tab.
  *
  * @see https://woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
@@ -19,12 +11,13 @@ defined( 'ABSPATH' ) || exit;
 
 global $post;
 
-$heading = apply_filters( 'woocommerce_product_description_heading', __( 'Description', 'woocommerce' ) );
-
+$heading     = apply_filters( 'woocommerce_product_description_heading', __( 'Description', 'woocommerce' ) );
+$description = apply_filters( 'the_content', $post->post_content );
+if ( function_exists( 'wpp_add_product_description_anchors' ) ) {
+	$description = wpp_add_product_description_anchors( $description );
+}
 ?>
-
 <?php if ( $heading ) : ?>
 	<h2><?php echo esc_html( $heading ); ?></h2>
 <?php endif; ?>
-
-<?php the_content(); ?>
+<?php echo $description; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Rendered through the_content and filtered product HTML. ?>

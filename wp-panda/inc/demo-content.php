@@ -35,7 +35,7 @@ function wpp_demo_render_admin_page() {
 	?>
 	<div class="wrap">
 		<h1><?php esc_html_e( 'Демо-контент Wp Panda', 'wp-panda' ); ?></h1>
-		<p><?php esc_html_e( 'Импортируйте наполнение из исходной верстки: каталог товаров, журнал, базу знаний, FAQ, обложки и пункты меню.', 'wp-panda' ); ?></p>
+		<p><?php esc_html_e( 'Импорт соберёт демонстрационный сайт целиком: главную, магазин, блог, FAQ, базу знаний, страницы политики и меню. При повторном запуске предыдущие объекты, созданные этим импортёром, удаляются и создаются заново.', 'wp-panda' ); ?></p>
 
 		<?php if ( ! class_exists( 'WooCommerce' ) ) : ?>
 			<div class="notice notice-warning inline"><p><?php esc_html_e( 'WooCommerce не активен: страницы и записи можно импортировать сейчас, товары будут пропущены. Для полного демо установите и активируйте WooCommerce.', 'wp-panda' ); ?></p></div>
@@ -46,14 +46,12 @@ function wpp_demo_render_admin_page() {
 				<p><strong><?php esc_html_e( 'Импорт завершён.', 'wp-panda' ); ?></strong>
 					<?php
 					printf(
-						esc_html__( 'Создано: %1$d товаров, %2$d записей, %3$d страниц и %4$d изображений. Пропущено: %5$d товаров, %6$d записей, %7$d страниц.', 'wp-panda' ),
+						esc_html__( 'Удалено старых демо-объектов: %1$d. Создано: %2$d товаров, %3$d записей, %4$d страниц и %5$d изображений.', 'wp-panda' ),
+						absint( $result['previous_objects_removed'] ),
 						absint( $result['products_created'] ),
 						absint( $result['posts_created'] ),
 						absint( $result['pages_created'] ),
-						absint( $result['media_created'] ),
-						absint( $result['products_skipped'] ),
-						absint( $result['posts_skipped'] ),
-						absint( $result['pages_skipped'] )
+						absint( $result['media_created'] )
 					);
 					?>
 				</p>
@@ -69,10 +67,12 @@ function wpp_demo_render_admin_page() {
 				<li><?php esc_html_e( '16 демонстрационных товаров WooCommerce: 8 тем с вариантами лицензии на 1 и 5 сайтов и 8 плагинов с ценами из макета.', 'wp-panda' ); ?></li>
 				<li><?php esc_html_e( '12 статей блога с обложками, рубриками и текстами из верстки.', 'wp-panda' ); ?></li>
 				<li><?php esc_html_e( 'Страницы FAQ и базы знаний, включая 21 дочернюю инструкцию.', 'wp-panda' ); ?></li>
-				<li><?php esc_html_e( 'Демо-меню для каталога, блога, базы знаний и FAQ; назначение меню не заменяет уже настроенные расположения.', 'wp-panda' ); ?></li>
+				<li><?php esc_html_e( 'Главную, блог, FAQ, базу знаний, страницы WooCommerce (каталог, корзина, оформление, кабинет) и документы: условия, политика конфиденциальности, политика обработки персональных данных по 152-ФЗ, согласие и cookies.', 'wp-panda' ); ?></li>
+				<li><?php esc_html_e( 'Два демонстрационных меню, назначение главного меню и подвала, главную страницу и страницу записей.', 'wp-panda' ); ?></li>
+				<li><?php esc_html_e( 'Для WooCommerce — страницы магазина, рубли без копеек, регистрацию и вход, гостевой заказ, а также кабинет с заказами, загрузками, адресами, лицензиями, обращениями и избранным.', 'wp-panda' ); ?></li>
 			</ul>
-			<p><strong><?php esc_html_e( 'Важно:', 'wp-panda' ); ?></strong> <?php esc_html_e( 'это демонстрационные цены и тексты. ZIP-файлы товаров, настоящие лицензии и платежные интеграции не создаются. Импорт не добавляет тестовые заказы, учетные записи, купоны или содержимое корзины. Перед публикацией магазина замените демонстрационные данные.', 'wp-panda' ); ?></p>
-			<p><?php esc_html_e( 'Импорт можно запускать повторно: он пропускает уже созданные демо-объекты и не перезаписывает ваш контент. Существующие главная страница, меню и выбранная страница записей сохраняются.', 'wp-panda' ); ?></p>
+			<p><strong><?php esc_html_e( 'Важно:', 'wp-panda' ); ?></strong> <?php esc_html_e( 'при повторном запуске импортёр удаляет и пересоздаёт только объекты со служебными метками Wp Panda и прежнее демо-меню; товары и страницы, созданные вручную, не удаляются. Фиктивные заказы, клиенты, лицензии, ZIP-файлы и платёжные подключения не создаются. Демо-страницы политик — шаблоны, а не юридическое заключение: впишите данные оператора и проверьте документы у специалиста. Налоги, адрес магазина и платёжные реквизиты импортёр не угадывает и не включает.', 'wp-panda' ); ?></p>
+			<p><?php esc_html_e( 'Демо-объекты и назначенные ими системные страницы/меню будут заменены новыми. Заказы, пользователи, настройки платёжных шлюзов и ваш контент вне демо-меток сохраняются.', 'wp-panda' ); ?></p>
 			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="wpp_import_demo_content">
 				<?php wp_nonce_field( 'wpp_import_demo_content' ); ?>
@@ -116,78 +116,88 @@ function wpp_demo_load_data() {
 	return $data;
 }
 
-/** Import all supported demo objects without replacing existing content. */
+/** Replace only content and settings owned by the Wp Panda demo importer. */
 function wpp_demo_import_all() {
 	$data = wpp_demo_load_data();
 	if ( is_wp_error( $data ) ) {
 		return array(
-			'products_created' => 0,
-			'products_skipped' => 0,
-			'posts_created'    => 0,
-			'posts_skipped'    => 0,
-			'pages_created'    => 0,
-			'pages_skipped'    => 0,
-			'media_created'    => 0,
-			'errors'           => array( $data->get_error_message() ),
+			'products_created'          => 0,
+			'products_skipped'          => 0,
+			'posts_created'             => 0,
+			'posts_skipped'             => 0,
+			'pages_created'             => 0,
+			'pages_skipped'             => 0,
+			'media_created'              => 0,
+			'previous_objects_removed'  => 0,
+			'errors'                     => array( $data->get_error_message() ),
 		);
 	}
 
 	$result = array(
-		'products_created' => 0,
-		'products_skipped' => 0,
-		'posts_created'    => 0,
-		'posts_skipped'    => 0,
-		'pages_created'    => 0,
-		'pages_skipped'    => 0,
-		'media_created'    => 0,
-		'errors'           => array(),
+		'products_created'         => 0,
+		'products_skipped'         => 0,
+		'posts_created'            => 0,
+		'posts_skipped'            => 0,
+		'pages_created'            => 0,
+		'pages_skipped'            => 0,
+		'media_created'             => 0,
+		'previous_objects_removed' => 0,
+		'errors'                    => array(),
 	);
 
-	$page_ids = array();
-	$blog_id  = wpp_demo_import_page( 'page:blog', __( 'Блог', 'wp-panda' ), 'blog', '', 0, $result );
-	$faq_id   = wpp_demo_import_page( 'page:faq', __( 'Частые вопросы', 'wp-panda' ), 'faq', wpp_demo_build_faq( $data ), 0, $result );
-	$kb_id    = wpp_demo_import_page( 'page:kb', __( 'База знаний', 'wp-panda' ), 'kb', '', 0, $result );
+	// A bad/missing bundle is rejected above, before any existing demo data is touched.
+	wpp_demo_cleanup_previous( $result );
 
-	if ( $blog_id ) {
-		$page_ids['blog'] = $blog_id;
-		$current_blog     = (int) get_option( 'page_for_posts' );
-		if ( ! $current_blog || 'page:blog' === get_post_meta( $current_blog, '_wpp_demo_key', true ) ) {
-			update_option( 'page_for_posts', $blog_id );
-		}
+	$page_ids = array();
+	$pages    = array(
+		'home'             => array( 'page:home', __( 'Главная', 'wp-panda' ), 'home', '' ),
+		'blog'             => array( 'page:blog', __( 'Блог', 'wp-panda' ), 'blog', '' ),
+		'faq'              => array( 'page:faq', __( 'Частые вопросы', 'wp-panda' ), 'faq', wpp_demo_build_faq( $data ) ),
+		'kb'               => array( 'page:kb', __( 'База знаний', 'wp-panda' ), 'kb', '' ),
+		'privacy'          => array( 'legal:privacy', __( 'Политика конфиденциальности', 'wp-panda' ), 'privacy-policy', wpp_demo_legal_page_content( 'privacy' ) ),
+		'personal_data'    => array( 'legal:personal-data', __( 'Политика обработки персональных данных', 'wp-panda' ), 'personal-data-processing', wpp_demo_legal_page_content( 'personal-data' ) ),
+		'consent'          => array( 'legal:consent', __( 'Согласие на обработку персональных данных', 'wp-panda' ), 'consent-to-processing', wpp_demo_legal_page_content( 'consent' ) ),
+		'cookies'          => array( 'legal:cookies', __( 'Политика использования cookie', 'wp-panda' ), 'cookie-policy', wpp_demo_legal_page_content( 'cookies' ) ),
+		'terms'            => array( 'legal:terms', __( 'Условия использования и продажи', 'wp-panda' ), 'terms-of-use', wpp_demo_legal_page_content( 'terms' ) ),
+	);
+
+	if ( class_exists( 'WooCommerce' ) ) {
+		$pages['shop']     = array( 'page:shop', __( 'Каталог', 'wp-panda' ), 'shop', '' );
+		$pages['cart']     = array( 'page:cart', __( 'Корзина', 'wp-panda' ), 'cart', '[woocommerce_cart]' );
+		$pages['checkout'] = array( 'page:checkout', __( 'Оформление заказа', 'wp-panda' ), 'checkout', '[woocommerce_checkout]' );
+		$pages['account']  = array( 'page:account', __( 'Личный кабинет', 'wp-panda' ), 'my-account', '[woocommerce_my_account]' );
 	}
-	if ( $faq_id ) {
-		$page_ids['faq'] = $faq_id;
+
+	foreach ( $pages as $key => $page ) {
+		$page_ids[ $key ] = wpp_demo_import_page( $page[0], $page[1], $page[2], $page[3], 0, $result );
 	}
-	if ( $kb_id ) {
-		$page_ids['kb'] = $kb_id;
-	}
+
+	wpp_demo_configure_site( $page_ids, $result );
 
 	$kb_page_ids = array();
-	foreach ( $data['kb_articles'] as $article ) {
-		$key      = 'kb:' . $article['slug'];
-		$page_id  = wpp_demo_import_page( $key, $article['title'], $article['slug'], wpp_demo_kb_article_content( $article, $data ), $kb_id, $result );
+	foreach ( $data['kb_articles'] as $index => $article ) {
+		$key     = 'kb:' . $article['slug'];
+		$page_id = wpp_demo_import_page( $key, $article['title'], $article['slug'], wpp_demo_kb_article_content( $article, $data ), isset( $page_ids['kb'] ) ? $page_ids['kb'] : 0, $result );
 		if ( $page_id ) {
 			$kb_page_ids[ $article['slug'] ] = $page_id;
 			update_post_meta( $page_id, '_wpp_demo_kb_category', sanitize_text_field( $article['category'] ) );
+			update_post_meta( $page_id, '_wpp_demo_read_time', absint( $article['read_time'] ) );
+			wp_update_post( array( 'ID' => $page_id, 'menu_order' => $index + 1, 'post_excerpt' => sanitize_textarea_field( $article['excerpt'] ) ) );
 		}
 	}
 
-	if ( $kb_id ) {
-		$kb_content = wpp_demo_build_kb_index( $data, $kb_page_ids );
-		if ( '' === trim( (string) get_post_field( 'post_content', $kb_id ) ) ) {
-			wp_update_post( array(
-				'ID'           => $kb_id,
-				'post_content' => wp_kses_post( $kb_content ),
-			) );
-		}
+	if ( ! empty( $page_ids['kb'] ) ) {
+		wp_update_post( array(
+			'ID'           => $page_ids['kb'],
+			'post_content' => wp_kses_post( wpp_demo_build_kb_index( $data, $kb_page_ids ) ),
+		) );
 	}
 
-	if ( ! empty( $data['posts'] ) ) {
-		foreach ( $data['posts'] as $post_data ) {
-			wpp_demo_import_post( $post_data, $result );
-		}
+	foreach ( $data['posts'] as $post_data ) {
+		wpp_demo_import_post( $post_data, $result );
 	}
 
+	$product_ids = array();
 	if ( class_exists( 'WooCommerce' ) ) {
 		$theme_cat_id  = wpp_demo_get_term_id( 'Темы WordPress', 'wordpress-themes', 'product_cat', $result );
 		$plugin_cat_id = wpp_demo_get_term_id( 'Плагины WordPress', 'wordpress-plugins', 'product_cat', $result );
@@ -195,18 +205,274 @@ function wpp_demo_import_all() {
 		foreach ( $data['products'] as $product_data ) {
 			$category_id = 'wordpress-themes' === $product_data['category'] ? $theme_cat_id : $plugin_cat_id;
 			if ( $category_id ) {
-				wpp_demo_import_product( $product_data, $category_id, $result );
+				$product_id = wpp_demo_import_product( $product_data, $category_id, $result );
+				if ( $product_id ) {
+					$product_ids[ $product_data['slug'] ] = $product_id;
+				}
 			} else {
 				$result['errors'][] = sprintf( 'Не удалось создать категорию товара «%s».', sanitize_text_field( $product_data['name'] ) );
 			}
 		}
+		wpp_demo_set_product_relationships( $product_ids );
 	} else {
 		$result['products_skipped'] = count( $data['products'] );
 	}
 
-	wpp_demo_import_menu( $page_ids, $result );
+	wpp_demo_import_menus( $page_ids, $result );
+
+	if ( function_exists( 'flush_rewrite_rules' ) && '2' !== (string) get_option( 'wpp_demo_account_routes_version', '' ) ) {
+		flush_rewrite_rules( false );
+		update_option( 'wpp_demo_account_routes_version', '2', false );
+	}
 
 	return $result;
+}
+
+/** Delete only the previously imported Wp Panda demo objects and demo menu. */
+function wpp_demo_cleanup_previous( &$result ) {
+	$managed_posts = get_posts( array(
+		'post_type'      => array( 'page', 'post', 'product' ),
+		'post_status'    => 'any',
+		'posts_per_page' => -1,
+		'fields'         => 'all',
+		'no_found_rows'  => true,
+		'meta_key'       => '_wpp_demo_key',
+	) );
+	$managed_ids    = array();
+	$product_ids    = array();
+	$attachment_ids = array();
+
+	foreach ( $managed_posts as $managed_post ) {
+		$managed_ids[] = (int) $managed_post->ID;
+		if ( 'product' === $managed_post->post_type ) {
+			$product_ids[] = (int) $managed_post->ID;
+		}
+		$image_id = absint( get_post_meta( $managed_post->ID, '_wpp_demo_image_id', true ) );
+		if ( $image_id ) {
+			$attachment_ids[] = $image_id;
+		}
+	}
+
+	// Newer imports mark attachments directly; the parent meta also catches images
+	// created by the earlier importer version.
+	$marked_attachments = get_posts( array(
+		'post_type'      => 'attachment',
+		'post_status'    => 'any',
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_key'       => '_wpp_demo_key',
+	) );
+	$attachment_ids = array_unique( array_merge( $attachment_ids, array_map( 'absint', $marked_attachments ) ) );
+	foreach ( $attachment_ids as $attachment_id ) {
+		if ( 'attachment' === get_post_type( $attachment_id ) && wp_delete_attachment( $attachment_id, true ) ) {
+			$result['previous_objects_removed']++;
+		}
+	}
+
+	foreach ( $product_ids as $product_id ) {
+		$variations = get_posts( array(
+			'post_type'      => 'product_variation',
+			'post_status'    => 'any',
+			'post_parent'    => $product_id,
+			'posts_per_page' => -1,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+		) );
+		foreach ( $variations as $variation_id ) {
+			if ( wp_delete_post( $variation_id, true ) ) {
+				$result['previous_objects_removed']++;
+			}
+		}
+	}
+
+	// Remove children before parent pages so WordPress cannot orphan old demo pages.
+	usort( $managed_posts, function ( $left, $right ) {
+		return count( get_post_ancestors( $right->ID ) ) - count( get_post_ancestors( $left->ID ) );
+	} );
+	foreach ( $managed_posts as $managed_post ) {
+		if ( 'product' === $managed_post->post_type && function_exists( 'wc_get_product' ) ) {
+			$product = wc_get_product( $managed_post->ID );
+			$deleted = $product ? $product->delete( true ) : wp_delete_post( $managed_post->ID, true );
+			if ( $deleted ) {
+				if ( function_exists( 'wc_delete_product_transients' ) ) {
+					wc_delete_product_transients( $managed_post->ID );
+				}
+				$result['previous_objects_removed']++;
+			}
+		} elseif ( wp_delete_post( $managed_post->ID, true ) ) {
+			$result['previous_objects_removed']++;
+		}
+	}
+
+	// Remove only importer-created, now-unused terms. Shared terms and user content stay intact.
+	foreach ( array( 'category', 'product_cat', 'product_tag' ) as $taxonomy ) {
+		if ( ! taxonomy_exists( $taxonomy ) ) {
+			continue;
+		}
+		$terms = get_terms( array(
+			'taxonomy'   => $taxonomy,
+			'hide_empty' => false,
+			'fields'     => 'ids',
+			'meta_query' => array(
+				array(
+					'key'     => '_wpp_demo_key',
+					'compare' => 'EXISTS',
+				),
+			),
+		) );
+		if ( is_wp_error( $terms ) || ! $terms ) {
+			continue;
+		}
+		foreach ( $terms as $term_id ) {
+			$object_ids = get_objects_in_term( $term_id, $taxonomy );
+			if ( ! is_wp_error( $object_ids ) && empty( $object_ids ) && wp_delete_term( $term_id, $taxonomy ) ) {
+				$result['previous_objects_removed']++;
+			}
+		}
+	}
+
+	// The legacy importer used the `wp-panda-demo` slug; current menus are term-meta owned.
+	$menu_ids = array();
+	$menus    = get_terms( array( 'taxonomy' => 'nav_menu', 'hide_empty' => false ) );
+	if ( ! is_wp_error( $menus ) ) {
+		foreach ( $menus as $menu ) {
+			if ( 'wp-panda-demo' === $menu->slug || get_term_meta( $menu->term_id, '_wpp_demo_key', true ) ) {
+				$menu_ids[] = (int) $menu->term_id;
+			}
+		}
+	}
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$changed   = false;
+	foreach ( $locations as $location => $menu_id ) {
+		if ( in_array( (int) $menu_id, $menu_ids, true ) ) {
+			unset( $locations[ $location ] );
+			$changed = true;
+		}
+	}
+	if ( $changed ) {
+		set_theme_mod( 'nav_menu_locations', $locations );
+	}
+	foreach ( array_unique( $menu_ids ) as $menu_id ) {
+		if ( wp_delete_nav_menu( $menu_id ) ) {
+			$result['previous_objects_removed']++;
+		}
+	}
+}
+
+/** Assign demo front/blog/legal/store pages and only the reversible store defaults. */
+function wpp_demo_configure_site( $page_ids, &$result ) {
+	if ( ! empty( $page_ids['home'] ) ) {
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', absint( $page_ids['home'] ) );
+	}
+	if ( ! empty( $page_ids['blog'] ) ) {
+		update_option( 'page_for_posts', absint( $page_ids['blog'] ) );
+	}
+	if ( ! empty( $page_ids['privacy'] ) ) {
+		update_option( 'wp_page_for_privacy_policy', absint( $page_ids['privacy'] ) );
+	}
+	update_option( 'posts_per_page', 6 );
+	update_option( 'blogname', 'Wp Panda' );
+	update_option( 'blogdescription', __( 'Темы и плагины для WordPress', 'wp-panda' ) );
+
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	$woocommerce_pages = array(
+		'woocommerce_shop_page_id'     => 'shop',
+		'woocommerce_cart_page_id'     => 'cart',
+		'woocommerce_checkout_page_id' => 'checkout',
+		'woocommerce_myaccount_page_id' => 'account',
+		'woocommerce_terms_page_id'    => 'terms',
+	);
+	foreach ( $woocommerce_pages as $option_name => $page_key ) {
+		if ( ! empty( $page_ids[ $page_key ] ) ) {
+			update_option( $option_name, absint( $page_ids[ $page_key ] ) );
+		}
+	}
+
+	// Prices in the supplied design are in rubles. Business address, tax rules,
+	// payment credentials and shipping zones are deliberately left to the store owner.
+	update_option( 'woocommerce_currency', 'RUB' );
+	update_option( 'woocommerce_currency_pos', 'right_space' );
+	update_option( 'woocommerce_price_num_decimals', '0' );
+	update_option( 'woocommerce_enable_myaccount_registration', 'yes' );
+	update_option( 'woocommerce_enable_signup_and_login_from_checkout', 'yes' );
+	update_option( 'woocommerce_enable_checkout_login_reminder', 'yes' );
+	update_option( 'woocommerce_enable_guest_checkout', 'yes' );
+	update_option( 'woocommerce_enable_coupons', 'yes' );
+
+	$privacy_url = ! empty( $page_ids['privacy'] ) ? get_permalink( $page_ids['privacy'] ) : '';
+	$privacy_link = $privacy_url ? '<a href="' . esc_url( $privacy_url ) . '">' . esc_html__( 'Политикой конфиденциальности', 'wp-panda' ) . '</a>' : esc_html__( 'Политикой конфиденциальности', 'wp-panda' );
+	update_option(
+		'woocommerce_registration_privacy_policy_text',
+		sprintf( esc_html__( 'Персональные данные будут использоваться для работы с учётной записью в соответствии с %s.', 'wp-panda' ), $privacy_link )
+	);
+	update_option(
+		'woocommerce_checkout_privacy_policy_text',
+		sprintf( esc_html__( 'Ваши данные нужны для обработки заказа. Подробнее — в документе %s.', 'wp-panda' ), $privacy_link )
+	);
+}
+
+/** Return editable demo legal copy; the importer does not certify legal compliance. */
+function wpp_demo_legal_page_content( $type ) {
+	$notice = '<p class="wpp-demo-notice"><strong>' . esc_html__( 'Демонстрационный шаблон.', 'wp-panda' ) . '</strong> ' . esc_html__( 'Заполните сведения об операторе, целях и сроках обработки, проверьте текст с юристом до публикации.', 'wp-panda' ) . '</p>';
+	$operator = '<p><strong>' . esc_html__( 'Оператор:', 'wp-panda' ) . '</strong> [Укажите полное наименование организации или ФИО индивидуального предпринимателя].</p><p><strong>' . esc_html__( 'Адрес и контакты:', 'wp-panda' ) . '</strong> [Укажите адрес, ИНН/ОГРН при наличии и email для обращений по персональным данным].</p>';
+
+	if ( 'personal-data' === $type ) {
+		return $notice . $operator
+			. '<h2>' . esc_html__( '1. Общие положения и применимые требования', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Этот проектный текст предназначен для адаптации оператором сайта. Он не подтверждает соответствие требованиям законодательства и не заменяет правовую оценку конкретных процессов обработки.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( '2. Какие данные могут обрабатываться', 'wp-panda' ) . '</h2><ul><li>' . esc_html__( 'данные учётной записи: имя, email и пароль в защищённом виде;', 'wp-panda' ) . '</li><li>' . esc_html__( 'данные заказа и оплаты, полученные через WooCommerce и выбранного платёжного оператора;', 'wp-panda' ) . '</li><li>' . esc_html__( 'технические данные запроса, cookie и сведения о согласиях — только в объёме включённых сервисов.', 'wp-panda' ) . '</li></ul>'
+			. '<h2>' . esc_html__( '3. Цели, основания и сроки', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Укажите отдельно цели обработки, правовые основания для каждой цели, состав данных, сроки хранения и порядок удаления. Не собирайте поля, не необходимые для заявленной цели.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( '4. Передача и поручение обработки', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Перечислите хостинг-провайдера, сервисы аналитики, email и платёжных операторов, категории передаваемых данных, условия поручения и сведения о трансграничной передаче, если она происходит.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( '5. Права пользователя и обращения', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Пользователь может направить запрос об обработке данных по контактам оператора. Укажите способ подтверждения личности, сроки ответа и порядок отзыва согласия, когда обработка основана на согласии.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( '6. Меры защиты и изменения документа', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Опишите применяемые организационные и технические меры, дату вступления редакции в силу и способ уведомления об изменениях.', 'wp-panda' ) . '</p>';
+	}
+
+	if ( 'consent' === $type ) {
+		return $notice . $operator
+			. '<h2>' . esc_html__( 'Текст согласия', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Я подтверждаю, что ознакомился(лась) с политикой обработки персональных данных, и даю оператору, указанному выше, согласие на обработку тех данных, которые я самостоятельно передаю через формы сайта, для ответа на обращение, создания учётной записи или исполнения моего заказа — в зависимости от выбранного действия.', 'wp-panda' ) . '</p>'
+			. '<p>' . esc_html__( 'Согласие не должно быть заранее отмечено или объединено с согласием на рекламные сообщения. Для каждой дополнительной цели оператору следует определить отдельное основание и, если требуется, отдельное добровольное согласие.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( 'Как отозвать согласие', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Для отзыва и вопросов используйте указанный выше контакт оператора. Уточните в финальной версии порядок идентификации заявителя, сроки ответа и случаи, когда обработка может продолжаться на ином законном основании.', 'wp-panda' ) . '</p>';
+	}
+
+	if ( 'cookies' === $type ) {
+		return $notice . $operator
+			. '<h2>' . esc_html__( 'Что такое cookie', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Cookie и похожие технологии могут использоваться для работы корзины, входа в личный кабинет, сохранения настроек и измерения посещаемости.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( 'Какие технологии включены на сайте', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Перед публикацией перечислите фактически подключённые cookie, их назначение, срок хранения и получателей данных. Удалите из этого документа отключённые сервисы.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( 'Настройки браузера и согласие', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Пользователь может ограничить cookie в браузере. Если сайт использует необязательную аналитику или рекламные технологии, настройте отдельный механизм согласия до их запуска.', 'wp-panda' ) . '</p>';
+	}
+
+	if ( 'terms' === $type ) {
+		return $notice . $operator
+			. '<h2>' . esc_html__( '1. Предмет и оформление заказа', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Опишите товары, цену, порядок заключения договора, момент предоставления цифрового содержимого, системные требования и каналы поддержки. Демо-товары темы не содержат реальных ZIP-архивов.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( '2. Лицензии и использование', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Укажите фактические условия лицензии для каждого продукта: число сайтов, срок, обновления, ограничения и порядок передачи прав. Не публикуйте вымышленные лицензионные обещания.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( '3. Оплата, возврат и документы', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Добавьте поддерживаемые способы оплаты, правила возврата для цифровых товаров, сведения о налогах и порядок получения расчётных документов. Эти параметры зависят от продавца и применимого права.', 'wp-panda' ) . '</p>'
+			. '<h2>' . esc_html__( '4. Поддержка и претензии', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Укажите каналы связи, рабочие часы и срок ответа. Контакт продавца должен быть доступен до оформления заказа.', 'wp-panda' ) . '</p>';
+	}
+
+	return $notice . $operator
+		. '<h2>' . esc_html__( 'Какие данные использует сайт', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Сайт может обрабатывать данные учётной записи, корзины и заказов, а также технические данные, необходимые для его работы. Состав зависит от установленных сервисов и заполненных пользователем форм.', 'wp-panda' ) . '</p>'
+		. '<h2>' . esc_html__( 'Цели обработки', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Укажите фактические цели: создание и защита аккаунта, обработка заказа, ответы на запросы и выполнение требований к учёту. Не включайте цели, для которых нет отдельного основания.', 'wp-panda' ) . '</p>'
+		. '<h2>' . esc_html__( 'Получатели, хранение и права пользователя', 'wp-panda' ) . '</h2><p>' . esc_html__( 'Перечислите получателей данных, сроки хранения, меры защиты, порядок доступа, исправления и удаления данных, а также контакт для обращений. Актуализируйте документ после подключения новых сервисов.', 'wp-panda' ) . '</p>';
+}
+
+/** Set up real WooCommerce page references and safe digital-store defaults. */
+function wpp_demo_set_product_relationships( $product_ids ) {
+	if ( ! function_exists( 'wc_get_product' ) ) {
+		return;
+	}
+	$cross_sell_ids = array_values( array_filter( array_intersect_key( $product_ids, array_flip( array( 'shieldy', 'turbocache', 'wooboost' ) ) ) ) );
+	foreach ( $product_ids as $product_id ) {
+		$product = wc_get_product( $product_id );
+		if ( ! $product || ! method_exists( $product, 'set_cross_sell_ids' ) ) {
+			continue;
+		}
+		$product->set_cross_sell_ids( array_values( array_diff( $cross_sell_ids, array( (int) $product_id ) ) ) );
+		$product->save();
+	}
 }
 
 /** Find an object created by this importer. */
@@ -309,6 +575,15 @@ function wpp_demo_import_post( $post_data, &$result ) {
 	}
 
 	update_post_meta( $post_id, '_wpp_demo_key', $demo_key );
+	if ( ! empty( $post_data['author'] ) ) {
+		update_post_meta( $post_id, '_wpp_demo_author', sanitize_text_field( $post_data['author'] ) );
+	}
+	if ( ! empty( $post_data['read_time'] ) ) {
+		update_post_meta( $post_id, '_wpp_demo_read_time', absint( $post_data['read_time'] ) );
+	}
+	if ( ! empty( $post_data['featured'] ) ) {
+		update_post_meta( $post_id, '_wpp_demo_blog_featured', 1 );
+	}
 	if ( $category_id ) {
 		wp_set_post_categories( $post_id, array( $category_id ), false );
 	}
@@ -370,6 +645,10 @@ function wpp_demo_attach_image( $post_id, $relative_path, &$result ) {
 	}
 
 	update_post_meta( $attachment, '_wp_attachment_image_alt', sanitize_text_field( get_the_title( $post_id ) ) );
+	$demo_key = get_post_meta( $post_id, '_wpp_demo_key', true );
+	if ( $demo_key ) {
+		update_post_meta( $attachment, '_wpp_demo_key', 'media:' . sanitize_key( str_replace( ':', '-', $demo_key ) ) );
+	}
 	set_post_thumbnail( $post_id, $attachment );
 	update_post_meta( $post_id, '_wpp_demo_image_id', (int) $attachment );
 	$result['media_created']++;
@@ -406,8 +685,33 @@ function wpp_demo_product_tag_names( $data ) {
 /** Add demo tags without removing product tags managed by the store owner. */
 function wpp_demo_sync_product_tags( $product_id, $data ) {
 	$tags = wpp_demo_product_tag_names( $data );
-	if ( $tags && taxonomy_exists( 'product_tag' ) ) {
-		wp_set_object_terms( absint( $product_id ), $tags, 'product_tag', true );
+	if ( ! $tags || ! taxonomy_exists( 'product_tag' ) ) {
+		return;
+	}
+
+	$term_ids = array();
+	foreach ( $tags as $tag_name ) {
+		$existing = term_exists( $tag_name, 'product_tag' );
+		if ( $existing ) {
+			$term_ids[] = is_array( $existing ) ? (int) $existing['term_id'] : (int) $existing;
+			continue;
+		}
+
+		$created = wp_insert_term( $tag_name, 'product_tag' );
+		if ( is_wp_error( $created ) ) {
+			if ( 'term_exists' === $created->get_error_code() ) {
+				$term_ids[] = (int) $created->get_error_data( 'term_exists' );
+			}
+			continue;
+		}
+
+		$term_id = (int) $created['term_id'];
+		update_term_meta( $term_id, '_wpp_demo_key', 'tag:product:' . sanitize_title( $tag_name ) );
+		$term_ids[] = $term_id;
+	}
+
+	if ( $term_ids ) {
+		wp_set_object_terms( absint( $product_id ), array_values( array_unique( $term_ids ) ), 'product_tag', false );
 	}
 }
 
@@ -492,6 +796,9 @@ function wpp_demo_import_product( $data, $category_id, &$result ) {
 		'post_name' => sanitize_title( $data['slug'] ),
 	) );
 	update_post_meta( $product_id, '_wpp_demo_key', $data['key'] );
+	if ( ! empty( $data['featured_order'] ) ) {
+		update_post_meta( $product_id, '_wpp_demo_featured_order', absint( $data['featured_order'] ) );
+	}
 
 	if ( $is_variable ) {
 		wpp_demo_ensure_theme_variations( $product_id, $data, $result );
@@ -558,11 +865,11 @@ function wpp_demo_build_faq( $data ) {
 	$html  = '<p class="wpp-demo-notice"><strong>' . esc_html__( 'Демо-контент.', 'wp-panda' ) . '</strong> ' . esc_html( $data['demo_notice'] ) . '</p>';
 	$html .= '<p>' . esc_html__( 'Короткие ответы о покупке, установке и лицензиях на темы и плагины WordPress.', 'wp-panda' ) . '</p>';
 	foreach ( $grouped as $category => $entries ) {
-		$html .= '<section class="wpp-demo-faq-group"><h2>' . esc_html( $category ) . '</h2>';
+		$html .= '<section class="wpp-demo-faq-group" data-faq-group="' . esc_attr( sanitize_title( $category ) ) . '"><h2>' . esc_html( $category ) . ' <span class="wpp-demo-faq-count">' . absint( count( $entries ) ) . '</span></h2><div class="wpp-demo-faq-list">';
 		foreach ( $entries as $entry ) {
-			$html .= '<details class="wpp-demo-faq"><summary>' . esc_html( $entry['q'] ) . '</summary><div><p>' . esc_html( $entry['a'] ) . '</p></div></details>';
+			$html .= '<details class="wpp-demo-faq" data-faq-item><summary>' . esc_html( $entry['q'] ) . '</summary><div><p>' . esc_html( $entry['a'] ) . '</p></div></details>';
 		}
-		$html .= '</section>';
+		$html .= '</div></section>';
 	}
 
 	return $html;
@@ -587,11 +894,13 @@ function wpp_demo_build_kb_index( $data, $page_ids ) {
 	$html  = '<p class="wpp-demo-notice"><strong>' . esc_html__( 'Демо-контент.', 'wp-panda' ) . '</strong> ' . esc_html( $data['demo_notice'] ) . '</p>';
 	$html .= '<p>' . esc_html__( 'Инструкции по установке, лицензиям, обновлениям и работе с продуктами.', 'wp-panda' ) . '</p>';
 	foreach ( $grouped as $category => $articles ) {
-		$html .= '<section class="wpp-demo-kb-group"><h2>' . esc_html( $category ) . '</h2><ul class="wpp-demo-kb-list">';
+		$html .= '<section class="wpp-demo-kb-group" data-kb-group="' . esc_attr( sanitize_title( $category ) ) . '"><h2>' . esc_html( $category ) . ' <span class="wpp-demo-faq-count">' . absint( count( $articles ) ) . '</span></h2><ul class="wpp-demo-kb-list">';
 		foreach ( $articles as $article ) {
 			$article_id = isset( $page_ids[ $article['slug'] ] ) ? absint( $page_ids[ $article['slug'] ] ) : 0;
 			$permalink  = $article_id ? get_permalink( $article_id ) : home_url( '/kb/' . rawurlencode( $article['slug'] ) . '/' );
-			$html      .= '<li><h3><a href="' . esc_url( $permalink ) . '">' . esc_html( $article['title'] ) . '</a></h3><p>' . esc_html( $article['excerpt'] ) . '</p></li>';
+			$searchable = $article['title'] . ' ' . $article['excerpt'] . ' ' . $category;
+			$read_time  = ! empty( $article['read_time'] ) ? absint( $article['read_time'] ) : 1;
+			$html      .= '<li data-kb-item data-kb-search="' . esc_attr( $searchable ) . '"><h3><a href="' . esc_url( $permalink ) . '">' . esc_html( $article['title'] ) . '</a></h3><p>' . esc_html( $article['excerpt'] ) . '</p><span class="wpp-kb-read-time">' . sprintf( esc_html__( '%d мин чтения', 'wp-panda' ), $read_time ) . '</span></li>';
 		}
 		$html .= '</ul></section>';
 	}
@@ -599,84 +908,171 @@ function wpp_demo_build_kb_index( $data, $page_ids ) {
 	return $html;
 }
 
-/** Create a small navigation menu without replacing existing menu locations. */
-function wpp_demo_import_menu( $page_ids, &$result ) {
-	$menu = get_term_by( 'slug', 'wp-panda-demo', 'nav_menu' );
-	if ( $menu && ! is_wp_error( $menu ) ) {
-		$menu_id = (int) $menu->term_id;
-	} else {
-		$menu_id = wp_create_nav_menu( 'Wp Panda Demo' );
-		if ( is_wp_error( $menu_id ) ) {
-			$result['errors'][] = sprintf( 'Не удалось создать демо-меню: %s', $menu_id->get_error_message() );
-			return;
-		}
+/** Translate links copied from standalone .html layouts into installed WordPress routes. */
+function wpp_demo_rewrite_layout_links( $content ) {
+	$post_id = get_the_ID();
+	if ( ! $post_id || ! get_post_meta( $post_id, '_wpp_demo_key', true ) ) {
+		return $content;
 	}
 
-	$items = wp_get_nav_menu_items( $menu_id );
-	$existing_keys = array();
-	if ( $items ) {
-		foreach ( $items as $item ) {
-			$existing_key = get_post_meta( $item->ID, '_wpp_demo_menu_key', true );
-			if ( $existing_key ) {
-				$existing_keys[ $existing_key ] = true;
+	static $url_cache = array();
+	return preg_replace_callback( '/href=("|\')([^"\']+\.html(?:#[^"\']*)?)(\1)/i', function ( $matches ) use ( &$url_cache ) {
+		$source = basename( strtok( $matches[2], '#' ) );
+		if ( isset( $url_cache[ $source ] ) ) {
+			return 'href=' . $matches[1] . esc_url( $url_cache[ $source ] ) . $matches[3];
+		}
+
+		$url = '';
+		if ( 'index.html' === $source ) {
+			$url = home_url( '/' );
+		} elseif ( 'shop.html' === $source ) {
+			$url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+		} elseif ( in_array( $source, array( 'shop-theme.html', 'shop-plugin.html' ), true ) && function_exists( 'get_term_by' ) ) {
+			$term = get_term_by( 'slug', 'shop-theme.html' === $source ? 'wordpress-themes' : 'wordpress-plugins', 'product_cat' );
+			$url  = $term && ! is_wp_error( $term ) ? get_term_link( $term ) : home_url( '/shop/' );
+		} elseif ( 'blog.html' === $source ) {
+			$blog_id = (int) get_option( 'page_for_posts' );
+			$url     = $blog_id ? get_permalink( $blog_id ) : home_url( '/' );
+		} elseif ( 'faq.html' === $source || 'kb.html' === $source ) {
+			$key      = 'faq.html' === $source ? 'page:faq' : 'page:kb';
+			$target_id = wpp_demo_find_post_id( 'page', $key );
+			$url       = $target_id ? get_permalink( $target_id ) : home_url( '/' );
+		} elseif ( 'checkout-cart.html' === $source && function_exists( 'wc_get_cart_url' ) ) {
+			$url = wc_get_cart_url();
+		} elseif ( 'checkout.html' === $source && function_exists( 'wc_get_checkout_url' ) ) {
+			$url = wc_get_checkout_url();
+		} elseif ( 0 === strpos( $source, 'product-' ) && function_exists( 'wc_get_page_id' ) ) {
+			$slug      = sanitize_title( substr( $source, 8, -5 ) );
+			$product   = get_page_by_path( $slug, OBJECT, 'product' );
+			$url       = $product ? get_permalink( $product ) : wc_get_page_permalink( 'shop' );
+		} elseif ( 0 === strpos( $source, 'post-' ) ) {
+			$slug = sanitize_title( substr( $source, 5, -5 ) );
+			$post = get_page_by_path( $slug, OBJECT, 'post' );
+			$url  = $post ? get_permalink( $post ) : home_url( '/' );
+		} elseif ( 0 === strpos( $source, 'kb-article-' ) ) {
+			$slug = sanitize_title( substr( $source, 11, -5 ) );
+			$page = get_page_by_path( 'kb/' . $slug );
+			$url  = $page ? get_permalink( $page ) : home_url( '/' );
+		} elseif ( 0 === strpos( $source, 'account' ) && function_exists( 'wc_get_page_permalink' ) ) {
+			$url      = wc_get_page_permalink( 'myaccount' );
+			$endpoint = '';
+			if ( 'account-orders.html' === $source ) {
+				$endpoint = 'orders';
+			} elseif ( 'account-downloads.html' === $source ) {
+				$endpoint = 'downloads';
+			} elseif ( 'account-details.html' === $source ) {
+				$endpoint = 'edit-account';
+			} elseif ( 'account-address.html' === $source ) {
+				$endpoint = 'edit-address';
+			} elseif ( 'account-licenses.html' === $source ) {
+				$endpoint = 'licenses';
+			} elseif ( 'account-tickets.html' === $source || 'account-new-ticket.html' === $source ) {
+				$endpoint = 'support';
+			} elseif ( 'account-wishlist.html' === $source ) {
+				$endpoint = 'wishlist';
 			}
-		}
-	}
-
-	$shop_id = function_exists( 'wc_get_page_id' ) ? (int) wc_get_page_id( 'shop' ) : 0;
-	if ( $shop_id < 1 ) {
-		$shop_id = 0;
-	}
-	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : '';
-	if ( ! $shop_url ) {
-		$shop_url = home_url( '/shop/' );
-	}
-	$entries = array(
-		'catalog' => array( 'title' => __( 'Каталог', 'wp-panda' ), 'page_id' => $shop_id, 'url' => $shop_url ),
-		'blog'    => array( 'title' => __( 'Блог', 'wp-panda' ), 'page_id' => isset( $page_ids['blog'] ) ? $page_ids['blog'] : 0 ),
-		'kb'      => array( 'title' => __( 'База знаний', 'wp-panda' ), 'page_id' => isset( $page_ids['kb'] ) ? $page_ids['kb'] : 0 ),
-		'faq'     => array( 'title' => __( 'FAQ', 'wp-panda' ), 'page_id' => isset( $page_ids['faq'] ) ? $page_ids['faq'] : 0 ),
-	);
-
-	$position = 0;
-	foreach ( $entries as $key => $entry ) {
-		$meta_key = 'menu:' . $key;
-		if ( isset( $existing_keys[ $meta_key ] ) ) {
-			$position++;
-			continue;
+			$endpoints = function_exists( 'wc_get_account_menu_items' ) ? wc_get_account_menu_items() : array();
+			if ( $endpoint && isset( $endpoints[ $endpoint ] ) ) {
+				$endpoint_value = 'account-address.html' === $source ? 'billing' : ( 'account-new-ticket.html' === $source ? 'new' : '' );
+				$url            = wc_get_endpoint_url( $endpoint, $endpoint_value, $url );
+			}
+		} else {
+			$url = home_url( '/' );
 		}
 
+		$url_cache[ $source ] = $url ? $url : home_url( '/' );
+		$fragment = false !== strpos( $matches[2], '#' ) ? '#' . substr( $matches[2], strpos( $matches[2], '#' ) + 1 ) : '';
+		return 'href=' . $matches[1] . esc_url( $url_cache[ $source ] . $fragment ) . $matches[3];
+	}, $content );
+}
+add_filter( 'the_content', 'wpp_demo_rewrite_layout_links', 8 );
+
+/** Create a fresh, importer-owned navigation menu from real page/taxonomy links. */
+function wpp_demo_create_menu( $name, $key, $entries, &$result ) {
+	$menu_id = wp_create_nav_menu( $name );
+	if ( is_wp_error( $menu_id ) ) {
+		$result['errors'][] = sprintf( 'Не удалось создать меню «%s»: %s', sanitize_text_field( $name ), $menu_id->get_error_message() );
+		return 0;
+	}
+	update_term_meta( $menu_id, '_wpp_demo_key', 'menu:' . sanitize_key( $key ) );
+
+	$item_ids = array();
+	$position = 1;
+	foreach ( $entries as $entry_key => $entry ) {
 		$item_args = array(
-			'menu-item-title'     => $entry['title'],
-			'menu-item-position'  => $position,
-			'menu-item-status'    => 'publish',
+			'menu-item-title'    => $entry['title'],
+			'menu-item-position' => $position,
+			'menu-item-status'   => 'publish',
 		);
+		if ( ! empty( $entry['parent'] ) && ! empty( $item_ids[ $entry['parent'] ] ) ) {
+			$item_args['menu-item-parent-id'] = $item_ids[ $entry['parent'] ];
+		}
+
 		if ( ! empty( $entry['page_id'] ) ) {
 			$item_args['menu-item-type']      = 'post_type';
 			$item_args['menu-item-object']    = 'page';
 			$item_args['menu-item-object-id'] = absint( $entry['page_id'] );
+		} elseif ( ! empty( $entry['taxonomy'] ) && ! empty( $entry['term_id'] ) ) {
+			$item_args['menu-item-type']      = 'taxonomy';
+			$item_args['menu-item-object']    = sanitize_key( $entry['taxonomy'] );
+			$item_args['menu-item-object-id'] = absint( $entry['term_id'] );
 		} else {
 			$item_args['menu-item-type'] = 'custom';
-			$item_args['menu-item-url']  = isset( $entry['url'] ) ? esc_url_raw( $entry['url'] ) : home_url( '/' );
+			$item_args['menu-item-url']  = ! empty( $entry['url'] ) ? esc_url_raw( $entry['url'] ) : home_url( '/' );
 		}
 
 		$item_id = wp_update_nav_menu_item( $menu_id, 0, $item_args );
 		if ( is_wp_error( $item_id ) ) {
-			$result['errors'][] = sprintf( 'Не удалось добавить пункт «%s» в демо-меню: %s', sanitize_text_field( $entry['title'] ), $item_id->get_error_message() );
+			$result['errors'][] = sprintf( 'Не удалось добавить пункт «%s»: %s', sanitize_text_field( $entry['title'] ), $item_id->get_error_message() );
 		} else {
-			update_post_meta( $item_id, '_wpp_demo_menu_key', $meta_key );
+			$item_ids[ $entry_key ] = (int) $item_id;
+			update_post_meta( $item_id, '_wpp_demo_menu_key', 'menu-item:' . sanitize_key( $key ) . ':' . sanitize_key( $entry_key ) );
 		}
 		$position++;
 	}
 
+	return (int) $menu_id;
+}
+
+/** Build the header and legal footer menus; preserve unrelated custom menus. */
+function wpp_demo_import_menus( $page_ids, &$result ) {
+	$shop_url = ! empty( $page_ids['shop'] ) ? get_permalink( $page_ids['shop'] ) : home_url( '/shop/' );
+	$theme    = get_term_by( 'slug', 'wordpress-themes', 'product_cat' );
+	$plugins  = get_term_by( 'slug', 'wordpress-plugins', 'product_cat' );
+
+	$main_entries = array(
+		'home'    => array( 'title' => __( 'Главная', 'wp-panda' ), 'page_id' => isset( $page_ids['home'] ) ? $page_ids['home'] : 0 ),
+		'catalog' => array( 'title' => __( 'Каталог', 'wp-panda' ), 'page_id' => isset( $page_ids['shop'] ) ? $page_ids['shop'] : 0, 'url' => $shop_url ),
+		'themes'  => array( 'title' => __( 'Темы', 'wp-panda' ), 'taxonomy' => 'product_cat', 'term_id' => $theme && ! is_wp_error( $theme ) ? $theme->term_id : 0, 'parent' => 'catalog', 'url' => $shop_url ),
+		'plugins' => array( 'title' => __( 'Плагины', 'wp-panda' ), 'taxonomy' => 'product_cat', 'term_id' => $plugins && ! is_wp_error( $plugins ) ? $plugins->term_id : 0, 'parent' => 'catalog', 'url' => $shop_url ),
+		'blog'    => array( 'title' => __( 'Блог', 'wp-panda' ), 'page_id' => isset( $page_ids['blog'] ) ? $page_ids['blog'] : 0 ),
+		'kb'      => array( 'title' => __( 'База знаний', 'wp-panda' ), 'page_id' => isset( $page_ids['kb'] ) ? $page_ids['kb'] : 0 ),
+		'faq'     => array( 'title' => __( 'FAQ', 'wp-panda' ), 'page_id' => isset( $page_ids['faq'] ) ? $page_ids['faq'] : 0 ),
+	);
+	$main_id = wpp_demo_create_menu( __( 'Wp Panda — главное меню', 'wp-panda' ), 'primary', $main_entries, $result );
+
+	$footer_entries = array(
+		'catalog'       => array( 'title' => __( 'Каталог', 'wp-panda' ), 'page_id' => isset( $page_ids['shop'] ) ? $page_ids['shop'] : 0, 'url' => $shop_url ),
+		'blog'          => array( 'title' => __( 'Блог', 'wp-panda' ), 'page_id' => isset( $page_ids['blog'] ) ? $page_ids['blog'] : 0 ),
+		'kb'            => array( 'title' => __( 'База знаний', 'wp-panda' ), 'page_id' => isset( $page_ids['kb'] ) ? $page_ids['kb'] : 0 ),
+		'faq'           => array( 'title' => __( 'Частые вопросы', 'wp-panda' ), 'page_id' => isset( $page_ids['faq'] ) ? $page_ids['faq'] : 0 ),
+		'terms'         => array( 'title' => __( 'Условия использования', 'wp-panda' ), 'page_id' => isset( $page_ids['terms'] ) ? $page_ids['terms'] : 0 ),
+		'privacy'       => array( 'title' => __( 'Политика конфиденциальности', 'wp-panda' ), 'page_id' => isset( $page_ids['privacy'] ) ? $page_ids['privacy'] : 0 ),
+		'personal_data' => array( 'title' => __( 'Персональные данные', 'wp-panda' ), 'page_id' => isset( $page_ids['personal_data'] ) ? $page_ids['personal_data'] : 0 ),
+		'cookies'       => array( 'title' => __( 'Cookie', 'wp-panda' ), 'page_id' => isset( $page_ids['cookies'] ) ? $page_ids['cookies'] : 0 ),
+	);
+	$footer_id = wpp_demo_create_menu( __( 'Wp Panda — информация', 'wp-panda' ), 'footer', $footer_entries, $result );
+
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
-	if ( empty( $locations['primary'] ) || empty( $locations['footer'] ) ) {
-		if ( empty( $locations['primary'] ) ) {
-			$locations['primary'] = $menu_id;
+	$changed   = false;
+	foreach ( array( 'primary' => $main_id, 'footer' => $footer_id ) as $location => $menu_id ) {
+		$assigned = isset( $locations[ $location ] ) ? wp_get_nav_menu_object( $locations[ $location ] ) : false;
+		if ( $menu_id && ( ! $assigned || is_wp_error( $assigned ) ) ) {
+			$locations[ $location ] = $menu_id;
+			$changed               = true;
 		}
-		if ( empty( $locations['footer'] ) ) {
-			$locations['footer'] = $menu_id;
-		}
+	}
+	if ( $changed ) {
 		set_theme_mod( 'nav_menu_locations', $locations );
 	}
 }

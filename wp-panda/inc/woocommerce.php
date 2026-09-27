@@ -17,6 +17,64 @@ function wpp_cart_count_fragment( $fragments ) {
 	return $fragments;
 }
 add_filter( 'woocommerce_add_to_cart_fragments', 'wpp_cart_count_fragment' );
+add_filter( 'woocommerce_add_to_cart_fragments', 'wpp_catalog_cart_bar_fragment' );
+add_action( 'wp_footer', 'wpp_render_catalog_cart_bar', 15 );
+
+/** Return the cart's current product names and total for the catalog's sticky summary. */
+function wpp_catalog_cart_bar_markup() {
+	if ( ! function_exists( 'WC' ) || ! WC() || ! WC()->cart ) {
+		return '';
+	}
+
+	$items = WC()->cart->get_cart();
+	$count = WC()->cart->get_cart_contents_count();
+	$names = array();
+	foreach ( $items as $cart_item ) {
+		if ( ! empty( $cart_item['data'] ) && $cart_item['data'] instanceof WC_Product ) {
+			$names[] = $cart_item['data']->get_name();
+		}
+	}
+	$summary = $names ? implode( ', ', array_slice( $names, 0, 2 ) ) : __( 'Корзина пока пуста', 'wp-panda' );
+	if ( count( $names ) > 2 ) {
+		$summary .= sprintf( ' %s %s', __( 'и ещё', 'wp-panda' ), number_format_i18n( count( $names ) - 2 ) );
+	}
+	$total = wc_price( (float) WC()->cart->get_total( 'edit' ) );
+	ob_start();
+	?>
+	<div class="wpp-catalog-cart-bar<?php echo $count ? '' : ' is-empty'; ?>" aria-live="polite">
+		<div class="wpp-catalog-cart-bar__inner">
+			<span class="wpp-catalog-cart-bar__icon" aria-hidden="true"><?php echo wpp_icon( 'cart', 'h-5 w-5' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+			<div class="wpp-catalog-cart-bar__summary"><small><?php esc_html_e( 'В корзине', 'wp-panda' ); ?></small><strong><?php echo esc_html( $summary ); ?></strong><span class="wpp-catalog-cart-bar__count"><?php echo esc_html( sprintf( _n( '%s товар', '%s товаров', $count, 'wp-panda' ), number_format_i18n( $count ) ) ); ?></span></div>
+			<div class="wpp-catalog-cart-bar__total"><small><?php esc_html_e( 'Итого', 'wp-panda' ); ?></small><strong><?php echo wp_kses_post( $total ); ?></strong></div>
+			<div class="wpp-catalog-cart-bar__actions"><a class="button button--light" href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php esc_html_e( 'Корзина', 'wp-panda' ); ?></a><a class="button button--brand" href="<?php echo esc_url( wc_get_checkout_url() ); ?>"><?php esc_html_e( 'Оформить', 'wp-panda' ); ?> <?php echo wpp_icon( 'arrow', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div>
+		</div>
+	</div>
+	<?php
+	return (string) ob_get_clean();
+}
+
+/** Replace the sticky cart summary after WooCommerce updates its normal fragments. */
+function wpp_catalog_cart_bar_fragment( $fragments ) {
+	$markup = wpp_catalog_cart_bar_markup();
+	if ( $markup ) {
+		$fragments['div.wpp-catalog-cart-bar'] = $markup;
+	}
+
+	return $fragments;
+}
+
+/** Render the real, session-backed cart bar on WooCommerce catalog archives. */
+function wpp_render_catalog_cart_bar() {
+	$is_catalog = ( function_exists( 'is_shop' ) && is_shop() ) || ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() );
+	if ( is_search() ) {
+		$search_type = get_query_var( 'post_type' );
+		$is_catalog  = $is_catalog || 'product' === $search_type || ( is_array( $search_type ) && in_array( 'product', $search_type, true ) );
+	}
+
+	if ( $is_catalog ) {
+		echo wpp_catalog_cart_bar_markup(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+}
 
 /** Use the catalog label from the reference layout while keeping WooCommerce's title hook. */
 function wpp_catalog_archive_title( $title ) {
@@ -233,6 +291,23 @@ function wpp_catalog_loop_product_meta() {
 	wc_get_template( 'loop/product-card-meta.php' );
 }
 add_action( 'woocommerce_shop_loop_item_title', 'wpp_catalog_loop_product_meta', 5 );
+
+/** Keep WooCommerce's catalog sorting control beside the filters in the reference layout. */
+function wpp_catalog_move_ordering_control() {
+	$is_catalog = ( function_exists( 'is_shop' ) && is_shop() ) || ( function_exists( 'is_product_taxonomy' ) && is_product_taxonomy() );
+	if ( is_search() ) {
+		$search_type = get_query_var( 'post_type' );
+		$is_catalog  = $is_catalog || 'product' === $search_type || ( is_array( $search_type ) && in_array( 'product', $search_type, true ) );
+	}
+
+	if ( ! $is_catalog || ! function_exists( 'woocommerce_catalog_ordering' ) ) {
+		return;
+	}
+
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+	add_action( 'wpp_catalog_ordering_control', 'woocommerce_catalog_ordering' );
+}
+add_action( 'wp', 'wpp_catalog_move_ordering_control', 20 );
 
 function wpp_catalog_loop_product_description() {
 	wc_get_template( 'single-product/short-description.php' );

@@ -65,6 +65,116 @@ function wpp_render_product_cards( $query, $columns = 4 ) {
 	}
 }
 
+/** Query the curated home catalog while retaining a useful dynamic fallback for a real store. */
+function wpp_featured_products_query( $category_slug = '', $limit = 8 ) {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return null;
+	}
+
+	$featured_ids = get_posts( array(
+		'post_type'      => 'product',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_key'       => '_wpp_demo_featured_order',
+		'orderby'        => 'meta_value_num',
+		'order'          => 'ASC',
+	) );
+	$tax_query = array();
+	if ( $category_slug ) {
+		$tax_query[] = array(
+			'taxonomy'         => 'product_cat',
+			'field'            => 'slug',
+			'terms'            => sanitize_title( $category_slug ),
+			'include_children' => true,
+		);
+	}
+
+	$args = array(
+		'post_type'           => 'product',
+		'post_status'         => 'publish',
+		'posts_per_page'      => absint( $limit ),
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+	);
+	if ( $featured_ids ) {
+		$args['post__in'] = array_map( 'absint', $featured_ids );
+		$args['orderby']  = 'post__in';
+	} else {
+		$args['meta_key'] = 'total_sales';
+		$args['orderby']  = 'meta_value_num';
+		$args['order']    = 'DESC';
+	}
+	if ( $tax_query ) {
+		$args['tax_query'] = $tax_query;
+	}
+
+	return new WP_Query( $args );
+}
+
+/** Return a real product for a scenario tile, with a category fallback for non-demo stores. */
+function wpp_get_scenario_product( $demo_slug, $category_slug ) {
+	if ( function_exists( 'wpp_demo_find_post_id' ) ) {
+		$product_id = wpp_demo_find_post_id( 'product', 'product:' . sanitize_title( $demo_slug ) );
+		if ( $product_id ) {
+			return wc_get_product( $product_id );
+		}
+	}
+
+	$products = wc_get_products( array(
+		'status'   => 'publish',
+		'limit'    => 1,
+		'category' => array( sanitize_title( $category_slug ) ),
+		'orderby'  => 'popularity',
+	) );
+
+	return $products ? $products[0] : false;
+}
+
+/** Extract stable heading anchors from editorial content for its table of contents. */
+function wpp_content_headings( $content ) {
+	$headings = array();
+	if ( ! is_string( $content ) || ! preg_match_all( '~<h([2-3])\b([^>]*)>(.*?)</h\1>~is', $content, $matches, PREG_SET_ORDER ) ) {
+		return $headings;
+	}
+
+	foreach ( $matches as $match ) {
+		$level = (int) $match[1];
+		if ( ! preg_match( '/id="([^"]+)"/i', $match[2], $id_match ) ) {
+			continue;
+		}
+		$title = trim( wp_strip_all_tags( html_entity_decode( $match[3], ENT_QUOTES, get_bloginfo( 'charset' ) ) ) );
+		if ( $title ) {
+			$headings[] = array( 'id' => sanitize_html_class( $id_match[1] ), 'title' => $title, 'level' => $level );
+		}
+	}
+
+	return $headings;
+}
+
+/** Reading duration from the imported layout, with an estimate for later editorial posts. */
+function wpp_post_read_time( $post_id = 0 ) {
+	$post_id = $post_id ? absint( $post_id ) : get_the_ID();
+	$minutes = (int) get_post_meta( $post_id, '_wpp_demo_read_time', true );
+	if ( $minutes > 0 ) {
+		return $minutes;
+	}
+	$content = get_post_field( 'post_content', $post_id );
+	$words = array();
+	preg_match_all( '/[\\p{L}\\p{N}]+/u', wp_strip_all_tags( strip_shortcodes( $content ) ), $words );
+
+	return max( 1, (int) ceil( count( $words[0] ) / 180 ) );
+}
+
+/** Prefer the byline copied from the supplied article layout; otherwise use WordPress authorship. */
+function wpp_post_author_label( $post_id = 0 ) {
+	$post_id = $post_id ? absint( $post_id ) : get_the_ID();
+	$author  = get_post_meta( $post_id, '_wpp_demo_author', true );
+
+	return $author ? sanitize_text_field( $author ) : get_the_author_meta( 'display_name', (int) get_post_field( 'post_author', $post_id ) );
+}
+
 /** Return the current cart count safely when WooCommerce is inactive or still booting. */
 function wpp_get_cart_count() {
 	if ( function_exists( 'WC' ) && WC() && WC()->cart ) {

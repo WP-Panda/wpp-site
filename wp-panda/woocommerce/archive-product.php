@@ -11,7 +11,7 @@ get_header( 'shop' );
 
 do_action( 'woocommerce_before_main_content' );
 ?>
-<div class="shop-page wpp-catalog mx-auto w-full max-w-[1200px] px-4 pb-16 pt-8 sm:px-6 lg:pb-20">
+<div class="shop-page wpp-catalog mx-auto w-full max-w-[1200px] px-4 pb-32 pt-8 sm:px-6 sm:pt-12">
 	<?php do_action( 'woocommerce_shop_loop_header' ); ?>
 	<?php wc_get_template( 'loop/catalog-tabs.php' ); ?>
 	<?php wc_get_template( 'loop/catalog-filters.php' ); ?>

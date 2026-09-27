@@ -11,6 +11,7 @@ define( 'WPP_THEME_VERSION', '1.0.0' );
 
 require_once get_template_directory() . '/inc/template-tags.php';
 require_once get_template_directory() . '/inc/woocommerce.php';
+require_once get_template_directory() . '/inc/account.php';
 require_once get_template_directory() . '/inc/demo-content.php';
 
 /** Set up theme defaults and register support for WordPress features. */
@@ -74,16 +75,9 @@ function wpp_enqueue_assets() {
 	);
 
 	wp_enqueue_style(
-		'wpp-google-fonts',
-		'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap',
-		array(),
-		null
-	);
-
-	wp_enqueue_style(
 		'wpp-layout',
 		get_template_directory_uri() . '/assets/css/layout.css',
-		array( 'wpp-theme-meta', 'wpp-google-fonts' ),
+		array( 'wpp-theme-meta' ),
 		file_exists( $layout_path ) ? (string) filemtime( $layout_path ) : WPP_THEME_VERSION
 	);
 
@@ -113,20 +107,3 @@ function wpp_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpp_enqueue_assets', 30 );
-
-/** Add font connection hints without changing WooCommerce's asset pipeline. */
-function wpp_resource_hints( $urls, $relation_type ) {
-	if ( 'preconnect' === $relation_type ) {
-		$urls[] = array(
-			'href'        => 'https://fonts.googleapis.com',
-			'crossorigin' => 'anonymous',
-		);
-		$urls[] = array(
-			'href'        => 'https://fonts.gstatic.com',
-			'crossorigin' => 'anonymous',
-		);
-	}
-
-	return $urls;
-}
-add_filter( 'wp_resource_hints', 'wpp_resource_hints', 10, 2 );

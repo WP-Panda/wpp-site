@@ -9,7 +9,6 @@
 defined( 'ABSPATH' ) || exit;
 ?>
 <header class="woocommerce-products-header shop-page__heading wpp-catalog-heading">
-	<p class="eyebrow shop-page__eyebrow"><?php esc_html_e( 'Wp Panda — темы и плагины', 'wp-panda' ); ?></p>
 	<?php if ( apply_filters( 'woocommerce_show_page_title', true ) ) : ?>
 		<h1 class="woocommerce-products-header__title page-title"><?php woocommerce_page_title(); ?></h1>
 	<?php endif; ?>

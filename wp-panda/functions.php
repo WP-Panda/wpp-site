@@ -104,3 +104,12 @@ function wpp_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpp_enqueue_assets', 999 );
+
+/**
+ * Prevent WooCommerce's classic CSS from overriding the supplied catalog,
+ * product, cart and checkout layout. Functional scripts remain enabled.
+ */
+function wpp_disable_woocommerce_classic_styles() {
+	return array();
+}
+add_filter( 'woocommerce_enqueue_styles', 'wpp_disable_woocommerce_classic_styles' );

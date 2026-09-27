@@ -26,15 +26,19 @@ function wpp_icon( $name, $class = '' ) {
 	return '<svg class="' . esc_attr( $classes ) . '" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' . $icons[ $name ] . '</svg>';
 }
 
-/** Fallback menu for a fresh install before a menu is assigned in Appearance > Menus. */
+/** Render the four navigation items used by the supplied header. */
 function wpp_primary_menu_fallback() {
-	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/' );
-	$blog_url = (int) get_option( 'page_for_posts' ) ? get_permalink( (int) get_option( 'page_for_posts' ) ) : home_url( '/' );
+	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+	$blog_url = (int) get_option( 'page_for_posts' ) ? get_permalink( (int) get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+	$items = array(
+		array( 'label' => __( 'Каталог', 'wp-panda' ), 'url' => $shop_url, 'active' => function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() || is_product() ) ),
+		array( 'label' => __( 'Блог', 'wp-panda' ), 'url' => $blog_url, 'active' => is_home() || is_singular( 'post' ) || is_category() || is_tag() ),
+		array( 'label' => __( 'База знаний', 'wp-panda' ), 'url' => home_url( '/kb/' ), 'active' => is_page( 'kb' ) || ( is_page() && 0 === strpos( (string) get_post_meta( get_queried_object_id(), '_wpp_demo_key', true ), 'kb:' ) ) ),
+		array( 'label' => __( 'FAQ', 'wp-panda' ), 'url' => home_url( '/faq/' ), 'active' => is_page( 'faq' ) ),
+	);
 	?>
-	<ul class="menu">
-		<li class="menu-item"><a href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Каталог', 'wp-panda' ); ?></a></li>
-		<li class="menu-item"><a href="<?php echo esc_url( $blog_url ); ?>"><?php esc_html_e( 'Блог', 'wp-panda' ); ?></a></li>
-		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>"><?php esc_html_e( 'FAQ', 'wp-panda' ); ?></a></li>
+	<ul class="menu" id="primary-menu">
+		<?php foreach ( $items as $item ) : ?><li class="menu-item<?php echo $item['active'] ? ' current-menu-item' : ''; ?>"><a href="<?php echo esc_url( $item['url'] ); ?>"<?php echo $item['active'] ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?></a></li><?php endforeach; ?>
 	</ul>
 	<?php
 }

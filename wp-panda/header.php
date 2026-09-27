@@ -37,16 +37,7 @@ defined( 'ABSPATH' ) || exit;
 				</button>
 
 				<nav id="site-navigation" class="site-navigation mx-auto" aria-label="<?php esc_attr_e( 'Главное меню', 'wp-panda' ); ?>">
-					<?php
-					wp_nav_menu( array(
-						'theme_location' => 'primary',
-						'container'      => false,
-						'menu_id'        => 'primary-menu',
-						'menu_class'     => 'menu',
-						'fallback_cb'    => 'wpp_primary_menu_fallback',
-						'depth'          => 2,
-					) );
-					?>
+					<?php wpp_primary_menu_fallback(); ?>
 				</nav>
 
 				<div class="site-header__tools ml-auto flex items-center gap-2 lg:ml-0">

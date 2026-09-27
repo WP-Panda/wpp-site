@@ -112,7 +112,8 @@ function wpp_enqueue_assets() {
 	);
 
 	wp_localize_script( 'wpp-theme', 'wppTheme', array(
-		'cartUrl' => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' ),
+		'cartUrl'     => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' ),
+		'checkoutUrl' => function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/checkout/' ),
 	) );
 
 	// The header uses WooCommerce's mini-cart template. Enqueue its fragment updater
@@ -122,3 +123,14 @@ function wpp_enqueue_assets() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'wpp_enqueue_assets', 30 );
+
+/**
+ * The supplied layout is a complete design system. Loading WooCommerce's
+ * opinionated classic stylesheet on top of it changes grids, buttons, prices
+ * and gallery dimensions, so classic WooCommerce CSS is intentionally disabled.
+ * WooCommerce scripts and block assets remain untouched.
+ */
+function wpp_disable_woocommerce_classic_styles() {
+	return array();
+}
+add_filter( 'woocommerce_enqueue_styles', 'wpp_disable_woocommerce_classic_styles' );

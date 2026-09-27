@@ -19,10 +19,10 @@ $version     = $product->get_attribute( 'Версия' );
 				<?php esc_html_e( 'Предпросмотр', 'wp-panda' ); ?>
 			</button>
 		<?php endif; ?>
-		<a class="wpp-product-media-actions__button" href="#wpp-product-screenshots">
+		<button class="wpp-product-media-actions__button" type="button" data-wpp-open-product-gallery>
 			<?php echo wpp_icon( 'chevron', 'h-3.5 w-3.5' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			<?php esc_html_e( 'Скриншоты', 'wp-panda' ); ?>
-		</a>
+		</button>
 	</div>
 
 	<div class="wpp-product-media-actions__secondary">

@@ -9,6 +9,7 @@ function wpp_icon( $name, $class = '' ) {
 		'search' => '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>',
 		'cart'   => '<path d="M3 3h2l2.1 11.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>',
 		'user'   => '<circle cx="12" cy="8" r="4"></circle><path d="M5 21v-2a7 7 0 0 1 14 0v2"></path>',
+		'bell'   => '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path>',
 		'menu'   => '<path d="M4 6h16M4 12h16M4 18h16"></path>',
 		'close'  => '<path d="m18 6-12 12M6 6l12 12"></path>',
 		'arrow'  => '<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>',

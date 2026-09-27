@@ -95,6 +95,8 @@ function wpp_enqueue_assets() {
 	wp_localize_script( 'wpp-theme', 'wppTheme', array(
 		'cartUrl'     => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : home_url( '/' ),
 		'checkoutUrl' => function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : home_url( '/checkout/' ),
+		'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+		'cartNonce'   => wp_create_nonce( 'wpp-cart' ),
 	) );
 
 	// The header uses WooCommerce's mini-cart template. Enqueue its fragment updater

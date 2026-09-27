@@ -46,8 +46,56 @@
   });
 
   document.addEventListener('click', function (event) {
+    var cartClose = event.target.closest('[data-cart-close]');
+    if (cartClose) {
+      var openCart = document.querySelector('.header-cart[open]');
+      if (openCart) openCart.removeAttribute('open');
+      document.body.classList.remove('wpp-cart-drawer-open');
+      if (cartClose.tagName === 'BUTTON') event.preventDefault();
+      return;
+    }
+
     document.querySelectorAll('.header-search[open], .header-cart[open], .header-notifications[open]').forEach(function (details) {
       if (!details.contains(event.target)) details.removeAttribute('open');
+    });
+  });
+
+  document.querySelectorAll('.header-cart').forEach(function (cart) {
+    cart.addEventListener('toggle', function () {
+      document.body.classList.toggle('wpp-cart-drawer-open', cart.open);
+    });
+  });
+
+  document.addEventListener('click', function (event) {
+    var button = event.target.closest('[data-cart-variation]');
+    if (!button || !window.wppTheme || !window.wppTheme.ajaxUrl) return;
+    event.preventDefault();
+    if (button.classList.contains('is-active')) return;
+    var selector = button.closest('.wpp-mini-cart-license-switch');
+    if (selector) selector.querySelectorAll('button').forEach(function (item) { item.disabled = true; });
+
+    var request = new URLSearchParams();
+    request.set('action', 'wpp_switch_cart_variation');
+    request.set('nonce', window.wppTheme.cartNonce || '');
+    request.set('cart_item_key', button.getAttribute('data-cart-item-key') || '');
+    request.set('variation_id', button.getAttribute('data-cart-variation') || '');
+    fetch(window.wppTheme.ajaxUrl, {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+      body: request.toString()
+    }).then(function (response) { return response.json(); }).then(function (data) {
+      if (!data || !data.fragments) throw new Error('Cart update failed');
+      Object.keys(data.fragments).forEach(function (cssSelector) {
+        document.querySelectorAll(cssSelector).forEach(function (element) {
+          var holder = document.createElement('div');
+          holder.innerHTML = data.fragments[cssSelector];
+          if (holder.firstElementChild) element.replaceWith(holder.firstElementChild);
+        });
+      });
+      if (window.jQuery) window.jQuery(document.body).trigger('wc_fragments_refreshed');
+    }).catch(function () {
+      if (selector) selector.querySelectorAll('button').forEach(function (item) { item.disabled = false; });
     });
   });
 

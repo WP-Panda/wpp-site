@@ -15,6 +15,7 @@ function wpp_icon( $name, $class = '' ) {
 		'arrow'  => '<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>',
 		'chevron'=> '<path d="m9 18 6-6-6-6"></path>',
 		'check'  => '<path d="m5 12 4 4L19 6"></path>',
+		'trash'  => '<path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="m19 6-1 14H6L5 6"></path><path d="M10 11v5M14 11v5"></path>',
 	);
 
 	if ( ! isset( $icons[ $name ] ) ) {

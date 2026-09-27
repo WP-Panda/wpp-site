@@ -27,6 +27,36 @@ add_filter( 'woocommerce_dropdown_variation_attribute_options_html', 'wpp_produc
 add_filter( 'woocommerce_product_description_heading', '__return_empty_string' );
 add_filter( 'woocommerce_product_additional_information_heading', 'wpp_additional_information_heading' );
 add_action( 'woocommerce_before_add_to_cart_button', 'wpp_single_product_purchase_benefits', 5 );
+add_action( 'wp_ajax_wpp_switch_cart_variation', 'wpp_switch_cart_variation' );
+add_action( 'wp_ajax_nopriv_wpp_switch_cart_variation', 'wpp_switch_cart_variation' );
+
+/** Switch a variable cart line from the mini-cart license selector. */
+function wpp_switch_cart_variation() {
+	check_ajax_referer( 'wpp-cart', 'nonce' );
+	if ( ! WC()->cart ) {
+		wp_send_json_error();
+	}
+
+	$key          = isset( $_POST['cart_item_key'] ) ? wc_clean( wp_unslash( $_POST['cart_item_key'] ) ) : '';
+	$variation_id = isset( $_POST['variation_id'] ) ? absint( $_POST['variation_id'] ) : 0;
+	$cart_contents = WC()->cart->get_cart();
+	$item          = isset( $cart_contents[ $key ] ) ? $cart_contents[ $key ] : false;
+	$variation     = $variation_id ? wc_get_product( $variation_id ) : false;
+	if ( ! $item || ! $variation instanceof WC_Product_Variation || (int) $variation->get_parent_id() !== (int) $item['product_id'] ) {
+		wp_send_json_error();
+	}
+
+	$quantity = max( 1, (int) $item['quantity'] );
+	$old      = $item;
+	WC()->cart->remove_cart_item( $key );
+	$added = WC()->cart->add_to_cart( (int) $item['product_id'], $quantity, $variation_id, $variation->get_variation_attributes() );
+	if ( ! $added ) {
+		WC()->cart->add_to_cart( (int) $old['product_id'], $quantity, (int) $old['variation_id'], isset( $old['variation'] ) ? $old['variation'] : array() );
+		wp_send_json_error();
+	}
+	WC()->cart->calculate_totals();
+	WC_AJAX::get_refreshed_fragments();
+}
 
 /** Move WooCommerce's native title, rating, breadcrumb and related products into the reference layout. */
 function wpp_prepare_single_product_hooks() {

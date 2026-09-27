@@ -69,15 +69,10 @@ defined( 'ABSPATH' ) || exit;
 								<?php echo wpp_icon( 'cart', 'h-[18px] w-[18px]' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								<span class="wpp-cart-count" aria-label="<?php echo esc_attr( sprintf( __( 'Корзина, товаров: %s', 'wp-panda' ), number_format_i18n( wpp_get_cart_count() ) ) ); ?>"><?php echo esc_html( number_format_i18n( wpp_get_cart_count() ) ); ?></span>
 							</summary>
-							<div class="header-cart__panel">
-								<div class="header-cart__panel-head">
-									<strong><?php esc_html_e( 'Корзина', 'wp-panda' ); ?></strong>
-									<a href="<?php echo esc_url( wc_get_cart_url() ); ?>"><?php esc_html_e( 'В корзину', 'wp-panda' ); ?></a>
-								</div>
-								<div class="widget_shopping_cart_content">
-									<?php woocommerce_mini_cart(); ?>
-								</div>
-							</div>
+							<div class="header-cart__backdrop" data-cart-close aria-hidden="true"></div>
+							<aside class="header-cart__panel" role="dialog" aria-label="<?php esc_attr_e( 'Корзина', 'wp-panda' ); ?>">
+								<div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?></div>
+							</aside>
 						</details>
 						<a class="header-account header-tool" href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>" aria-label="<?php esc_attr_e( 'Личный кабинет', 'wp-panda' ); ?>">
 							<span class="header-account__icon"><?php echo wpp_icon( 'user', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>

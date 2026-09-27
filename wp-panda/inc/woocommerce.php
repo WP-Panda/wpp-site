@@ -576,6 +576,20 @@ function wpp_catalog_move_ordering_control() {
 }
 add_action( 'wp', 'wpp_catalog_move_ordering_control', 20 );
 
+/** Use the same four sorting choices and labels as the standalone catalog layout. */
+function wpp_catalog_orderby_options( $options ) {
+	return array(
+		'popularity' => __( 'Сначала популярные', 'wp-panda' ),
+		'rating'     => __( 'По рейтингу', 'wp-panda' ),
+		'price'      => __( 'Сначала дешевле', 'wp-panda' ),
+		'price-desc' => __( 'Сначала дороже', 'wp-panda' ),
+	);
+}
+add_filter( 'woocommerce_catalog_orderby', 'wpp_catalog_orderby_options', 20 );
+add_filter( 'woocommerce_default_catalog_orderby', static function () {
+	return 'popularity';
+}, 20 );
+
 function wpp_catalog_loop_product_description() {
 	wc_get_template( 'single-product/short-description.php' );
 }

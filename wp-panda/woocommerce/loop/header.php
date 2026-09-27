@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 		$has_shop_description = $shop_page && '' !== trim( wp_strip_all_tags( $shop_page->post_content ) );
 		if ( ! $has_shop_description ) :
 			?>
-			<p class="shop-page__lead"><?php esc_html_e( 'Темы и плагины для WordPress — выберите решение для своего проекта.', 'wp-panda' ); ?></p>
+			<p class="shop-page__lead"><?php esc_html_e( 'Темы на 1 сайт или 5 сайтов · Выберите количество при добавлении в корзину', 'wp-panda' ); ?></p>
 		<?php endif; ?>
 	<?php endif; ?>
 </header>

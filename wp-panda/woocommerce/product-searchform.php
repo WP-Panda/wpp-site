@@ -24,7 +24,7 @@ $field_id = isset( $index ) ? 'woocommerce-product-search-field-' . absint( $ind
 ?>
 <form role="search" method="get" class="woocommerce-product-search wpp-product-search" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 	<label class="screen-reader-text" for="<?php echo esc_attr( $field_id ); ?>"><?php esc_html_e( 'Search for:', 'woocommerce' ); ?></label>
-	<input type="search" id="<?php echo esc_attr( $field_id ); ?>" class="search-field wpp-product-search__field" placeholder="<?php esc_attr_e( 'Поиск товаров…', 'wp-panda' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
+	<input type="search" id="<?php echo esc_attr( $field_id ); ?>" class="search-field wpp-product-search__field" placeholder="<?php esc_attr_e( 'Поиск по каталогу', 'wp-panda' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
 	<button type="submit" value="<?php echo esc_attr_x( 'Search', 'submit button', 'woocommerce' ); ?>" class="button wpp-product-search__submit<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>"><?php echo esc_html_x( 'Search', 'submit button', 'woocommerce' ); ?></button>
 	<input type="hidden" name="post_type" value="product" />
 </form>

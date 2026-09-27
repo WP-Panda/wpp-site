@@ -1290,10 +1290,13 @@ body { font-family: var(--font-sans); }
 .button--arrow-circle > span { display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; margin-left: 16px; border-radius: 50%; background: var(--wpp-ink); color: #fff; }
 
 /* Catalog heading and filters: dimensions are copied from the supplied catalog. */
-.wpp-catalog { padding-top: 48px; }
-.wpp-catalog-heading h1, .wpp-catalog-heading .woocommerce-products-header__title { font-size: clamp(34px, 4.4vw, 48px); }
-.wpp-catalog-tabs { width: min(100%, 640px); margin-top: 32px; border-radius: 999px; background: var(--wpp-soft); }
-.wpp-catalog-tabs__link { min-height: 44px; border-radius: 999px; font-size: 13px; }
+.wpp-catalog { padding-top: 32px; }
+.wpp-catalog-heading h1, .wpp-catalog-heading .woocommerce-products-header__title { font-size: 36px; line-height: 1.08; }
+.wpp-catalog-heading .shop-page__lead { margin-top: 16px; font-size: 16px; }
+.wpp-catalog-tabs { width: min(100%, 640px); margin-top: 32px; padding: 6px; border-radius: 999px; border-color: var(--wpp-line); background: #fff; box-shadow: 0 4px 18px -13px rgb(20 20 28 / 24%); }
+.wpp-catalog-tabs__link { min-height: 40px; border-radius: 999px; font-size: 13px; }
+.wpp-catalog-tabs__link.is-active { background: var(--wpp-ink); color: #fff; box-shadow: 0 6px 16px -8px rgb(20 20 28 / 60%); }
+.wpp-catalog-tabs__link.is-active .wpp-catalog-tabs__count { color: rgb(255 255 255 / 65%); }
 .wpp-catalog-controls { margin-top: 40px; }
 .wpp-catalog-controls__top { display: flex; align-items: center; gap: 12px; }
 .wpp-catalog-search { min-width: 260px; flex: 1 1 360px; }
@@ -1479,4 +1482,12 @@ body { font-family: var(--font-sans); }
   .wpp-single-product .woocommerce-product-gallery { padding: 6px; }
   .wpp-product-purchase-card { padding: 20px !important; }
   .wpp-product-media-actions__preview { width: 100%; }
+}
+
+/* Match the static shop.html catalog breakpoint and typography. */
+.wpp-product-card__rating > .wpp-product-card__stars { color: var(--wpp-brand); font-size: 10px; letter-spacing: -1px; white-space: nowrap; }
+@media (min-width: 640px) {
+  .wpp-catalog { padding-top: 48px; }
+  .wpp-catalog-heading h1, .wpp-catalog-heading .woocommerce-products-header__title { font-size: 52px; }
+  .wpp-catalog-heading .shop-page__lead { font-size: 18px; }
 }

@@ -31,7 +31,7 @@ jobs:
 
       - name: Отрендерить все роуты в статические HTML
         run: |
-          npm install jsdom --no-audit --no-fund
+          npm install jsdom js-beautify --no-audit --no-fund
           node scripts/snapshot/render-spa-snapshot.mjs
 
       - name: Загрузить артефакт

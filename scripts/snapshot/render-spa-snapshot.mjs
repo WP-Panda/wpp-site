@@ -14,6 +14,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { JSDOM, VirtualConsole } from 'jsdom';
+import beautify from 'js-beautify';
 
 const OUT = 'markup-v2';
 const ONLY_THANkyou = process.argv.includes('--thankyou-only');
@@ -174,6 +175,11 @@ if (!ONLY_THANkyou && !onlyRoutes) {
   fs.writeFileSync(path.join(OUT, '_app.html'), srcHtml); // исходник SPA возвращаем на место
   fs.writeFileSync(path.join(OUT, 'styles.css'), styleMatch[1].trim() + '\n');
   fs.writeFileSync(path.join(OUT, 'app.js'), scriptMatch[1].trim() + '\n');
+  // не минимифицированные версии для чтения (страницы подключают styles.css/app.js)
+  fs.writeFileSync(path.join(OUT, 'styles.pretty.css'),
+    beautify.css(styleMatch[1], { indent_size: 2, end_with_newline: true }));
+  fs.writeFileSync(path.join(OUT, 'app.pretty.js'),
+    beautify.js(scriptMatch[1], { indent_size: 2, end_with_newline: true }));
 }
 // --- 7. Экран «Спасибо за заказ»: проходим чекаут целиком -------------------------
 // Демо-состояние: корзина уже с товарами, профиль заполнен (alex@morozov.dev),
@@ -238,6 +244,7 @@ if (!ONLY_THANkyou && !onlyRoutes) {
     'Именование: файл = маршрут (#/product/aurora -> product-aurora.html)\n' +
     'Переходы: JS-кнопки заменены настоящими ссылками <a href="*.html">\n' +
     'Скрипты и стили вынесены: app.js, styles.css (подключены внешне)\n' +
+  'Не минимифицированные версии: app.pretty.js, styles.pretty.css\n' +
     'Исходник SPA: _app.html; рендер: scripts/snapshot/render-spa-snapshot.mjs (jsdom)\n');
 }
 console.log('\nитого файлов:', results.length, '| jsdom-ошибки подавлены');

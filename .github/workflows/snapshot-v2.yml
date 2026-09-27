@@ -19,9 +19,20 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - name: Обойти сайт и сохранить HTML
-        run: python3 .github/scripts/snapshot-v2.py
+      - name: Скачать SPA-оболочку
+        run: |
+          mkdir -p markup-v2
+          curl -fsSL -A "Mozilla/5.0" https://v2.wp-panda.pro/ -o markup-v2/_app.html
+          wc -c markup-v2/_app.html
+
+      - name: Отрендерить все роуты в статические HTML
+        run: |
+          npm install jsdom --no-audit --no-fund
+          node scripts/snapshot/render-spa-snapshot.mjs
 
       - name: Загрузить артефакт
         uses: actions/upload-artifact@v4

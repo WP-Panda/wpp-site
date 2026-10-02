@@ -45,7 +45,7 @@ function wpp_account_nav_items() {
 	$counts = array(
 		'orders'    => count( wc_get_orders( array( 'customer' => get_current_user_id(), 'limit' => -1, 'return' => 'ids' ) ) ),
 		'licenses'  => wpp_count_user_licenses(),
-		'support'   => count( get_posts( array( 'post_type' => 'wpp_support_ticket', 'author' => get_current_user_id(), 'post_status' => array( 'publish', 'private', 'draft' ), 'posts_per_page' => -1, 'fields' => 'ids' ) ) ),
+		'support'   => wpp_count_user_open_tickets(),
 		'wishlist'  => count( wpp_get_wishlist_ids() ),
 		'downloads' => count( wc_get_customer_available_downloads( get_current_user_id() ) ),
 	);
@@ -272,6 +272,24 @@ function wpp_get_user_tickets() {
 		'orderby'        => 'date',
 		'order'          => 'DESC',
 	) );
+}
+
+/** Open tickets of the current user — drives the «Поддержка» nav badge. */
+function wpp_count_user_open_tickets() {
+	$tickets = get_posts( array(
+		'post_type'      => 'wpp_support_ticket',
+		'author'         => get_current_user_id(),
+		'post_status'    => array( 'publish', 'private', 'draft' ),
+		'posts_per_page' => -1,
+		'fields'         => 'ids',
+	) );
+	$open = 0;
+	foreach ( $tickets as $ticket_id ) {
+		if ( 'open' === wpp_get_ticket_status( $ticket_id ) ) {
+			$open++;
+		}
+	}
+	return $open;
 }
 
 /* ------------------------------------------------------------------------ */

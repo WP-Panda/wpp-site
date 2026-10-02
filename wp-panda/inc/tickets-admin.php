@@ -307,10 +307,10 @@ function wpp_notify_client_about_reply( $ticket_id, $reply ) {
 /* ------------------------------------------------------------------------ */
 
 /** Open-ticket count in the admin menu («Тикеты поддержки (3)»). */
-function wpp_admin_ticket_menu_count( $classes ) {
-	// Only decorate the tickets menu item.
-	if ( false === strpos( $classes, 'menu-icon-sos' ) ) {
-		return $classes;
+function wpp_admin_ticket_menu_count() {
+	global $menu;
+	if ( ! is_array( $menu ) ) {
+		return;
 	}
 	$open = get_posts( array(
 		'post_type'      => 'wpp_support_ticket',
@@ -320,12 +320,18 @@ function wpp_admin_ticket_menu_count( $classes ) {
 		'meta_key'       => '_wpp_ticket_status',
 		'meta_value'     => 'open',
 	) );
-	if ( $open ) {
-		$classes .= ' <span class="awaiting-mod count-' . count( $open ) . '"><span class="pending-count">' . count( $open ) . '</span></span>';
+	if ( ! $open ) {
+		return;
 	}
-	return $classes;
+	foreach ( $menu as $key => $item ) {
+		if ( isset( $item[2] ) && 'edit.php?post_type=wpp_support_ticket' === $item[2] ) {
+			$count            = count( $open );
+			$menu[ $key ][0] .= ' <span class="awaiting-mod count-' . (int) $count . '"><span class="pending-count">' . (int) $count . '</span></span>';
+			return;
+		}
+	}
 }
-add_filter( 'add_menu_classes', 'wpp_admin_ticket_menu_count' );
+add_action( 'admin_menu', 'wpp_admin_ticket_menu_count', 999 );
 
 /** Hide the default editor help row: content is the client message and is shown in-thread. */
 function wpp_admin_ticket_editor_notice() {

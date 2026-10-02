@@ -344,3 +344,52 @@ add_action( 'woocommerce_checkout_update_order_meta', 'wpp_save_checkout_extras'
 function wpp_checkout_form_class( $class ) {
 	return $class;
 }
+
+/**
+ * Product query for the home «Популярное на этой неделе» block.
+ *
+ * Curated order comes from the demo importer (`_wpp_featured_order`);
+ * stores without demo content fall back to popularity (total_sales).
+ *
+ * @param string $kind  '' (all), 'theme' or 'plugin'.
+ * @param int    $limit Products per page.
+ * @return WP_Query|null
+ */
+function wpp_featured_products_query( $kind = '', $limit = 8 ) {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return null;
+	}
+	$args = array(
+		'post_type'      => 'product',
+		'post_status'    => 'publish',
+		'posts_per_page' => (int) $limit,
+		'no_found_rows'  => true,
+	);
+	if ( 'theme' === $kind ) {
+		$args['tax_query'] = array(
+			array( 'taxonomy' => 'product_cat', 'field' => 'slug', 'terms' => array( 'wordpress-themes', 'themes' ) ),
+		);
+	} elseif ( 'plugin' === $kind ) {
+		$args['tax_query'] = array(
+			array( 'taxonomy' => 'product_cat', 'field' => 'slug', 'terms' => array( 'wordpress-plugins', 'plugins' ) ),
+		);
+	}
+
+	$featured = get_posts( array_merge( $args, array(
+		'meta_key' => '_wpp_featured_order',
+		'orderby'  => 'meta_value_num',
+		'order'    => 'ASC',
+		'fields'   => 'ids',
+	) ) );
+
+	if ( $featured ) {
+		$args['post__in'] = array_map( 'absint', $featured );
+		$args['orderby']  = 'post__in';
+	} else {
+		$args['meta_key'] = 'total_sales';
+		$args['orderby']  = 'meta_value_num';
+		$args['order']    = 'DESC';
+	}
+
+	return new WP_Query( $args );
+}

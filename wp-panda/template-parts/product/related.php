@@ -32,6 +32,7 @@ if ( ! $query->have_posts() ) {
 		<?php
 		while ( $query->have_posts() ) {
 			$query->the_post();
+			$GLOBALS['product'] = wc_get_product( get_the_ID() );
 			wc_get_template_part( 'content', 'product' );
 		}
 		wp_reset_postdata();

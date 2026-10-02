@@ -116,7 +116,7 @@ wp-panda/
 ├── page-kb.php                  — шаблон «База знаний» (индекс)
 ├── page-faq.php                 — шаблон «Частые вопросы»
 ├── page-ui-kit.php              — шаблон «UI-кит»
-├── archive.php / search.php / 404.php
+├── archive.php / search.php / 404.php / index.php (fallback: сетка блога)
 │
 ├── inc/
 │   ├── icons.php                — набор SVG-иконок (lucide) + wpp_icon()

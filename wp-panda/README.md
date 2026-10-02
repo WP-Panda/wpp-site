@@ -335,6 +335,7 @@ wp-panda/
 | `button.wpp-add-variable` | мобильная панель товара: первая вариация |
 | `[data-buy-now]` | «Купить сейчас»: добавление + переход к чекауту |
 | `[data-media-preview]` / `[data-media-screenshots]` | переключение арт/скриншоты в галерее |
+| `[data-review-rating]` + `[data-star]` | звёздный выбор оценки в форме отзыва: пишет значение в `input[name=rating]` (и в `select#rating` WC, если он есть), без оценки отправка блокируется с подсказкой |
 | `[data-gallery-thumb]` | миниатюры галереи |
 | `[data-catalog-view]` | сетка/список в каталоге |
 | `[data-home-tab]` / `[data-home-card]` | табы подборки на главной |

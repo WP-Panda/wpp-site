@@ -52,9 +52,13 @@ $reviews = get_comments( array(
 	<div class="rounded-card border border-line bg-white p-6 shadow-card">
 		<h3 class="text-lg font-semibold tracking-tight"><?php esc_html_e( 'Оставить отзыв', 'wp-panda' ); ?></h3>
 		<?php
+		$wpp_stars = '';
+		for ( $wpp_i = 1; $wpp_i <= 5; $wpp_i++ ) {
+			$wpp_stars .= '<button type="button" data-star="' . $wpp_i . '" aria-label="' . esc_attr( sprintf( __( 'Оценка %d из 5', 'wp-panda' ), $wpp_i ) ) . '" class="text-line transition hover:text-brand hover:scale-110">' . wpp_icon( 'star', 'h-6 w-6' ) . '</button>';
+		}
 		comment_form( array(
 			'title_reply'          => '',
-			'comment_field'        => '<p class="mt-4"><label class="text-xs font-medium" for="comment">' . esc_html__( 'Ваш отзыв', 'wp-panda' ) . '</label><textarea id="comment" name="comment" cols="45" rows="5" class="mt-2 w-full rounded-2xl border border-line bg-soft/70 p-4 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required></textarea></p>',
+			'comment_field'        => '<div class="mt-4" data-review-rating><span class="text-xs font-medium">' . esc_html__( 'Ваша оценка', 'wp-panda' ) . ' <span class="text-rose-500">*</span></span><div class="mt-2 flex items-center gap-1">' . $wpp_stars . '</div><input type="hidden" name="rating" value=""><p class="mt-1 hidden text-xs font-medium text-rose-500" data-rating-error>' . esc_html__( 'Поставьте оценку — без неё отзыв не отправить.', 'wp-panda' ) . '</p></div><p class="mt-4"><label class="text-xs font-medium" for="comment">' . esc_html__( 'Ваш отзыв', 'wp-panda' ) . '</label><textarea id="comment" name="comment" cols="45" rows="5" class="mt-2 w-full rounded-2xl border border-line bg-soft/70 p-4 text-sm outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20" required></textarea></p>',
 			'label_submit'         => __( 'Отправить отзыв', 'wp-panda' ),
 			'class_submit'         => 'inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-all duration-200 active:scale-[0.98] bg-brand text-ink hover:bg-brand-600 shadow-glow h-12 px-6 text-sm mt-4',
 			'title_reply_before'   => '<div class="hidden">',

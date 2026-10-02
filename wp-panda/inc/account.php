@@ -212,12 +212,30 @@ function wpp_handle_new_ticket() {
 	if ( $ticket_id ) {
 		update_post_meta( $ticket_id, '_wpp_ticket_product', $product );
 		update_post_meta( $ticket_id, '_wpp_ticket_status', 'open' );
+		wpp_ticket_mark_unread( $ticket_id );
 		wpp_notify_admin_about_ticket( $ticket_id, $subject, $message, $product );
 		wp_safe_redirect( wc_get_account_endpoint_url( 'support' ) );
 		exit;
 	}
 }
 add_action( 'template_redirect', 'wpp_handle_new_ticket', 5 );
+
+/**
+ * Unread-events flag: set when the client acts (creates a ticket,
+ * replies), cleared when an admin opens the ticket or replies.
+ */
+function wpp_ticket_mark_unread( $ticket_id ) {
+	update_post_meta( (int) $ticket_id, '_wpp_ticket_unread', time() );
+}
+
+function wpp_ticket_clear_unread( $ticket_id ) {
+	delete_post_meta( (int) $ticket_id, '_wpp_ticket_unread' );
+}
+
+/** Timestamp of the last unread client event, 0 when none. */
+function wpp_ticket_unread_time( $ticket_id ) {
+	return (int) get_post_meta( (int) $ticket_id, '_wpp_ticket_unread', true );
+}
 
 /** E-mail the site admin when a client opens a ticket. */
 function wpp_notify_admin_about_ticket( $ticket_id, $subject, $message, $product ) {

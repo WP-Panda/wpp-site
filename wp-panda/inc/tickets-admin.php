@@ -90,6 +90,9 @@ function wpp_admin_ticket_column_content( $column, $post_id ) {
 			echo wpp_ticket_status_badge( wpp_get_ticket_status( $post_id ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			break;
 		case 'wpp_ticket_replies':
+			if ( wpp_ticket_unread_time( $post_id ) ) {
+				echo '<span style="display:inline-flex;align-items:center;gap:5px;color:#d63638;font-weight:600;"><span style="width:8px;height:8px;border-radius:50%;background:#d63638;display:inline-block;"></span>' . esc_html__( 'новое', 'wp-panda' ) . '</span> · ';
+			}
 			echo esc_html( get_comments_number( $post_id ) );
 			break;
 		case 'wpp_ticket_last':
@@ -240,12 +243,13 @@ function wpp_admin_save_ticket( $post_id, $post ) {
 		}
 	}
 
-	// Reply.
-	if ( isset( $_POST['wpp_admin_reply_send'] ) && isset( $_POST['wpp_admin_reply_text'] )
+	// Reply (the close checkbox works even with an empty reply text).
+	if ( isset( $_POST['wpp_admin_reply_send'] )
 		&& isset( $_POST['wpp_ticket_admin_reply_nonce'] )
 		&& wp_verify_nonce( sanitize_key( wp_unslash( $_POST['wpp_ticket_admin_reply_nonce'] ) ), 'wpp_ticket_reply_' . $post_id ) ) {
 
-		$reply = sanitize_textarea_field( wp_unslash( $_POST['wpp_admin_reply_text'] ) );
+		$reply = isset( $_POST['wpp_admin_reply_text'] ) ? sanitize_textarea_field( wp_unslash( $_POST['wpp_admin_reply_text'] ) ) : '';
+
 		if ( '' !== $reply ) {
 			$current_user = wp_get_current_user();
 			wp_insert_comment( array(
@@ -256,13 +260,6 @@ function wpp_admin_save_ticket( $post_id, $post ) {
 				'user_id'          => $current_user->ID,
 			) );
 
-			// A reply reopens a closed ticket unless explicitly closed.
-			if ( isset( $_POST['wpp_admin_reply_close'] ) ) {
-				update_post_meta( $post_id, '_wpp_ticket_status', 'closed' );
-			} elseif ( 'closed' === get_post_meta( $post_id, '_wpp_ticket_status', true ) ) {
-				update_post_meta( $post_id, '_wpp_ticket_status', 'open' );
-			}
-
 			if ( empty( $_POST['wpp_admin_reply_no_email'] ) ) {
 				wpp_notify_client_about_reply( $post_id, $reply );
 			}
@@ -270,6 +267,17 @@ function wpp_admin_save_ticket( $post_id, $post ) {
 			// In-app notification for the client (header bell).
 			wpp_notify_user_about_ticket_reply( $post_id, $reply );
 		}
+
+		// «Закрыть тикет после отправки» wins over everything; otherwise a
+		// text reply reopens a closed ticket.
+		if ( isset( $_POST['wpp_admin_reply_close'] ) ) {
+			update_post_meta( $post_id, '_wpp_ticket_status', 'closed' );
+		} elseif ( '' !== $reply && 'closed' === wpp_get_ticket_status( $post_id ) ) {
+			update_post_meta( $post_id, '_wpp_ticket_status', 'open' );
+		}
+
+		// Admin acted: the ticket has no unseen events anymore.
+		wpp_ticket_clear_unread( $post_id );
 	}
 }
 add_action( 'save_post', 'wpp_admin_save_ticket', 10, 2 );
@@ -315,26 +323,38 @@ function wpp_admin_ticket_menu_count() {
 	if ( ! is_array( $menu ) ) {
 		return;
 	}
-	$open = get_posts( array(
+	$tickets    = get_posts( array(
 		'post_type'      => 'wpp_support_ticket',
 		'post_status'    => array( 'publish', 'private', 'draft' ),
 		'posts_per_page' => -1,
 		'fields'         => 'ids',
-		'meta_key'       => '_wpp_ticket_status',
-		'meta_value'     => 'open',
 	) );
-	if ( ! $open ) {
+	$open_count = 0;
+	foreach ( $tickets as $ticket_id ) {
+		if ( 'open' === wpp_get_ticket_status( $ticket_id ) ) {
+			$open_count++;
+		}
+	}
+	if ( ! $open_count ) {
 		return;
 	}
 	foreach ( $menu as $key => $item ) {
 		if ( isset( $item[2] ) && 'edit.php?post_type=wpp_support_ticket' === $item[2] ) {
-			$count            = count( $open );
-			$menu[ $key ][0] .= ' <span class="awaiting-mod count-' . (int) $count . '"><span class="pending-count">' . (int) $count . '</span></span>';
+			$menu[ $key ][0] .= ' <span class="awaiting-mod count-' . (int) $open_count . '"><span class="pending-count">' . (int) $open_count . '</span></span>';
 			return;
 		}
 	}
 }
 add_action( 'admin_menu', 'wpp_admin_ticket_menu_count', 999 );
+
+/** Opening the ticket edit screen marks its events as seen. */
+function wpp_admin_ticket_mark_seen() {
+	$post_id = isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( $post_id && 'wpp_support_ticket' === get_post_type( $post_id ) ) {
+		wpp_ticket_clear_unread( $post_id );
+	}
+}
+add_action( 'load-post.php', 'wpp_admin_ticket_mark_seen' );
 
 /** Hide the default editor help row: content is the client message and is shown in-thread. */
 function wpp_admin_ticket_editor_notice() {

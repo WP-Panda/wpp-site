@@ -1,165 +1,135 @@
 <?php
-/** Shared presentation helpers. */
+/**
+ * Shared presentation helpers that keep the rendered markup identical to html-layout.
+ *
+ * @package WpPanda
+ */
 
 defined( 'ABSPATH' ) || exit;
 
-/** Return a small, accessible inline icon from the theme's fixed icon set. */
-function wpp_icon( $name, $class = '' ) {
-	$icons = array(
-		'search' => '<circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path>',
-		'cart'   => '<path d="M3 3h2l2.1 11.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 1.9-1.4L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle>',
-		'user'   => '<circle cx="12" cy="8" r="4"></circle><path d="M5 21v-2a7 7 0 0 1 14 0v2"></path>',
-		'bell'   => '<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path>',
-		'menu'   => '<path d="M4 6h16M4 12h16M4 18h16"></path>',
-		'close'  => '<path d="m18 6-12 12M6 6l12 12"></path>',
-		'arrow'  => '<path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path>',
-		'chevron'=> '<path d="m9 18 6-6-6-6"></path>',
-		'check'  => '<path d="m5 12 4 4L19 6"></path>',
-		'trash'  => '<path d="M3 6h18"></path><path d="M8 6V4h8v2"></path><path d="m19 6-1 14H6L5 6"></path><path d="M10 11v5M14 11v5"></path>',
-	);
-
-	if ( ! isset( $icons[ $name ] ) ) {
-		return '';
+/** Safe cart item count when WooCommerce is still booting or inactive. */
+function wpp_get_cart_count() {
+	if ( function_exists( 'WC' ) && WC() && WC()->cart ) {
+		return (int) WC()->cart->get_cart_contents_count();
 	}
-
-	$classes = trim( 'wpp-icon ' . $class );
-
-	return '<svg class="' . esc_attr( $classes ) . '" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' . $icons[ $name ] . '</svg>';
+	return 0;
 }
 
-/** Render the four navigation items used by the supplied header. */
-function wpp_primary_menu_fallback() {
-	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
-	$blog_url = (int) get_option( 'page_for_posts' ) ? get_permalink( (int) get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
-	$items = array(
-		array( 'label' => __( 'Каталог', 'wp-panda' ), 'url' => $shop_url, 'active' => function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() || is_product() ) ),
-		array( 'label' => __( 'Блог', 'wp-panda' ), 'url' => $blog_url, 'active' => is_home() || is_singular( 'post' ) || is_category() || is_tag() ),
-		array( 'label' => __( 'База знаний', 'wp-panda' ), 'url' => home_url( '/kb/' ), 'active' => is_page( 'kb' ) || ( is_page() && 0 === strpos( (string) get_post_meta( get_queried_object_id(), '_wpp_demo_key', true ), 'kb:' ) ) ),
-		array( 'label' => __( 'FAQ', 'wp-panda' ), 'url' => home_url( '/faq/' ), 'active' => is_page( 'faq' ) ),
-	);
-	?>
-	<ul class="menu" id="primary-menu">
-		<?php foreach ( $items as $item ) : ?><li class="menu-item<?php echo $item['active'] ? ' current-menu-item' : ''; ?>"><a href="<?php echo esc_url( $item['url'] ); ?>"<?php echo $item['active'] ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $item['label'] ); ?></a></li><?php endforeach; ?>
-	</ul>
-	<?php
+/** True when the current request is the cart or checkout page. */
+function wpp_is_checkout_flow() {
+	if ( ! function_exists( 'is_cart' ) ) {
+		return false;
+	}
+	return is_cart() || is_checkout() || ( function_exists( 'is_order_received_page' ) && is_order_received_page() );
 }
 
-/** Render cards with WooCommerce's regular loop template and extension hooks. */
-function wpp_render_product_cards( $query, $columns = 4 ) {
-	if ( ! class_exists( 'WooCommerce' ) || ! ( $query instanceof WP_Query ) || ! $query->have_posts() ) {
+/**
+ * Format an amount the same way the layout prints prices: «3 990 ₽».
+ *
+ * @param float $amount Amount.
+ */
+function wpp_format_amount( $amount ) {
+	$amount = (float) $amount;
+	$decimals = ( abs( $amount - round( $amount ) ) > 0.001 ) ? 2 : 0;
+	$formatted = number_format( $amount, $decimals, ',', ' ' );
+	return str_replace( ' ', '&nbsp;', $formatted ) . '&nbsp;₽';
+}
+
+/** Compact sales counter label used on product cards («8,2 тыс. продаж»). */
+function wpp_sales_label( $sales ) {
+	$sales = (int) $sales;
+	if ( $sales >= 1000 ) {
+		$thousands = round( $sales / 1000, 1 );
+		$label     = ( abs( $thousands - round( $thousands ) ) < 0.01 ) ? (string) (int) round( $thousands ) : str_replace( '.', ',', number_format( $thousands, 1 ) );
+		return $label . '&nbsp;тыс. продаж';
+	}
+	return number_format_i18n( $sales ) . '&nbsp;продаж';
+}
+
+/** Review count label in the compact layout format («(1,2 тыс.)»). */
+function wpp_review_count_label( $count ) {
+	$count = (int) $count;
+	if ( $count >= 1000 ) {
+		$thousands = round( $count / 1000, 1 );
+		$label     = ( abs( $thousands - round( $thousands ) ) < 0.01 ) ? (string) (int) round( $thousands ) : str_replace( '.', ',', number_format( $thousands, 1 ) );
+		return '(' . $label . '&nbsp;тыс.)';
+	}
+	return '(' . number_format_i18n( $count ) . ')';
+}
+
+/** Five rating stars exactly as printed by the layout cards. */
+function wpp_rating_stars() {
+	$out = '<span class="inline-flex items-center gap-0.5">';
+	for ( $i = 0; $i < 5; $i++ ) {
+		$out .= wpp_icon( 'star', 'fill-brand text-brand', array( 'style' => 'width: 11px; height: 11px;' ) );
+	}
+	return $out . '</span>';
+}
+
+/** Product kind helper: theme / plugin / generic. */
+function wpp_product_kind( $product_id ) {
+	if ( has_term( 'wordpress-themes', 'product_cat', $product_id ) ) {
+		return 'theme';
+	}
+	if ( has_term( 'wordpress-plugins', 'product_cat', $product_id ) ) {
+		return 'plugin';
+	}
+	return has_term( 'themes', 'product_cat', $product_id ) ? 'theme' : ( has_term( 'plugins', 'product_cat', $product_id ) ? 'plugin' : 'product' );
+}
+
+/** Version string stored by the demo importer or entered manually. */
+function wpp_product_version( $product ) {
+	$version = $product->get_attribute( 'Версия' );
+	if ( ! $version ) {
+		$version = get_post_meta( $product->get_id(), '_wpp_version', true );
+	}
+	return $version ? wp_strip_all_tags( $version ) : '';
+}
+
+/** License model line below the price on cards: «1 сайт / 5 сайтов» or «Навсегда». */
+function wpp_license_line( $product ) {
+	if ( $product->is_type( 'variable' ) ) {
+		return __( '1 сайт / 5 сайтов', 'wp-panda' );
+	}
+	return __( 'Навсегда', 'wp-panda' );
+}
+
+/** Render the product-card artwork: stored layout art first, featured image fallback. */
+function wpp_render_product_art( $product, $size = 'wpp-product-card' ) {
+	$art = get_post_meta( $product->get_id(), '_wpp_card_art', true );
+	if ( $art ) {
+		echo wpp_kses_art( $art );
 		return;
 	}
 
-	$previous_loop = isset( $GLOBALS['woocommerce_loop'] ) ? $GLOBALS['woocommerce_loop'] : null;
-	wc_set_loop_prop( 'columns', absint( $columns ) );
-	wc_set_loop_prop( 'total', (int) $query->found_posts );
-	wc_set_loop_prop( 'is_paginated', false );
-
-	woocommerce_product_loop_start();
-	while ( $query->have_posts() ) {
-		$query->the_post();
-		do_action( 'woocommerce_shop_loop' );
-		wc_get_template_part( 'content', 'product' );
+	$image_id = $product->get_image_id();
+	if ( $image_id ) {
+		$bg = get_post_meta( $product->get_id(), '_wpp_art_bg', true );
+		echo '<div class="relative aspect-[4/3] w-full overflow-hidden" style="container-type: inline-size; background: ' . esc_attr( $bg ? $bg : 'rgb(246, 246, 248)' ) . ';">';
+		echo '<div class="dots-bg absolute inset-0 opacity-70"></div>';
+		echo wp_get_attachment_image( $image_id, $size, false, array( 'class' => 'absolute inset-0 h-full w-full object-cover', 'loading' => 'lazy', 'alt' => '' ) );
+		echo '</div>';
+		return;
 	}
-	woocommerce_product_loop_end();
 
-	wp_reset_postdata();
-	if ( null === $previous_loop ) {
-		wc_reset_loop();
-	} else {
-		$GLOBALS['woocommerce_loop'] = $previous_loop; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-	}
+	echo '<div class="relative aspect-[4/3] w-full overflow-hidden" style="container-type: inline-size; background: rgb(246, 246, 248);"><div class="dots-bg absolute inset-0 opacity-70"></div></div>';
 }
 
-/** Query the curated home catalog while retaining a useful dynamic fallback for a real store. */
-function wpp_featured_products_query( $category_slug = '', $limit = 8 ) {
-	if ( ! class_exists( 'WooCommerce' ) ) {
-		return null;
-	}
-
-	$featured_ids = get_posts( array(
-		'post_type'      => 'product',
-		'post_status'    => 'publish',
-		'posts_per_page' => -1,
-		'fields'         => 'ids',
-		'no_found_rows'  => true,
-		'meta_key'       => '_wpp_demo_featured_order',
-		'orderby'        => 'meta_value_num',
-		'order'          => 'ASC',
-	) );
-	$tax_query = array();
-	if ( $category_slug ) {
-		$tax_query[] = array(
-			'taxonomy'         => 'product_cat',
-			'field'            => 'slug',
-			'terms'            => sanitize_title( $category_slug ),
-			'include_children' => true,
-		);
-	}
-
-	$args = array(
-		'post_type'           => 'product',
-		'post_status'         => 'publish',
-		'posts_per_page'      => absint( $limit ),
-		'ignore_sticky_posts' => true,
-		'no_found_rows'       => true,
+/** Allow the exact inline-styled art markup produced by the layout extraction. */
+function wpp_kses_art( $html ) {
+	$allowed = array(
+		'div'  => array( 'class' => true, 'style' => true ),
+		'span' => array( 'class' => true, 'style' => true ),
+		'img'  => array( 'class' => true, 'style' => true, 'src' => true, 'alt' => true, 'loading' => true ),
+		'svg'  => array( 'xmlns' => true, 'width' => true, 'height' => true, 'viewBox' => true, 'viewbox' => true, 'fill' => true, 'stroke' => true, 'stroke-width' => true, 'stroke-linecap' => true, 'stroke-linejoin' => true, 'class' => true, 'style' => true, 'aria-hidden' => true ),
+		'path' => array( 'd' => true ),
+		'circle' => array( 'cx' => true, 'cy' => true, 'r' => true, 'fill' => true ),
+		'rect' => array( 'width' => true, 'height' => true, 'x' => true, 'y' => true, 'rx' => true, 'ry' => true ),
 	);
-	if ( $featured_ids ) {
-		$args['post__in'] = array_map( 'absint', $featured_ids );
-		$args['orderby']  = 'post__in';
-	} else {
-		$args['meta_key'] = 'total_sales';
-		$args['orderby']  = 'meta_value_num';
-		$args['order']    = 'DESC';
-	}
-	if ( $tax_query ) {
-		$args['tax_query'] = $tax_query;
-	}
-
-	return new WP_Query( $args );
+	return wp_kses( $html, $allowed );
 }
 
-/** Return a real product for a scenario tile, with a category fallback for non-demo stores. */
-function wpp_get_scenario_product( $demo_slug, $category_slug ) {
-	if ( function_exists( 'wpp_demo_find_post_id' ) ) {
-		$product_id = wpp_demo_find_post_id( 'product', 'product:' . sanitize_title( $demo_slug ) );
-		if ( $product_id ) {
-			return wc_get_product( $product_id );
-		}
-	}
-
-	$products = wc_get_products( array(
-		'status'   => 'publish',
-		'limit'    => 1,
-		'category' => array( sanitize_title( $category_slug ) ),
-		'orderby'  => 'popularity',
-	) );
-
-	return $products ? $products[0] : false;
-}
-
-/** Extract stable heading anchors from editorial content for its table of contents. */
-function wpp_content_headings( $content ) {
-	$headings = array();
-	if ( ! is_string( $content ) || ! preg_match_all( '~<h([2-3])\b([^>]*)>(.*?)</h\1>~is', $content, $matches, PREG_SET_ORDER ) ) {
-		return $headings;
-	}
-
-	foreach ( $matches as $match ) {
-		$level = (int) $match[1];
-		if ( ! preg_match( '/id="([^"]+)"/i', $match[2], $id_match ) ) {
-			continue;
-		}
-		$title = trim( wp_strip_all_tags( html_entity_decode( $match[3], ENT_QUOTES, get_bloginfo( 'charset' ) ) ) );
-		if ( $title ) {
-			$headings[] = array( 'id' => sanitize_html_class( $id_match[1] ), 'title' => $title, 'level' => $level );
-		}
-	}
-
-	return $headings;
-}
-
-/** Reading duration from the imported layout, with an estimate for later editorial posts. */
+/** Reading time copied from the layout, estimated for later posts. */
 function wpp_post_read_time( $post_id = 0 ) {
 	$post_id = $post_id ? absint( $post_id ) : get_the_ID();
 	$minutes = (int) get_post_meta( $post_id, '_wpp_demo_read_time', true );
@@ -167,25 +137,137 @@ function wpp_post_read_time( $post_id = 0 ) {
 		return $minutes;
 	}
 	$content = get_post_field( 'post_content', $post_id );
-	$words = array();
-	preg_match_all( '/[\\p{L}\\p{N}]+/u', wp_strip_all_tags( strip_shortcodes( $content ) ), $words );
-
+	preg_match_all( '/[\p{L}\p{N}]+/u', wp_strip_all_tags( strip_shortcodes( $content ) ), $words );
 	return max( 1, (int) ceil( count( $words[0] ) / 180 ) );
 }
 
-/** Prefer the byline copied from the supplied article layout; otherwise use WordPress authorship. */
+/** Byline copied from the supplied articles, WordPress author otherwise. */
 function wpp_post_author_label( $post_id = 0 ) {
 	$post_id = $post_id ? absint( $post_id ) : get_the_ID();
 	$author  = get_post_meta( $post_id, '_wpp_demo_author', true );
-
 	return $author ? sanitize_text_field( $author ) : get_the_author_meta( 'display_name', (int) get_post_field( 'post_author', $post_id ) );
 }
 
-/** Return the current cart count safely when WooCommerce is inactive or still booting. */
-function wpp_get_cart_count() {
-	if ( function_exists( 'WC' ) && WC() && WC()->cart ) {
-		return (int) WC()->cart->get_cart_contents_count();
+/** Heading anchors for the article table of contents. */
+function wpp_content_headings( $content ) {
+	$headings = array();
+	if ( ! is_string( $content ) || ! preg_match_all( '~<h([2-3])\b([^>]*)>(.*?)</h\1>~is', $content, $matches, PREG_SET_ORDER ) ) {
+		return $headings;
 	}
+	foreach ( $matches as $match ) {
+		if ( ! preg_match( '/id="([^"]+)"/i', $match[2], $id_match ) ) {
+			continue;
+		}
+		$title = trim( wp_strip_all_tags( html_entity_decode( $match[3], ENT_QUOTES, get_bloginfo( 'charset' ) ) ) );
+		if ( $title ) {
+			$headings[] = array(
+				'id'    => sanitize_html_class( $id_match[1] ),
+				'title' => $title,
+				'level' => (int) $match[1],
+			);
+		}
+	}
+	return $headings;
+}
 
-	return 0;
+/**
+ * Walker that prints primary-menu links with the pill classes of the layout.
+ */
+class Wpp_Primary_Menu_Walker extends Walker_Nav_Menu {
+	public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) {
+		$active  = in_array( 'current-menu-item', (array) $item->classes, true ) || in_array( 'current-menu-ancestor', (array) $item->classes, true ) || in_array( 'current_page_item', (array) $item->classes, true );
+		$classes = $active
+			? 'flex h-10 items-center px-4 text-sm font-semibold transition-all rounded-full bg-ink text-white shadow-[0_8px_20px_-10px_rgba(20,20,28,0.7)]'
+			: 'flex h-10 items-center px-4 text-sm font-semibold transition-all rounded-full text-ink/75 hover:text-ink hover:bg-soft';
+		$output .= '<a class="' . esc_attr( $classes ) . '" href="' . esc_url( $item->url ) . '"' . ( $active ? ' aria-current="page"' : '' ) . '>' . esc_html( $item->title ) . '</a>';
+	}
+	public function start_lvl( &$output, $depth = 0, $args = null ) {}
+	public function end_lvl( &$output, $depth = 0, $args = null ) {}
+	public function end_el( &$output, $item, $depth = 0, $args = null ) {}
+}
+
+/** Fallback navigation identical to the layout when no menu is assigned. */
+function wpp_primary_menu_fallback() {
+	$shop_url = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
+	$blog_url = (int) get_option( 'page_for_posts' ) ? get_permalink( (int) get_option( 'page_for_posts' ) ) : home_url( '/blog/' );
+	$items = array(
+		array( __( 'Каталог', 'wp-panda' ), $shop_url, function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() || is_product() ) ),
+		array( __( 'Блог', 'wp-panda' ), $blog_url, is_home() || is_singular( 'post' ) || is_category() || is_tag() ),
+		array( __( 'База знаний', 'wp-panda' ), home_url( '/kb/' ), wpp_is_kb() ),
+		array( __( 'FAQ', 'wp-panda' ), home_url( '/faq/' ), is_page( 'faq' ) ),
+	);
+	foreach ( $items as $item ) {
+		$classes = $item[2]
+			? 'flex h-10 items-center px-4 text-sm font-semibold transition-all rounded-full bg-ink text-white shadow-[0_8px_20px_-10px_rgba(20,20,28,0.7)]'
+			: 'flex h-10 items-center px-4 text-sm font-semibold transition-all rounded-full text-ink/75 hover:text-ink hover:bg-soft';
+		echo '<a class="' . esc_attr( $classes ) . '" href="' . esc_url( $item[1] ) . '"' . ( $item[2] ? ' aria-current="page"' : '' ) . '>' . esc_html( $item[0] ) . '</a>';
+	}
+}
+
+/** Whether the current page belongs to the knowledge base section. */
+function wpp_is_kb() {
+	if ( ! is_page() ) {
+		return false;
+	}
+	$id = get_queried_object_id();
+	if ( is_page( 'kb' ) ) {
+		return true;
+	}
+	$key = (string) get_post_meta( $id, '_wpp_demo_key', true );
+	if ( 0 === strpos( $key, 'kb:' ) ) {
+		return true;
+	}
+	$parent = get_post( $id ) ? (int) get_post( $id )->post_parent : 0;
+	while ( $parent ) {
+		if ( is_page( 'kb', $parent ) || 0 === strpos( (string) get_post_meta( $parent, '_wpp_demo_key', true ), 'kb:' ) ) {
+			return true;
+		}
+		$parent = (int) get_post( $parent )->post_parent;
+	}
+	return false;
+}
+
+/** Russian long date as printed by the layout («14 марта 2026»). */
+function wpp_human_date( $timestamp ) {
+	$months = array( 'января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря' );
+	$month  = $months[ (int) gmdate( 'n', $timestamp ) - 1 ];
+	return (int) gmdate( 'j', $timestamp ) . ' ' . $month . ' ' . gmdate( 'Y', $timestamp );
+}
+
+/** «Имя Ф.» style label for the compact account chip. */
+function wpp_account_short_name() {
+	$user = wp_get_current_user();
+	if ( ! $user->exists() ) {
+		return __( 'Войти', 'wp-panda' );
+	}
+	$first = $user->first_name ? $user->first_name : $user->display_name;
+	$parts = explode( ' ', trim( $user->display_name ) );
+	if ( $user->first_name && isset( $parts[1] ) && $parts[1] ) {
+		return $user->first_name . ' ' . mb_substr( $parts[1], 0, 1 ) . '.';
+	}
+	return $first;
+}
+
+/**
+ * Small square product tile used by search rows, cart lines and cross-sells.
+ *
+ * @param WC_Product $product     Product.
+ * @param string     $size_class  Tile size classes (e.g. h-11 w-11 rounded-xl).
+ */
+function wpp_product_mini_tile( $product, $size_class = 'h-11 w-11 rounded-xl' ) {
+	$spec = get_post_meta( $product->get_id(), '_wpp_mini_art', true );
+	if ( is_string( $spec ) && $spec ) {
+		$spec = json_decode( $spec, true );
+	}
+	if ( is_array( $spec ) && ! empty( $spec['bg'] ) ) {
+		$inner = isset( $spec['inner'] ) ? wpp_kses_art( $spec['inner'] ) : '';
+		if ( ! $inner && $product->get_image_id() ) {
+			$inner = wp_get_attachment_image( $product->get_image_id(), 'thumbnail', false, array( 'class' => 'h-full w-full object-cover', 'alt' => '' ) );
+		}
+		return '<div class="relative flex flex-shrink-0 items-center justify-center overflow-hidden ' . esc_attr( $size_class ) . '" style="background: ' . esc_attr( $spec['bg'] ) . ';">' . $inner . '</div>';
+	}
+	if ( $product->get_image_id() ) {
+		return '<div class="relative flex flex-shrink-0 items-center justify-center overflow-hidden ' . esc_attr( $size_class ) . '" style="background: rgb(246, 246, 248);">' . wp_get_attachment_image( $product->get_image_id(), 'thumbnail', false, array( 'class' => 'h-full w-full object-cover', 'alt' => '' ) ) . '</div>';
+	}
+	return '<div class="relative flex flex-shrink-0 items-center justify-center overflow-hidden ' . esc_attr( $size_class ) . '" style="background: rgb(246, 246, 248);"></div>';
 }

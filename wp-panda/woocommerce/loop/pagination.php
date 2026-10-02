@@ -1,58 +1,30 @@
 <?php
 /**
- * Pagination - Show numbered pagination for catalog pages
+ * Catalog pagination styled with the layout tokens.
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/loop/pagination.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 9.3.0
+ * @package WpPanda
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+defined( 'ABSPATH' ) || exit;
 
-$total   = isset( $total ) ? $total : wc_get_loop_prop( 'total_pages' );
-$current = isset( $current ) ? $current : wc_get_loop_prop( 'current_page' );
-$base    = isset( $base ) ? $base : esc_url_raw( str_replace( 999999999, '%#%', remove_query_arg( 'add-to-cart', get_pagenum_link( 999999999, false ) ) ) );
-$format  = isset( $format ) ? $format : '';
-
+$total   = ceil( wc_get_loop_prop( 'total' ) / wc_get_loop_prop( 'per_page' ) );
+$current = max( 1, (int) get_query_var( 'paged', 1 ) );
 if ( $total <= 1 ) {
 	return;
 }
 ?>
-<nav class="woocommerce-pagination wpp-catalog-pagination" aria-label="<?php esc_attr_e( 'Product Pagination', 'woocommerce' ); ?>">
-	<?php
-	echo paginate_links( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- WordPress generates the pagination markup after applying the public arguments filter.
-		/**
-		 * Filters the pagination arguments for the product loop.
-		 *
-		 * @param array $args Pagination arguments.
-		 *
-		 * @since 2.0.0
-		 */
-		apply_filters(
-			'woocommerce_pagination_args',
-			array(
-				'base'      => $base,
-				'format'    => $format,
-				'add_args'  => false,
-				'current'   => max( 1, $current ),
-				'total'     => $total,
-				'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
-				'next_text' => is_rtl() ? '&larr;' : '&rarr;',
-				'type'      => 'list',
-				'end_size'  => 3,
-				'mid_size'  => 3,
-			)
-		)
-	);
-	?>
+<nav class="mt-10 flex items-center justify-center gap-2" aria-label="<?php esc_attr_e( 'Страницы каталога', 'wp-panda' ); ?>">
+	<?php if ( $current > 1 ) : ?>
+		<a class="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-ink transition hover:border-ink/20" href="<?php echo esc_url( get_pagenum_link( $current - 1 ) ); ?>" aria-label="<?php esc_attr_e( 'Предыдущая страница', 'wp-panda' ); ?>"><?php echo wpp_icon( 'chevron-left', 'h-4 w-4' ); ?></a>
+	<?php endif; ?>
+	<?php for ( $page = 1; $page <= $total; $page++ ) : ?>
+		<?php if ( $page === $current ) : ?>
+			<span class="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-sm font-semibold text-white"><?php echo esc_html( $page ); ?></span>
+		<?php else : ?>
+			<a class="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-sm font-semibold text-ink transition hover:border-ink/20" href="<?php echo esc_url( get_pagenum_link( $page ) ); ?>"><?php echo esc_html( $page ); ?></a>
+		<?php endif; ?>
+	<?php endfor; ?>
+	<?php if ( $current < $total ) : ?>
+		<a class="flex h-11 w-11 items-center justify-center rounded-full border border-line bg-white text-ink transition hover:border-ink/20" href="<?php echo esc_url( get_pagenum_link( $current + 1 ) ); ?>" aria-label="<?php esc_attr_e( 'Следующая страница', 'wp-panda' ); ?>"><?php echo wpp_icon( 'chevron-right', 'h-4 w-4' ); ?></a>
+	<?php endif; ?>
 </nav>

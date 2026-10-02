@@ -1,8 +1,0 @@
-<?php
-/** Large lead story for the blog index. */
-defined( 'ABSPATH' ) || exit;
-?>
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'blog-featured' ); ?>>
-	<a class="blog-featured__image" href="<?php the_permalink(); ?>" tabindex="-1" aria-hidden="true"><?php if ( has_post_thumbnail() ) { the_post_thumbnail( 'wpp-editorial-card', array( 'loading' => 'eager' ) ); } ?></a>
-	<div class="blog-featured__body"><div class="editorial-card__meta"><time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time><?php $categories = get_the_category_list( ', ' ); if ( $categories ) : ?><span><?php echo wp_kses_post( $categories ); ?></span><?php endif; ?><span><?php echo esc_html( sprintf( __( '%d мин чтения', 'wp-panda' ), wpp_post_read_time() ) ); ?></span></div><p class="eyebrow"><?php esc_html_e( 'Выбор редакции', 'wp-panda' ); ?></p><h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2><p class="blog-featured__excerpt"><?php echo esc_html( get_the_excerpt() ); ?></p><div class="blog-featured__author"><span class="blog-featured__avatar" aria-hidden="true"><?php echo esc_html( ( function_exists( 'mb_substr' ) ? mb_substr( wpp_post_author_label(), 0, 1 ) : substr( wpp_post_author_label(), 0, 1 ) ) ); ?></span><span><b><?php echo esc_html( wpp_post_author_label() ); ?></b><small><?php esc_html_e( 'Автор Wp Panda', 'wp-panda' ); ?></small></span><a class="button button--brand" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Читать статью', 'wp-panda' ); ?> <?php echo wpp_icon( 'arrow', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div></div>
-</article>

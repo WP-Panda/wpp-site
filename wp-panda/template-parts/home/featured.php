@@ -1,27 +1,38 @@
 <?php
-/** Curated live WooCommerce products in the supplied layout. */
+/**
+ * «Популярное на этой неделе» with Все/Темы/Плагины tabs.
+ *
+ * @package WpPanda
+ */
+
 defined( 'ABSPATH' ) || exit;
-$filter = isset( $_GET['wpp_home_filter'] ) && is_string( $_GET['wpp_home_filter'] ) ? sanitize_key( wp_unslash( $_GET['wpp_home_filter'] ) ) : 'all'; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-if ( ! in_array( $filter, array( 'all', 'themes', 'plugins' ), true ) ) {
-	$filter = 'all';
+
+$query = wpp_featured_products_query( '', 8 );
+if ( ! $query || ! $query->have_posts() ) {
+	return;
 }
-$category_slug = 'themes' === $filter ? 'wordpress-themes' : ( 'plugins' === $filter ? 'wordpress-plugins' : '' );
-$product_query = wpp_featured_products_query( $category_slug, 8 );
-$shop_url      = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'shop' ) : home_url( '/shop/' );
-$tabs          = array( 'all' => __( 'Все', 'wp-panda' ), 'themes' => __( 'Темы', 'wp-panda' ), 'plugins' => __( 'Плагины', 'wp-panda' ) );
 ?>
-<section class="home-section home-featured mx-auto mt-20 max-w-[1200px] px-4 sm:px-6">
-	<header class="text-center"><h2 class="text-3xl font-bold tracking-tight sm:text-[40px] sm:leading-[1.1]"><?php esc_html_e( 'Популярное на этой неделе', 'wp-panda' ); ?></h2><p class="mt-2 text-sm text-muted sm:text-base"><?php esc_html_e( 'Темы на 1 или 5 сайтов · Плагины навсегда', 'wp-panda' ); ?></p></header>
-	<nav class="wpp-home-tabs mx-auto mt-7 max-w-[560px]" aria-label="<?php esc_attr_e( 'Фильтр популярных товаров', 'wp-panda' ); ?>">
-		<?php foreach ( $tabs as $key => $label ) : ?>
-			<?php $url = 'all' === $key ? remove_query_arg( 'wpp_home_filter', home_url( '/' ) ) : add_query_arg( 'wpp_home_filter', $key, home_url( '/' ) ); ?>
-			<a class="wpp-home-tabs__link<?php echo $filter === $key ? ' is-active' : ''; ?>" href="<?php echo esc_url( $url ); ?>"<?php echo $filter === $key ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $label ); ?></a>
-		<?php endforeach; ?>
-	</nav>
-	<?php if ( $product_query && $product_query->have_posts() ) : ?>
-		<?php wpp_render_product_cards( $product_query, 4 ); ?>
-		<div class="mt-10 text-center"><a class="button button--light button--large" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Смотреть весь каталог', 'wp-panda' ); ?> <?php echo wpp_icon( 'arrow', 'h-4 w-4' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></div>
-	<?php else : ?>
-		<div class="empty-state"><h3><?php esc_html_e( 'Каталог готов к наполнению', 'wp-panda' ); ?></h3><p><?php esc_html_e( 'Публичные товары WooCommerce появятся здесь после добавления или импорта демо-контента.', 'wp-panda' ); ?></p><?php if ( current_user_can( 'manage_options' ) ) : ?><a class="button button--brand" href="<?php echo esc_url( admin_url( 'tools.php?page=wpp-demo-content' ) ); ?>"><?php esc_html_e( 'Открыть импорт демо-контента', 'wp-panda' ); ?></a><?php endif; ?></div>
-	<?php endif; ?>
+<section class="mx-auto mt-20 max-w-[1200px] px-4 sm:px-6">
+	<div class="flex flex-col gap-4 items-center text-center">
+		<div class="max-w-2xl">
+			<h2 class="text-3xl font-bold tracking-tight sm:text-[40px] sm:leading-[1.1]"><?php esc_html_e( 'Популярное на этой неделе', 'wp-panda' ); ?></h2>
+			<p class="mt-3 text-muted sm:text-[17px]"><?php esc_html_e( 'Темы на 1 или 5 сайтов · Плагины навсегда', 'wp-panda' ); ?></p>
+		</div>
+	</div>
+	<div class="mx-auto mt-7 max-w-[560px]">
+		<div class="flex w-full rounded-full border border-line bg-white p-1.5 shadow-card">
+			<button type="button" data-home-tab="all" class="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]"><?php esc_html_e( 'Все', 'wp-panda' ); ?></button>
+			<button type="button" data-home-tab="theme" class="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm text-ink/65 hover:text-ink"><?php esc_html_e( 'Темы', 'wp-panda' ); ?></button>
+			<button type="button" data-home-tab="plugin" class="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm text-ink/65 hover:text-ink"><?php esc_html_e( 'Плагины', 'wp-panda' ); ?></button>
+		</div>
+	</div>
+	<div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+		<?php
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			wc_get_template_part( 'content', 'product' );
+		}
+		wp_reset_postdata();
+		?>
+	</div>
 </section>

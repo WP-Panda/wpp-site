@@ -1,23 +1,36 @@
 <?php
-/** Standard WordPress page, including WooCommerce shortcodes and blocks. */
+/**
+ * Generic page wrapper. WC pages render their own layouts; KB articles get
+ * the knowledge-base layout; everything else a clean content container.
+ *
+ * @package WpPanda
+ */
+
+defined( 'ABSPATH' ) || exit;
+
 get_header();
-?>
-<?php $is_commerce_page = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || is_account_page() ); ?>
-<main id="primary" class="site-main content-container mx-auto w-full max-w-[1200px] flex-1 px-4 py-10 sm:px-6 lg:py-14<?php echo $is_commerce_page ? ' site-main--commerce' : ''; ?>">
-	<?php while ( have_posts() ) : the_post(); ?>
-		<?php $demo_key = get_post_meta( get_the_ID(), '_wpp_demo_key', true ); ?>
-		<?php if ( $is_commerce_page ) : ?>
+
+while ( have_posts() ) :
+	the_post();
+
+	$wpp_demo_key = (string) get_post_meta( get_the_ID(), '_wpp_demo_key', true );
+	$wpp_is_wc    = function_exists( 'is_cart' ) && ( is_cart() || is_checkout() || ( function_exists( 'is_account_page' ) && is_account_page() ) );
+
+	if ( $wpp_is_wc ) :
+		?>
+		<div class="wpp-wc-page">
 			<?php the_content(); ?>
-		<?php elseif ( 'page:faq' === $demo_key ) : ?>
-			<?php get_template_part( 'template-parts/pages/faq' ); ?>
-		<?php elseif ( 'page:kb' === $demo_key ) : ?>
-			<?php get_template_part( 'template-parts/pages/knowledge-base' ); ?>
-		<?php elseif ( 0 === strpos( (string) $demo_key, 'kb:' ) ) : ?>
-			<?php get_template_part( 'template-parts/pages/kb-article' ); ?>
-		<?php else : ?>
-			<?php get_template_part( 'template-parts/content', 'page' ); ?>
-		<?php endif; ?>
-		<?php if ( comments_open() || get_comments_number() ) : comments_template(); endif; ?>
-	<?php endwhile; ?>
-</main>
-<?php get_footer(); ?>
+		</div>
+		<?php
+	elseif ( 'kb:' === substr( $wpp_demo_key, 0, 3 ) && 'kb:index' !== $wpp_demo_key ) :
+		get_template_part( 'template-parts/kb/article' );
+	else :
+		?>
+		<div class="mx-auto max-w-[1200px] px-4 pt-10 pb-24 sm:px-6">
+			<h1 class="text-3xl font-bold tracking-tight sm:text-[44px] sm:leading-[1.1]"><?php the_title(); ?></h1>
+			<div class="prose-wpp mt-6 max-w-3xl text-[16px] leading-[1.8] text-ink/85"><?php the_content(); ?></div>
+		</div>
+	<?php endif; ?>
+<?php endwhile; ?>
+<?php
+get_footer();

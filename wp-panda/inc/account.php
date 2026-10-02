@@ -212,11 +212,37 @@ function wpp_handle_new_ticket() {
 	if ( $ticket_id ) {
 		update_post_meta( $ticket_id, '_wpp_ticket_product', $product );
 		update_post_meta( $ticket_id, '_wpp_ticket_status', 'open' );
+		wpp_notify_admin_about_ticket( $ticket_id, $subject, $message, $product );
 		wp_safe_redirect( wc_get_account_endpoint_url( 'support' ) );
 		exit;
 	}
 }
 add_action( 'template_redirect', 'wpp_handle_new_ticket', 5 );
+
+/** E-mail the site admin when a client opens a ticket. */
+function wpp_notify_admin_about_ticket( $ticket_id, $subject, $message, $product ) {
+	$user  = wp_get_current_user();
+	$admin = get_option( 'admin_email' );
+	if ( ! is_email( $admin ) ) {
+		return;
+	}
+	$title = sprintf(
+		/* translators: 1: ticket id, 2: ticket subject. */
+		__( 'Новый тикет #%1$s: %2$s', 'wp-panda' ),
+		$ticket_id,
+		$subject
+	);
+	$body = sprintf(
+		/* translators: 1: client name, 2: client e-mail, 3: product, 4: message, 5: admin url. */
+		__( "Клиент: %1\$s (%2\$s)\nТовар: %3\$s\n\n%4\$s\n\nОтветить: %5\$s", 'wp-panda' ),
+		$user->display_name,
+		$user->user_email,
+		$product ? $product : __( 'не указан', 'wp-panda' ),
+		$message,
+		admin_url( 'post.php?post=' . $ticket_id . '&action=edit' )
+	);
+	wp_mail( $admin, $title, $body );
+}
 
 /** Ticket list for the current user. */
 function wpp_get_user_tickets() {

@@ -14,4 +14,5 @@ require_once get_template_directory() . '/inc/template-tags.php';
 require_once get_template_directory() . '/inc/setup.php';
 require_once get_template_directory() . '/inc/woocommerce.php';
 require_once get_template_directory() . '/inc/account.php';
+require_once get_template_directory() . '/inc/tickets-admin.php';
 require_once get_template_directory() . '/inc/demo-content.php';

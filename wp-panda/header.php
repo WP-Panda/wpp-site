@@ -88,15 +88,17 @@ defined( 'ABSPATH' ) || exit;
 							</button>
 							<?php get_template_part( 'template-parts/header/search-panel' ); ?>
 						</div>
-						<?php if ( is_user_logged_in() ) : ?>
+					<?php if ( is_user_logged_in() ) : ?>
 						<div class="relative hidden sm:block" data-notifications>
 							<button type="button" aria-label="<?php esc_attr_e( 'Уведомления', 'wp-panda' ); ?>" data-notifications-toggle class="relative inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-line bg-white text-ink shadow-[0_4px_12px_-6px_rgba(20,20,28,0.18)] transition hover:border-ink/20 hover:shadow-md active:scale-95">
 								<?php echo wpp_icon( 'bell', 'h-[18px] w-[18px]' ); ?>
-								<span class="absolute right-2.5 top-2 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white"></span>
+								<?php if ( wpp_count_notifications() > 0 ) : ?>
+									<span class="absolute right-2.5 top-2 h-2 w-2 rounded-full bg-rose-500 ring-2 ring-white" data-notifications-badge></span>
+								<?php endif; ?>
 							</button>
 							<?php get_template_part( 'template-parts/header/notifications' ); ?>
 						</div>
-						<?php endif; ?>
+					<?php endif; ?>
 						<button type="button" data-cart-open aria-label="<?php esc_attr_e( 'Открыть корзину', 'wp-panda' ); ?>" class="relative inline-flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full border border-line bg-white text-ink shadow-[0_4px_12px_-6px_rgba(20,20,28,0.18)] transition hover:border-ink/20 hover:shadow-md active:scale-95">
 							<?php echo wpp_icon( 'shopping-bag', 'h-[18px] w-[18px]' ); ?>
 							<?php if ( wpp_get_cart_count() > 0 ) : ?>

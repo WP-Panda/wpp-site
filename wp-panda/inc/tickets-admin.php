@@ -266,6 +266,9 @@ function wpp_admin_save_ticket( $post_id, $post ) {
 			if ( empty( $_POST['wpp_admin_reply_no_email'] ) ) {
 				wpp_notify_client_about_reply( $post_id, $reply );
 			}
+
+			// In-app notification for the client (header bell).
+			wpp_notify_user_about_ticket_reply( $post_id, $reply );
 		}
 	}
 }

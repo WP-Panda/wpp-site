@@ -127,6 +127,31 @@
 			notifPanel.classList.toggle('hidden', isOpen);
 		});
 	}
+	var notifClearBtn = qs('[data-notifications-clear]');
+	if (notifClearBtn) {
+		notifClearBtn.addEventListener('click', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			notifClearBtn.disabled = true;
+			var fd = new FormData();
+			fd.append('action', 'wpp_clear_notifications');
+			fd.append('nonce', wppTheme.notifNonce);
+			fetch(wppTheme.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: fd })
+				.then(function (res) { return res.json(); })
+				.then(function () {
+					var list = qs('[data-notifications-list]');
+					var empty = qs('[data-notifications-empty]');
+					var count = qs('[data-notifications-count]');
+					var badge = qs('[data-notifications-badge]');
+					if (list) { list.classList.add('hidden'); }
+					if (empty) { empty.classList.remove('hidden'); }
+					if (count) { count.remove(); }
+					if (badge) { badge.remove(); }
+				})
+				.catch(function () {})
+				.finally(function () { notifClearBtn.disabled = false; });
+		});
+	}
 
 	doc.addEventListener('click', function (e) {
 		if (searchPanel && !searchPanel.classList.contains('hidden') && !searchPanel.contains(e.target) && !qs('[data-search-toggle]').contains(e.target)) { searchPanel.classList.add('hidden'); }

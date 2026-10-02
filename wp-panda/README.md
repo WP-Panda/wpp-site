@@ -125,6 +125,7 @@ wp-panda/
 │   ├── woocommerce.php          — AJAX, каталог, избранное, поля чекаута
 │   ├── account.php              — эндпоинты кабинета, ключи, тикеты
 │   ├── tickets-admin.php        — тикеты в админке: колонки, фильтры, статусы, ответы
+│   ├── notifications.php        — уведомления пользователя (колокольчик в шапке)
 │   └── demo-content.php         — импортёр и функции поиска демо-записей
 │
 ├── template-parts/
@@ -258,6 +259,13 @@ wp-panda/
 - **Метабокс «Ответ клиенту»**: текстарея + кнопки; ответ сохраняется комментарием от имени администратора и сразу виден клиенту в «Поддержке» (в шаблоне помечается золотым кольцом), клиенту уходит письмо (можно отключить чекбоксом), чекбокс «закрыть тикет после отправки»; ответ в закрытый тикет автоматически открывает его заново. Внизу блока — последние 5 сообщений переписки.
 - **Уведомления**: о новом тикете письмо уходит на `Администратор → E-mail` (Настройки → Общие), ответ поддержки письмуется автору тикета.
 
+**Уведомления в кабинете (колокольчик в шапке)** — `inc/notifications.php`:
+
+- Ответ поддержки в тикете создаёт уведомление в мете пользователя `_wpp_notifications` (список до 20 шт., новые сверху: заголовок, отрывок ответа, «сколько назад», ссылка на переписку `?ticket=ID`).
+- Колокольчик показывает красную точку-бейдж только пока есть уведомления; счётчик дублируется в шапке панели.
+- В панели кнопка **«Очистить уведомления»** (AJAX `wpp_clear_notifications`): удаляет список полностью — даже непрочитанные, бейдж исчезает. Панель остаётся пустой, пока не придёт новое событие (новый ответ создаст новое уведомление, старые не вернутся).
+- Для гостей и при пустом списке — заглушка «Пока без уведомлений».
+
 ---
 
 ## 9. Лицензионные ключи
@@ -292,6 +300,7 @@ wp-panda/
 | `wpp_cart_variation` | `wpp-cart` | `key`, `variation` (ID вариации) | `{success}` — замена позиции на другой тариф |
 | `wpp_apply_coupon` | `wpp-cart` | `code` | `{notice}` |
 | `wpp_toggle_wishlist` | `wpp-wishlist` (`wishlistNonce`) | `product_id` | `{active, ids}` |
+| `wpp_clear_notifications` | `wpp-notifications` (`notifNonce`) | — | `{count: 0}` — очистка колокольчика в шапке |
 | `wpp_subscribe` | — | `email` | `{message}` — рассылка хранится в опции `wpp_subscribers` |
 
 Служебные экшены темы не используются для изменения данных без нонса, кроме публичной подписки (только валидный email, дедупликация).
@@ -304,7 +313,7 @@ wp-panda/
 
 - `assets/css/layout.css` и файл шрифтов подключаются в `inc/setup.php` через `wp_enqueue_scripts` (приоритет 999), версия — по `filemtime` файла.
 - `assets/js/theme.js` — в подвале, зависимость `jquery` (для событий `added_to_cart` / `show_variation` WooCommerce).
-- В объект `wppTheme` локализуются: `ajaxUrl`, `homeUrl`, `shopUrl`, `cartUrl`, `checkoutUrl`, `accountUrl`, `searchNonce`, `cartNonce`, `wishlistNonce`, `isCartPage`.
+- В объект `wppTheme` локализуются: `ajaxUrl`, `homeUrl`, `shopUrl`, `cartUrl`, `checkoutUrl`, `accountUrl`, `searchNonce`, `cartNonce`, `wishlistNonce`, `notifNonce`, `isCartPage`.
 
 ### Обработчики в theme.js (селекторы)
 
@@ -327,6 +336,8 @@ wp-panda/
 | `[data-catalog-view]` | сетка/список в каталоге |
 | `[data-home-tab]` / `[data-home-card]` | табы подборки на главной |
 | `[data-faq-tab]`, `[data-faq-search]`, `[data-faq-item]` | фильтры и поиск по FAQ |
+| `[data-notifications-toggle]`, `[data-notifications-panel]` | открытие панели уведомлений (колокольчик) |
+| `[data-notifications-clear]` | AJAX-очистка уведомлений: прячет список и бейдж до следующего события |
 | `[data-order-search]`, `[data-license-reveal]`, `[data-license-key]` | кабинет: поиск заказов, показ ключа |
 | `[data-subscribe-form]` | AJAX-подписка на рассылку |
 | `[data-checkout-submit]` | кнопка в итогах чекаута жмёт штатный `#place_order` |

@@ -84,6 +84,7 @@ function wpp_enqueue_assets() {
 		'searchNonce'  => wp_create_nonce( 'wpp-search' ),
 		'cartNonce'    => wp_create_nonce( 'wpp-cart' ),
 		'wishlistNonce'=> wp_create_nonce( 'wpp-wishlist' ),
+		'notifNonce'   => wp_create_nonce( 'wpp-notifications' ),
 		'isCartPage'   => function_exists( 'is_cart' ) && ( is_cart() || is_checkout() ),
 	) );
 

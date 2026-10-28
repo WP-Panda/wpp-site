@@ -296,10 +296,16 @@ function wpp_count_user_open_tickets() {
 /* Login/logout redirects.                                                   */
 /* ------------------------------------------------------------------------ */
 
-function wpp_login_redirect( $redirect, $requested, $user ) {
+/**
+ * Send customers to My account after login.
+ *
+ * WooCommerce's `woocommerce_login_redirect` filter passes two arguments
+ * ($redirect, $user) — unlike core `login_redirect` with three.
+ */
+function wpp_login_redirect( $redirect, $user = null ) {
 	return wc_get_page_permalink( 'myaccount' );
 }
-add_filter( 'woocommerce_login_redirect', 'wpp_login_redirect', 10, 3 );
+add_filter( 'woocommerce_login_redirect', 'wpp_login_redirect', 10, 2 );
 add_filter( 'registration_redirect', function () {
 	return wc_get_page_permalink( 'myaccount' );
 } );

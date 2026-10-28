@@ -19,11 +19,12 @@ if ( ! $query || ! $query->have_posts() ) {
 			<p class="mt-3 text-muted sm:text-[17px]"><?php esc_html_e( 'Темы на 1 или 5 сайтов · Плагины навсегда', 'wp-panda' ); ?></p>
 		</div>
 	</div>
-	<div class="mx-auto mt-7 max-w-[560px]">
-		<div class="flex w-full rounded-full border border-line bg-white p-1.5 shadow-card">
-			<button type="button" data-home-tab="all" class="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]"><?php esc_html_e( 'Все', 'wp-panda' ); ?></button>
-			<button type="button" data-home-tab="theme" class="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm text-ink/65 hover:text-ink"><?php esc_html_e( 'Темы', 'wp-panda' ); ?></button>
-			<button type="button" data-home-tab="plugin" class="flex flex-1 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm text-ink/65 hover:text-ink"><?php esc_html_e( 'Плагины', 'wp-panda' ); ?></button>
+	<div class="mx-auto mt-7 <?php echo count( wpp_catalog_categories() ) <= 2 ? 'max-w-[560px]' : 'max-w-[760px]'; ?>">
+		<div class="flex w-full rounded-full border border-line bg-white p-1.5 shadow-card <?php echo count( wpp_catalog_categories() ) > 2 ? 'no-scrollbar overflow-x-auto' : ''; ?>">
+			<button type="button" data-home-tab="all" class="<?php echo count( wpp_catalog_categories() ) <= 2 ? 'flex-1 ' : 'flex-shrink-0 '; ?>flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]"><?php esc_html_e( 'Все', 'wp-panda' ); ?></button>
+			<?php foreach ( wpp_catalog_categories() as $wpp_home_cat ) : ?>
+				<button type="button" data-home-tab="<?php echo esc_attr( $wpp_home_cat->slug ); ?>" class="<?php echo count( wpp_catalog_categories() ) <= 2 ? 'flex-1 ' : 'flex-shrink-0 '; ?>flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm text-ink/65 hover:text-ink"><?php echo esc_html( wpp_catalog_tab_label( $wpp_home_cat ) ); ?></button>
+			<?php endforeach; ?>
 		</div>
 	</div>
 	<div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -36,4 +37,5 @@ if ( ! $query || ! $query->have_posts() ) {
 		wp_reset_postdata();
 		?>
 	</div>
+	<p class="mt-8 hidden text-center text-sm text-muted" data-home-empty><?php esc_html_e( 'В этой подборке пока нет товаров.', 'wp-panda' ); ?></p>
 </section>

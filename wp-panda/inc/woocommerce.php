@@ -391,5 +391,107 @@ function wpp_featured_products_query( $kind = '', $limit = 8 ) {
 		$args['order']    = 'DESC';
 	}
 
-	return new WP_Query( $args );
+	$query = new WP_Query( $args );
+
+	// Curated lists predate new categories: top the selection up with the
+	// newest products so fresh categories appear in the home tabs.
+	if ( $featured && (int) $query->post_count < (int) $limit ) {
+		$fill = get_posts( array(
+			'post_type'      => 'product',
+			'post_status'    => 'publish',
+			'posts_per_page' => (int) $limit - (int) $query->post_count,
+			'fields'         => 'ids',
+			'post__not_in'   => array_map( 'absint', $featured ),
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+		) );
+		if ( $fill ) {
+			$args['post__in'] = array_merge( $args['post__in'], array_map( 'absint', $fill ) );
+			$query            = new WP_Query( $args );
+		}
+	}
+
+	return $query;
 }
+
+/* ------------------------------------------------------------------------ */
+/* Catalog categories: single source for tabs (catalog + home).              */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * Top-level non-empty product categories, stable order:
+ * themes and plugins first (as in the layout), the rest alphabetically.
+ *
+ * @return WP_Term[]
+ */
+function wpp_catalog_categories() {
+	$terms = get_terms( array(
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => true,
+		'parent'     => 0,
+	) );
+	if ( is_wp_error( $terms ) || ! $terms ) {
+		return array();
+	}
+	$order = array( 'wordpress-themes' => 0, 'themes' => 0, 'wordpress-plugins' => 1, 'plugins' => 1 );
+	usort( $terms, function ( $a, $b ) use ( $order ) {
+		$pa = isset( $order[ $a->slug ] ) ? $order[ $a->slug ] : 2;
+		$pb = isset( $order[ $b->slug ] ) ? $order[ $b->slug ] : 2;
+		return $pa === $pb ? strcasecmp( $a->name, $b->name ) : $pa - $pb;
+	} );
+	return $terms;
+}
+
+/** Short tab label: known slugs keep the layout wording, others use the term name. */
+function wpp_catalog_tab_label( $term ) {
+	$labels = array(
+		'wordpress-themes'  => __( 'Темы', 'wp-panda' ),
+		'themes'            => __( 'Темы', 'wp-panda' ),
+		'wordpress-plugins' => __( 'Плагины', 'wp-panda' ),
+		'plugins'           => __( 'Плагины', 'wp-panda' ),
+	);
+	return isset( $labels[ $term->slug ] ) ? $labels[ $term->slug ] : $term->name;
+}
+
+/** Primary top-level category slug of a product (for the home tab filter). */
+function wpp_product_home_kind( $product_id ) {
+	$terms = get_the_terms( (int) $product_id, 'product_cat' );
+	if ( is_wp_error( $terms ) || ! $terms ) {
+		return 'other';
+	}
+	$top = wpp_catalog_categories();
+	$top_ids = array();
+	foreach ( $top as $term ) {
+		$top_ids[ (int) $term->term_id ] = $term->slug;
+	}
+	foreach ( $terms as $term ) {
+		if ( isset( $top_ids[ (int) $term->term_id ] ) ) {
+			return $top_ids[ (int) $term->term_id ];
+		}
+	}
+	// Child term: walk up to its top-level ancestor.
+	foreach ( $terms as $term ) {
+		$ancestors = get_ancestors( (int) $term->term_id, 'product_cat' );
+		if ( $ancestors ) {
+			$root = (int) end( $ancestors );
+			if ( isset( $top_ids[ $root ] ) ) {
+				return $top_ids[ $root ];
+			}
+		}
+	}
+	return 'other';
+}
+
+/**
+ * The theme draws its own card markup; core loop callbacks would print
+ * a second thumbnail, a nested title and a stray add-to-cart link.
+ */
+function wpp_disable_core_loop_output() {
+	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_show_product_loop_sale_flash', 10 );
+	remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10 );
+	remove_action( 'woocommerce_shop_loop_item_title', 'woocommerce_template_loop_product_title', 10 );
+	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 10 );
+	remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+	remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart', 10 );
+}
+add_action( 'init', 'wpp_disable_core_loop_output', 20 );

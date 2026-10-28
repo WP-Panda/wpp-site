@@ -65,7 +65,7 @@ $wpp_input_class = 'h-12 w-full rounded-xl border border-line bg-soft/70 px-4 te
 			</label>
 		</div>
 		<div class="mt-6 flex justify-end">
-			<button type="submit" class="inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-all duration-200 active:scale-[0.98] bg-brand text-ink hover:bg-brand-600 shadow-glow h-12 px-6 text-sm"><?php echo wpp_icon( 'check', 'h-4 w-4' ); ?><?php esc_html_e( 'Сохранить изменения', 'wp-panda' ); ?></button>
+			<button type="submit" name="save_account_details" value="1" class="inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-full font-semibold transition-all duration-200 active:scale-[0.98] bg-brand text-ink hover:bg-brand-600 shadow-glow h-12 px-6 text-sm"><?php echo wpp_icon( 'check', 'h-4 w-4' ); ?><?php esc_html_e( 'Сохранить изменения', 'wp-panda' ); ?></button>
 		</div>
 	</section>
 </form>

@@ -30,7 +30,7 @@ $regular      = (float) $product->get_regular_price();
 $type_label   = 'theme' === $kind ? __( 'Тема', 'wp-panda' ) : ( 'plugin' === $kind ? __( 'Плагин', 'wp-panda' ) : __( 'Товар', 'wp-panda' ) );
 $type_icon    = 'theme' === $kind ? 'palette' : 'plug';
 ?>
-<article <?php wc_product_class( 'group relative flex flex-col overflow-hidden rounded-2xl border bg-white p-2.5 transition-all duration-300 hover:-translate-y-1 ' . ( $in_cart ? 'border-brand shadow-picked ring-1 ring-brand' : 'border-line shadow-card hover:shadow-float' ), $product ); ?> data-home-card="<?php echo esc_attr( 'theme' === $kind ? 'theme' : ( 'plugin' === $kind ? 'plugin' : 'other' ) ); ?>">
+<article <?php wc_product_class( 'group relative flex flex-col overflow-hidden rounded-2xl border bg-white p-2.5 transition-all duration-300 hover:-translate-y-1 ' . ( $in_cart ? 'border-brand shadow-picked ring-1 ring-brand' : 'border-line shadow-card hover:shadow-float' ), $product ); ?> data-home-card="<?php echo esc_attr( wpp_product_home_kind( $product_id ) ); ?>">
 	<a class="relative cursor-pointer overflow-hidden rounded-xl" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Открыть товар %s', 'wp-panda' ), $product->get_name() ) ); ?>">
 		<?php do_action( 'woocommerce_before_shop_loop_item_title' ); ?>
 		<?php wpp_render_product_art( $product ); ?>

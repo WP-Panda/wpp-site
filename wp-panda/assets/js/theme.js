@@ -621,9 +621,14 @@
 			t.classList.toggle('hover:text-ink', !active);
 		});
 		var kind = tab.getAttribute('data-home-tab');
+		var visible = 0;
 		qsa('[data-home-card]').forEach(function (card) {
-			card.classList.toggle('hidden', kind !== 'all' && card.getAttribute('data-home-card') !== kind);
+			var hide = kind !== 'all' && card.getAttribute('data-home-card') !== kind;
+			card.classList.toggle('hidden', hide);
+			if (!hide) { visible++; }
 		});
+		var homeEmpty = qs('[data-home-empty]');
+		if (homeEmpty) { homeEmpty.classList.toggle('hidden', visible > 0); }
 	});
 
 

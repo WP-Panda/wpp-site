@@ -17,20 +17,7 @@ $is_themes    = $current_term && in_array( $current_term->slug, array( 'wordpres
 $is_plugins   = $current_term && in_array( $current_term->slug, array( 'wordpress-plugins', 'plugins' ), true );
 
 /* Category tabs are generated from product_cat so new categories (e.g. HTML-шаблоны) appear automatically. */
-$wpp_catalog_cats = get_terms( array(
-	'taxonomy'   => 'product_cat',
-	'hide_empty' => true,
-	'parent'     => 0,
-) );
-if ( is_wp_error( $wpp_catalog_cats ) ) {
-	$wpp_catalog_cats = array();
-}
-$wpp_cat_order = array( 'wordpress-themes' => 0, 'themes' => 0, 'wordpress-plugins' => 1, 'plugins' => 1 );
-usort( $wpp_catalog_cats, function ( $a, $b ) use ( $wpp_cat_order ) {
-	$pa = isset( $wpp_cat_order[ $a->slug ] ) ? $wpp_cat_order[ $a->slug ] : 2;
-	$pb = isset( $wpp_cat_order[ $b->slug ] ) ? $wpp_cat_order[ $b->slug ] : 2;
-	return $pa === $pb ? strcasecmp( $a->name, $b->name ) : $pa - $pb;
-} );
+$wpp_catalog_cats = wpp_catalog_categories();
 
 $wpp_tab_active = function ( $term ) use ( $current_term ) {
 	if ( ! $current_term ) {
@@ -41,13 +28,6 @@ $wpp_tab_active = function ( $term ) use ( $current_term ) {
 	}
 	return in_array( (int) $term->term_id, get_ancestors( (int) $current_term->term_id, 'product_cat' ), true );
 };
-
-$wpp_tab_labels = array(
-	'wordpress-themes'  => __( 'Темы', 'wp-panda' ),
-	'themes'            => __( 'Темы', 'wp-panda' ),
-	'wordpress-plugins' => __( 'Плагины', 'wp-panda' ),
-	'plugins'           => __( 'Плагины', 'wp-panda' ),
-);
 
 $wpp_tab_count = 1 + count( $wpp_catalog_cats );
 
@@ -91,7 +71,7 @@ if ( ! is_wp_error( $all_tags ) ) {
 		<div class="flex w-full rounded-full border border-line bg-white p-1.5 shadow-card <?php echo $wpp_tab_count > 3 ? 'no-scrollbar overflow-x-auto' : ''; ?>">
 			<a class="<?php echo $wpp_tab_count <= 3 ? 'flex-1 ' : 'flex-shrink-0 '; ?>flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm <?php echo ( ! is_product_taxonomy() ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Все', 'wp-panda' ); ?></a>
 			<?php foreach ( $wpp_catalog_cats as $wpp_cat ) : ?>
-				<a class="<?php echo $wpp_tab_count <= 3 ? 'flex-1 ' : 'flex-shrink-0 '; ?>flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm <?php echo $wpp_tab_active( $wpp_cat ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( get_term_link( $wpp_cat ) ); ?>"><?php echo esc_html( isset( $wpp_tab_labels[ $wpp_cat->slug ] ) ? $wpp_tab_labels[ $wpp_cat->slug ] : $wpp_cat->name ); ?></a>
+				<a class="<?php echo $wpp_tab_count <= 3 ? 'flex-1 ' : 'flex-shrink-0 '; ?>flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm <?php echo $wpp_tab_active( $wpp_cat ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( get_term_link( $wpp_cat ) ); ?>"><?php echo esc_html( wpp_catalog_tab_label( $wpp_cat ) ); ?></a>
 			<?php endforeach; ?>
 		</div>
 	</div>

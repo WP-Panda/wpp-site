@@ -569,6 +569,30 @@
 		});
 	});
 
+	/* ---------- Catalog: tags multiselect ---------- */
+	var tagToggle = qs('[data-tag-toggle]');
+	var tagPanel = qs('[data-tag-panel]');
+	if (tagToggle && tagPanel) {
+		tagToggle.addEventListener('click', function (e) {
+			e.stopPropagation();
+			var open = !tagPanel.classList.contains('hidden');
+			tagPanel.classList.toggle('hidden', open);
+			tagToggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+		});
+		doc.addEventListener('click', function (e) {
+			if (!tagPanel.classList.contains('hidden') && !tagPanel.contains(e.target) && !tagToggle.contains(e.target)) {
+				tagPanel.classList.add('hidden');
+				tagToggle.setAttribute('aria-expanded', 'false');
+			}
+		});
+		tagPanel.addEventListener('change', function (e) {
+			if (e.target.matches && e.target.matches('input[type="checkbox"]')) {
+				var tagForm = qs('[data-tag-form]', tagPanel);
+				if (tagForm) { tagForm.submit(); }
+			}
+		});
+	}
+
 	/* ---------- Catalog view toggle ---------- */
 	doc.addEventListener('click', function (e) {
 		var view = e.target.closest('[data-catalog-view]');

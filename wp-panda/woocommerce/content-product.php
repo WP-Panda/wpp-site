@@ -82,7 +82,7 @@ $type_icon    = 'theme' === $kind ? 'palette' : 'plug';
 		<div class="mt-auto flex items-center justify-between gap-2 pt-3">
 			<div class="min-w-0">
 				<div class="text-[10px] text-muted"><?php echo esc_html( wpp_license_line( $product ) ); ?></div>
-				<div class="flex flex-wrap items-baseline gap-1.5">
+				<div class="flex items-baseline gap-1.5 whitespace-nowrap">
 					<span class="text-lg font-bold tabular-nums text-ink"><?php echo wpp_format_amount( $price ); ?></span>
 					<?php if ( $regular > $price && $regular > 0 ) : ?>
 						<span class="text-[11px] text-muted line-through"><?php echo wpp_format_amount( $regular ); ?></span>

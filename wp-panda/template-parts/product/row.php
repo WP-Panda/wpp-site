@@ -72,7 +72,7 @@ $compat       = ( ! is_wp_error( $tags ) && $tags ) ? array_slice( wp_list_pluck
 			</div>
 		<?php endif; ?>
 	</div>
-	<div class="flex flex-shrink-0 flex-row items-center justify-between gap-3 border-t border-line pt-3 sm:w-52 sm:flex-col sm:items-stretch sm:justify-center sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
+	<div class="flex flex-shrink-0 flex-row items-center justify-between gap-3 border-t border-line pt-3 sm:w-64 sm:flex-col sm:items-stretch sm:justify-center sm:border-l sm:border-t-0 sm:pl-5 sm:pt-0">
 		<div>
 			<div class="text-[10px] text-muted"><?php echo esc_html( wpp_license_line( $product ) ); ?></div>
 			<div class="flex flex-wrap items-baseline gap-1.5">
@@ -82,17 +82,17 @@ $compat       = ( ! is_wp_error( $tags ) && $tags ) ? array_slice( wp_list_pluck
 				<?php endif; ?>
 			</div>
 		</div>
-		<div class="flex gap-2 sm:flex-col">
+		<div class="flex w-full gap-2 sm:flex-col">
 			<?php if ( $in_cart ) : ?>
-				<button data-cart-open aria-label="<?php echo esc_attr( sprintf( __( 'Открыть корзину с %s', 'wp-panda' ), $product->get_name() ) ); ?>" class="flex h-12 flex-1 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] bg-brand text-ink shadow-glow sm:w-full">
+				<button data-cart-open aria-label="<?php echo esc_attr( sprintf( __( 'Открыть корзину с %s', 'wp-panda' ), $product->get_name() ) ); ?>" class="flex h-12 w-full flex-1 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] bg-brand text-ink shadow-glow hover:bg-brand-600 sm:w-full">
 					<?php echo wpp_icon( 'check', 'h-4 w-4', array( 'stroke' => '3' ) ); ?><?php esc_html_e( 'В корзине', 'wp-panda' ); ?>
 				</button>
 			<?php else : ?>
-				<button type="button" aria-label="<?php echo esc_attr( sprintf( __( 'Добавить %s в корзину', 'wp-panda' ), $product->get_name() ) ); ?>" data-quantity="1" <?php if ( $product->is_type( 'variable' ) ) : $children = $product->get_children(); ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-variation_id="<?php echo esc_attr( $children ? $children[0] : 0 ); ?>" class="wpp-add-variable flex h-12 flex-1 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] border border-line bg-soft hover:border-brand hover:bg-brand sm:w-full"<?php else : ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" class="add_to_cart_button product_type_simple ajax_add_to_cart flex h-12 flex-1 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] border border-line bg-soft hover:border-brand hover:bg-brand sm:w-full"<?php endif; ?>>
-					<?php echo wpp_icon( 'shopping-bag', 'h-4 w-4' ); ?><?php esc_html_e( 'Купить', 'wp-panda' ); ?>
+				<button type="button" aria-label="<?php echo esc_attr( sprintf( __( 'Добавить %s в корзину', 'wp-panda' ), $product->get_name() ) ); ?>" data-quantity="1" <?php if ( $product->is_type( 'variable' ) ) : $children = $product->get_children(); ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-variation_id="<?php echo esc_attr( $children ? $children[0] : 0 ); ?>" class="wpp-add-variable flex h-12 w-full flex-1 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] bg-brand text-ink shadow-glow hover:bg-brand-600 sm:w-full"<?php else : ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" class="add_to_cart_button product_type_simple ajax_add_to_cart flex h-12 w-full flex-1 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] bg-brand text-ink shadow-glow hover:bg-brand-600 sm:w-full"<?php endif; ?>>
+					<?php echo wpp_icon( 'shopping-bag', 'h-4 w-4' ); ?><?php esc_html_e( 'Купить', 'wp-panda' ); ?><?php echo wpp_icon( 'arrow-up-right', 'h-3.5 w-3.5' ); ?>
 				</button>
 			<?php endif; ?>
-			<a class="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-ink px-4 text-[13px] font-bold text-white transition-all duration-200 hover:opacity-90 active:scale-[0.98] sm:w-full" href="<?php the_permalink(); ?>">
+			<a class="flex h-12 w-full flex-1 items-center justify-center gap-2 rounded-full border border-line bg-white px-4 text-[13px] font-bold text-ink transition-all duration-200 hover:border-ink/25 hover:shadow-card active:scale-[0.98] sm:w-full" href="<?php the_permalink(); ?>">
 				<?php echo wpp_icon( 'eye', 'h-4 w-4' ); ?><?php esc_html_e( 'Подробнее', 'wp-panda' ); ?>
 			</a>
 		</div>

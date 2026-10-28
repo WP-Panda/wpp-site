@@ -214,3 +214,7 @@ p.stars a{color:var(--color-brand)}
 .wpp-spinner{width:26px;height:26px;border-radius:50%;border:3px solid var(--color-line);border-top-color:var(--color-brand);animation:wpp-spin .7s linear infinite}
 @keyframes wpp-spin{to{transform:rotate(360deg)}}
 .wpp-busy button,.wpp-busy a,.wpp-busy input,.wpp-busy select{pointer-events:none;opacity:.55}
+
+/* ---- Custom select chrome: chevron drawn by the theme ----------------- */
+.wpp-select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:none}
+.wpp-select::-ms-expand{display:none}

@@ -59,27 +59,22 @@ $wpp_selected_tags = array_map( 'sanitize_title', (array) get_query_var( 'produc
 			?>
 		</p>
 	</div>
-	<div class="no-scrollbar mt-8 flex max-w-full justify-center overflow-x-auto px-4">
-		<div class="inline-flex flex-shrink-0 rounded-full border border-line bg-white p-1.5 shadow-card">
-			<a class="flex flex-shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-5 font-semibold transition-all duration-200 h-10 text-sm <?php echo ( ! is_product_taxonomy() ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Все', 'wp-panda' ); ?></a>
-			<?php foreach ( $wpp_catalog_cats as $wpp_cat ) : ?>
-				<a class="flex flex-shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-5 font-semibold transition-all duration-200 h-10 text-sm <?php echo $wpp_tab_active( $wpp_cat ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( get_term_link( $wpp_cat ) ); ?>"><?php echo esc_html( wpp_catalog_tab_label( $wpp_cat ) ); ?></a>
-			<?php endforeach; ?>
+	<div class="mt-10 flex flex-wrap items-center justify-between gap-3" data-catalog-toolbar>
+		<div class="no-scrollbar max-w-full overflow-x-auto">
+			<div class="inline-flex flex-shrink-0 rounded-full border border-line bg-white p-1.5 shadow-card">
+				<a data-catalog-tab="" class="flex flex-shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-5 font-semibold transition-all duration-200 h-10 text-sm <?php echo ( ! is_product_taxonomy() ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Все', 'wp-panda' ); ?></a>
+				<?php foreach ( $wpp_catalog_cats as $wpp_cat ) : ?>
+					<a data-catalog-tab="<?php echo esc_attr( $wpp_cat->slug ); ?>" class="flex flex-shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-5 font-semibold transition-all duration-200 h-10 text-sm <?php echo $wpp_tab_active( $wpp_cat ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( get_term_link( $wpp_cat ) ); ?>"><?php echo esc_html( wpp_catalog_tab_label( $wpp_cat ) ); ?></a>
+				<?php endforeach; ?>
+			</div>
 		</div>
-	</div>
-	<div class="mt-10 flex flex-col gap-3 lg:flex-row lg:items-center">
-		<form role="search" method="get" action="<?php echo esc_url( $shop_url ); ?>" class="flex h-12 flex-1 items-center gap-2 rounded-full border border-line bg-white px-4 shadow-card transition focus-within:border-brand focus-within:ring-2 focus-within:ring-brand/20">
-			<?php echo wpp_icon( 'search', 'h-4 w-4 text-muted' ); ?>
-			<input type="search" name="s" placeholder="<?php esc_attr_e( 'Поиск по каталогу', 'wp-panda' ); ?>" class="min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted/70" value="<?php echo esc_attr( get_search_query() ); ?>">
-			<input type="hidden" name="post_type" value="product">
-		</form>
 		<?php if ( $wpp_all_tags ) : ?>
-		<div class="relative" data-tag-select>
-			<button type="button" data-tag-toggle aria-haspopup="listbox" aria-expanded="false" class="inline-flex h-12 flex-shrink-0 items-center gap-2 rounded-full border border-line bg-white px-4 pr-9 text-sm font-semibold shadow-card transition hover:border-ink/20 <?php echo $wpp_selected_tags ? 'border-brand ring-2 ring-brand/20' : ''; ?>">
+		<div class="wpp-rel" data-tag-select>
+			<button type="button" data-tag-toggle aria-haspopup="listbox" aria-expanded="false" class="wpp-rel wpp-select-btn inline-flex h-12 flex-shrink-0 items-center gap-2 rounded-full border border-line bg-white px-4 text-sm font-semibold shadow-card transition hover:border-ink/20 <?php echo $wpp_selected_tags ? 'border-brand ring-2 ring-brand/20' : ''; ?>">
 				<?php echo wpp_icon( 'sliders-horizontal', 'h-4 w-4 text-muted' ); ?>
-				<?php echo $wpp_selected_tags ? esc_html( sprintf( __( 'Теги: %d', 'wp-panda' ), count( $wpp_selected_tags ) ) ) : esc_html__( 'Теги', 'wp-panda' ); ?>
+				<span data-tag-label data-base="<?php esc_attr_e( 'Фильтры', 'wp-panda' ); ?>" data-plural="<?php esc_attr_e( 'Фильтры: %d', 'wp-panda' ); ?>"><?php echo $wpp_selected_tags ? esc_html( sprintf( __( 'Фильтры: %d', 'wp-panda' ), count( $wpp_selected_tags ) ) ) : esc_html__( 'Фильтры', 'wp-panda' ); ?></span>
 			</button>
-			<span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-muted"><?php echo wpp_icon( 'chevron-down', 'h-4 w-4' ); ?></span>
+			<span class="wpp-caret"><?php echo wpp_icon( 'chevron-down', 'h-4 w-4' ); ?></span>
 			<div class="absolute left-0 top-full z-30 mt-2 hidden w-72 rounded-2xl border border-line bg-white p-3 shadow-float" data-tag-panel>
 				<form method="get" action="<?php echo esc_url( $shop_url ); ?>" data-tag-form>
 					<input type="hidden" name="orderby" value="<?php echo esc_attr( $orderby ); ?>">
@@ -87,37 +82,35 @@ $wpp_selected_tags = array_map( 'sanitize_title', (array) get_query_var( 'produc
 					<div class="no-scrollbar max-h-64 overflow-y-auto">
 						<?php foreach ( $wpp_all_tags as $wpp_tag ) : ?>
 							<label class="flex cursor-pointer items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm font-medium text-ink/80 transition hover:bg-soft">
-								<input type="checkbox" name="product_tag[]" value="<?php echo esc_attr( $wpp_tag->slug ); ?>" class="h-4 w-4 flex-shrink-0 accent-[#ffc21f]" <?php checked( in_array( $wpp_tag->slug, $wpp_selected_tags, true ) ); ?>>
+								<input type="checkbox" name="product_tag[]" value="<?php echo esc_attr( $wpp_tag->slug ); ?>" class="wpp-check h-4 w-4 flex-shrink-0" <?php checked( in_array( $wpp_tag->slug, $wpp_selected_tags, true ) ); ?>>
 								<span class="min-w-0 flex-1 truncate"><?php echo esc_html( $wpp_tag->name ); ?></span>
 								<span class="text-[11px] text-muted"><?php echo esc_html( number_format_i18n( (int) $wpp_tag->count ) ); ?></span>
 							</label>
 						<?php endforeach; ?>
 					</div>
 					<?php if ( $wpp_selected_tags ) : ?>
-						<a class="mt-2 block rounded-xl px-2.5 py-2 text-center text-xs font-semibold text-muted transition hover:bg-soft hover:text-ink" href="<?php echo esc_url( $current_term ? get_term_link( $current_term ) : $shop_url ); ?>"><?php esc_html_e( 'Сбросить теги', 'wp-panda' ); ?></a>
+						<button type="button" data-tag-reset class="mt-2 block w-full rounded-xl px-2.5 py-2 text-center text-xs font-semibold text-muted transition hover:bg-soft hover:text-ink"><?php esc_html_e( 'Сбросить фильтры', 'wp-panda' ); ?></button>
 					<?php endif; ?>
 				</form>
 			</div>
 		</div>
 		<?php endif; ?>
-		<form method="get" action="">
+		<form method="get" action="" class="wpp-rel">
 			<?php foreach ( $wpp_selected_tags as $wpp_sel_tag ) : ?>
 				<input type="hidden" name="product_tag[]" value="<?php echo esc_attr( $wpp_sel_tag ); ?>">
 			<?php endforeach; ?>
 			<?php if ( $current_term ) : ?><input type="hidden" name="product_cat" value="<?php echo esc_attr( $current_term->slug ); ?>"><?php endif; ?>
-			<div class="relative">
-				<select name="orderby" onchange="this.form.submit()" class="wpp-select h-12 cursor-pointer rounded-full border border-line bg-white pl-4 pr-10 text-sm font-semibold shadow-card outline-none focus:border-brand">
-					<option value="popular" <?php selected( $orderby, 'popular' ); ?>><?php esc_html_e( 'Сначала популярные', 'wp-panda' ); ?></option>
-					<option value="rating" <?php selected( $orderby, 'rating' ); ?>><?php esc_html_e( 'По рейтингу', 'wp-panda' ); ?></option>
-					<option value="price-asc" <?php selected( $orderby, 'price-asc' ); ?>><?php esc_html_e( 'Сначала дешевле', 'wp-panda' ); ?></option>
-					<option value="price-desc" <?php selected( $orderby, 'price-desc' ); ?>><?php esc_html_e( 'Сначала дороже', 'wp-panda' ); ?></option>
-				</select>
-				<span class="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-muted"><?php echo wpp_icon( 'chevron-down', 'h-4 w-4' ); ?></span>
-			</div>
+			<select name="orderby" data-catalog-order class="wpp-select h-12 cursor-pointer rounded-full border border-line bg-white text-sm font-semibold shadow-card outline-none focus:border-brand">
+				<option value="popular" <?php selected( $orderby, 'popular' ); ?>><?php esc_html_e( 'Сначала популярные', 'wp-panda' ); ?></option>
+				<option value="rating" <?php selected( $orderby, 'rating' ); ?>><?php esc_html_e( 'По рейтингу', 'wp-panda' ); ?></option>
+				<option value="price-asc" <?php selected( $orderby, 'price-asc' ); ?>><?php esc_html_e( 'Сначала дешевле', 'wp-panda' ); ?></option>
+				<option value="price-desc" <?php selected( $orderby, 'price-desc' ); ?>><?php esc_html_e( 'Сначала дороже', 'wp-panda' ); ?></option>
+			</select>
+			<span class="wpp-caret"><?php echo wpp_icon( 'chevron-down', 'h-4 w-4' ); ?></span>
 		</form>
 	</div>
 	<div class="mt-6 flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
-		<?php if ( woocommerce_product_loop() ) { woocommerce_result_count(); } ?>
+		<p class="text-sm" data-catalog-count><?php echo wpp_products_found_label( wc_get_loop_prop( 'total' ) ); ?></p>
 		<div class="flex items-center gap-3">
 			<div class="flex items-center rounded-full border border-line bg-white p-1 shadow-card" role="group" aria-label="<?php esc_attr_e( 'Вид каталога', 'wp-panda' ); ?>">
 				<button aria-label="<?php esc_attr_e( 'Вид сеткой', 'wp-panda' ); ?>" aria-pressed="true" title="Grid" data-catalog-view="grid" class="flex h-9 w-10 items-center justify-center rounded-full transition-all bg-ink text-white">

@@ -497,3 +497,150 @@ function wpp_disable_core_loop_output() {
 	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
 }
 add_action( 'init', 'wpp_disable_core_loop_output', 20 );
+
+/* ------------------------------------------------------------------------ */
+/* Catalog AJAX: tabs, tag multiselect and sorting without page reload.      */
+/* ------------------------------------------------------------------------ */
+
+/** RU plural for the catalog counter. */
+function wpp_products_found_label( $count ) {
+	$count = (int) $count;
+	$mod10 = $count % 10;
+	$mod100 = $count % 100;
+	if ( 1 === $mod10 && 11 !== $mod100 ) {
+		$word = __( 'продукт', 'wp-panda' );
+	} elseif ( $mod10 >= 2 && $mod10 <= 4 && ( $mod100 < 12 || $mod100 > 14 ) ) {
+		$word = __( 'продукта', 'wp-panda' );
+	} else {
+		$word = __( 'продуктов', 'wp-panda' );
+	}
+	return sprintf( __( 'Найдено: %1$s %2$s', 'wp-panda' ), '<b class="text-ink">' . number_format_i18n( $count ) . '</b>', $word );
+}
+
+/** Build the catalog query args shared by the archive and the AJAX handler. */
+function wpp_catalog_query_args( $cat = '', $tags = array(), $orderby = 'popular' ) {
+	$args = array(
+		'post_type'      => 'product',
+		'post_status'    => 'publish',
+		'posts_per_page' => -1,
+	);
+	$tax  = array();
+	if ( $cat ) {
+		$tax[] = array( 'taxonomy' => 'product_cat', 'field' => 'slug', 'terms' => (array) $cat );
+	}
+	$tags = array_filter( (array) $tags );
+	if ( $tags ) {
+		$tax[] = array( 'taxonomy' => 'product_tag', 'field' => 'slug', 'terms' => $tags );
+	}
+	if ( $tax ) {
+		$tax['relation']  = 'AND';
+		$args['tax_query'] = $tax;
+	}
+	switch ( $orderby ) {
+		case 'rating':
+			$args['meta_key'] = '_wc_average_rating';
+			$args['orderby']  = 'meta_value_num';
+			$args['order']    = 'DESC';
+			break;
+		case 'price-asc':
+			$args['meta_key'] = '_price';
+			$args['orderby']  = 'meta_value_num';
+			$args['order']    = 'ASC';
+			break;
+		case 'price-desc':
+			$args['meta_key'] = '_price';
+			$args['orderby']  = 'meta_value_num';
+			$args['order']    = 'DESC';
+			break;
+		default:
+			$args['meta_key'] = 'total_sales';
+			$args['orderby']  = 'meta_value_num';
+			$args['order']    = 'DESC';
+	}
+	return $args;
+}
+
+/** Render both catalog views (grid rows + list rows) for a query. */
+function wpp_render_catalog_views( $args ) {
+	$query = new WP_Query( $args );
+	$views = array( 'grid' => '', 'list' => '', 'found' => (int) $query->found_posts );
+
+	$grid = '';
+	foreach ( $query->posts as $post ) {
+		setup_postdata( $post );
+		$GLOBALS['product'] = wc_get_product( $post->ID );
+		ob_start();
+		wc_get_template_part( 'content', 'product' );
+		$grid .= ob_get_clean();
+	}
+	$views['grid'] = $grid;
+
+	$list = '';
+	foreach ( $query->posts as $post ) {
+		setup_postdata( $post );
+		$GLOBALS['product'] = wc_get_product( $post->ID );
+		ob_start();
+		get_template_part( 'template-parts/product/row' );
+		$list .= ob_get_clean();
+	}
+	$views['list'] = $list;
+
+	wp_reset_postdata();
+	return $views;
+}
+
+/** AJAX: filtered catalog markup. */
+function wpp_ajax_catalog() {
+	check_ajax_referer( 'wpp-catalog', 'nonce' );
+	$cat     = isset( $_POST['cat'] ) ? sanitize_title( wp_unslash( $_POST['cat'] ) ) : '';
+	$tags    = isset( $_POST['tags'] ) ? array_map( 'sanitize_title', (array) wp_unslash( $_POST['tags'] ) ) : array();
+	$orderby = isset( $_POST['orderby'] ) ? sanitize_key( wp_unslash( $_POST['orderby'] ) ) : 'popular';
+	$views   = wpp_render_catalog_views( wpp_catalog_query_args( $cat, $tags, $orderby ) );
+	wp_send_json_success( array(
+		'grid'  => $views['grid'],
+		'list'  => $views['list'],
+		'count' => wpp_products_found_label( $views['found'] ),
+	) );
+}
+add_action( 'wp_ajax_wpp_catalog', 'wpp_ajax_catalog' );
+add_action( 'wp_ajax_nopriv_wpp_catalog', 'wpp_ajax_catalog' );
+
+/**
+ * Apply the custom catalog orderby to the main (non-AJAX) product query so the
+ * server-rendered first load matches the toolbar select and the AJAX results.
+ * Runs after WooCommerce's own pre_get_posts (priority 20) to override it.
+ */
+function wpp_catalog_orderby_query( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+	if ( ! ( $query->is_post_type_archive( 'product' ) || $query->is_tax( 'product_cat' ) || $query->is_tax( 'product_tag' ) ) ) {
+		return;
+	}
+	// Show every product so the first server render matches the AJAX results
+	// (which return all matches and hide the pagination).
+	$query->set( 'posts_per_page', -1 );
+	$orderby = isset( $_GET['orderby'] ) ? sanitize_key( wp_unslash( $_GET['orderby'] ) ) : 'popular';
+	switch ( $orderby ) {
+		case 'rating':
+			$query->set( 'meta_key', '_wc_average_rating' );
+			$query->set( 'orderby', 'meta_value_num' );
+			$query->set( 'order', 'DESC' );
+			break;
+		case 'price-asc':
+			$query->set( 'meta_key', '_price' );
+			$query->set( 'orderby', 'meta_value_num' );
+			$query->set( 'order', 'ASC' );
+			break;
+		case 'price-desc':
+			$query->set( 'meta_key', '_price' );
+			$query->set( 'orderby', 'meta_value_num' );
+			$query->set( 'order', 'DESC' );
+			break;
+		default: // 'popular'.
+			$query->set( 'meta_key', 'total_sales' );
+			$query->set( 'orderby', 'meta_value_num' );
+			$query->set( 'order', 'DESC' );
+	}
+}
+add_action( 'pre_get_posts', 'wpp_catalog_orderby_query', 20 );

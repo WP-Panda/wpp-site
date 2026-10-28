@@ -83,6 +83,7 @@ function wpp_enqueue_assets() {
 		'accountUrl'   => function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permalink( 'myaccount' ) : home_url( '/my-account/' ),
 		'searchNonce'  => wp_create_nonce( 'wpp-search' ),
 		'cartNonce'    => wp_create_nonce( 'wpp-cart' ),
+		'catalogNonce' => wp_create_nonce( 'wpp-catalog' ),
 		'wishlistNonce'=> wp_create_nonce( 'wpp-wishlist' ),
 		'notifNonce'   => wp_create_nonce( 'wpp-notifications' ),
 		'isCartPage'   => function_exists( 'is_cart' ) && ( is_cart() || is_checkout() ),
@@ -110,6 +111,27 @@ function wpp_body_classes( $classes ) {
 	return $classes;
 }
 add_filter( 'body_class', 'wpp_body_classes' );
+
+/**
+ * Apply the saved design scheme/corners before the first paint so the page
+ * does not flash the default palette. Reads the `wpp-design` localStorage key
+ * written by theme.js and sets the matching data attributes on <html>.
+ */
+function wpp_early_design_script() {
+	?>
+	<script>
+	(function () {
+		try {
+			var saved = JSON.parse(localStorage.getItem('wpp-design') || '{}');
+			var root = document.documentElement;
+			if (saved.scheme) { root.setAttribute('data-wpp-scheme', saved.scheme); }
+			if (saved.corners) { root.setAttribute('data-wpp-corners', saved.corners); }
+		} catch (e) {}
+	})();
+	</script>
+	<?php
+}
+add_action( 'wp_head', 'wpp_early_design_script', 1 );
 
 /** Newsletter subscribe endpoint used by the blog and home forms. */
 function wpp_handle_subscribe() {

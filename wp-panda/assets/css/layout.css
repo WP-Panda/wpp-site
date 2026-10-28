@@ -218,3 +218,44 @@ p.stars a{color:var(--color-brand)}
 /* ---- Custom select chrome: chevron drawn by the theme ----------------- */
 .wpp-select{appearance:none;-webkit-appearance:none;-moz-appearance:none;background-image:none}
 .wpp-select::-ms-expand{display:none}
+
+/* ---- Select chrome that does not depend on tailwind build -------------- */
+.wpp-rel{position:relative}
+.wpp-caret{position:absolute;right:14px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--color-muted);display:flex;align-items:center}
+.wpp-select{padding-left:16px;padding-right:40px}
+.wpp-select-btn{padding-right:38px}
+.wpp-check{accent-color:var(--color-brand)}
+
+/* ---- Scroll reveal animations ------------------------------------------ */
+html{scroll-behavior:smooth}
+.wpp-reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1)}
+.wpp-reveal.wpp-revealed{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.wpp-reveal{opacity:1;transform:none;transition:none}}
+
+/* ---- Design panel: color schemes --------------------------------------- */
+html[data-wpp-scheme="mint"]{--color-brand:#2fbf8f;--color-brand-600:#25a87b;--color-brand-50:#e9faf2;--color-brand-100:#d3f4e4}
+html[data-wpp-scheme="ocean"]{--color-brand:#38a3f1;--color-brand-600:#2b8fd8;--color-brand-50:#eaf6ff;--color-brand-100:#d5ecff}
+html[data-wpp-scheme="powder"]{--color-brand:#e08b6d;--color-brand-600:#cf7a5c;--color-brand-50:#fdf1ec;--color-brand-100:#fadfd5}
+html[data-wpp-scheme="lavender"]{--color-brand:#a78bfa;--color-brand-600:#9273f0;--color-brand-50:#f3eeff;--color-brand-100:#e7ddff}
+html[data-wpp-scheme="rose"]{--color-brand:#f472b6;--color-brand-600:#e85aa8;--color-brand-50:#fdeef6;--color-brand-100:#fbdcec}
+html[data-wpp-scheme="royal"]{--color-brand:#b08a2e;--color-brand-600:#97741f;--color-brand-50:#faf5e6;--color-brand-100:#f2e8c9}
+html[data-wpp-scheme="frost"]{--color-brand:#3ecfdb;--color-brand-600:#2bb8c6;--color-brand-50:#ecfdfe;--color-brand-100:#d8f9fb}
+html[data-wpp-scheme="forest"]{--color-brand:#2f9e44;--color-brand-600:#268439;--color-brand-50:#eafbef;--color-brand-100:#d5f5dd}
+html[data-wpp-scheme="night"]{--color-brand:#facc15;--color-brand-600:#eab308;--color-brand-50:#26262c;--color-brand-100:#33333b;--color-white:#232329;--color-ink:#f4f4f5;--color-ink-2:#e4e4e7;--color-muted:#a1a1ad;--color-line:#3a3a42;--color-soft:#2a2a31}
+html[data-wpp-scheme="night"] body{background:#17171b}
+html[data-wpp-scheme="night"] .wpp-notifications-panel{background:#0f0f13}
+
+/* ---- Design panel: corner presets --------------------------------------- */
+html[data-wpp-corners="light"]{--radius-card:14px;--radius-2xl:12px;--radius-xl:10px;--radius-lg:8px;--radius-md:6px}
+html[data-wpp-corners="none"]{--radius-card:0px;--radius-2xl:0px;--radius-xl:0px;--radius-lg:0px;--radius-md:0px}
+
+/* ---- Design panel drawer ------------------------------------------------ */
+.wpp-design-drawer{position:fixed;inset:0 auto 0 0;z-index:130;width:360px;max-width:92vw;background:var(--color-white);box-shadow:var(--shadow-float);transform:translateX(-102%);transition:transform .35s cubic-bezier(.22,1,.36,1);display:flex;flex-direction:column}
+.wpp-design-drawer.wpp-open{transform:translateX(0)}
+.wpp-design-backdrop{position:fixed;inset:0;z-index:125;background:rgba(28,28,33,.45);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s ease}
+.wpp-design-backdrop.wpp-open{opacity:1;pointer-events:auto}
+.wpp-design-trigger{position:fixed;left:20px;bottom:20px;z-index:90}
+
+/* ---- Design panel active state ------------------------------------------ */
+.wpp-design-active{border-color:var(--color-brand);background:var(--color-brand-50);box-shadow:0 0 0 1px var(--color-brand)}
+html[data-wpp-scheme="night"] .wpp-design-active{background:#2a2a31}

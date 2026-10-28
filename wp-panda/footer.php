@@ -136,6 +136,7 @@ $show_fab       = ! $is_flow && $cart_count > 0 && ! ( function_exists( 'is_shop
 		<?php endif; ?>
 	</div>
 </div>
+<?php get_template_part( 'template-parts/design-panel' ); ?>
 <?php wp_footer(); ?>
 </body>
 </html>

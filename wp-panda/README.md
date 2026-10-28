@@ -135,6 +135,7 @@ wp-panda/
 │   ├── product/                 — media, buy-box, information, related, reviews,
 │   │                              comments, changelog
 │   ├── blog/loop.php            — сетка постов для архивов/поиска
+│   ├── design-panel.php         — drawer «Настройки дизайна»: схемы цвета + углы, триггер-пилюля
 │   ├── kb/article.php           — статья базы знаний с боковой навигацией
 │   ├── checkout/stepper.php     — степпер «Корзина → Данные → Оплата → Готово»
 │   ├── checkout/summary.php     — панель «Ваш заказ» (корзина и чекаут)
@@ -200,8 +201,11 @@ wp-panda/
 - шаблоны каталога, карточки, мини-корзины, корзины, чекаута, «Спасибо», кабинета (см. раздел 4);
 - **стили** самого WooCommerce отключены (`woocommerce_enqueue_styles → []`), скрипты остаются;
 - поля чекаута фильтруются (`woocommerce_checkout_fields`): убраны адрес/индекс/штат и доставка, добавлен ИНН, переставлены приоритеты и подписи;
-- сортировка каталога: значения макета (`popular`, `rating`, `price-asc`, `price-desc`) маппятся на `orderby` WC через `woocommerce_get_catalog_ordering_args`;
-- тулбар каталога: поиск, мультиселект тегов (`product_tag[]`, чекбоксы в выпадающей панели, автоприменение, счётчик на кнопке, «Сбросить теги») и селект сортировки с фирменным шевроном (`.wpp-select` + иконка); ряд «совместимость» и чипы тегов убраны — фильтр живёт в мультиселекте;
+- сортировка каталога: значения макета (`popular`, `rating`, `price-asc`, `price-desc`) применяются к основному запросу через `pre_get_posts` (`wpp_catalog_orderby_query`, приоритет 20) и к AJAX через `wpp_catalog_query_args` — серверный рендер и ответ AJAX дают одинаковый порядок;
+- тулбар каталога (`[data-catalog-toolbar]`, `justify-between`): поисковая форма и ряд «совместимость» убраны; в одну линию равномерно распределены вкладки категорий (`[data-catalog-tab]`), мультиселект тегов (кнопка «Фильтры», `product_tag[]`, чекбоксы в выпадающей панели, счётчик «Фильтры: N», «Сбросить фильтры») и селект сортировки (`[data-catalog-order]`); шеврон у обоих селектов рисуется фирменным классом `.wpp-caret` внутри `.wpp-rel`, чекбоксы красятся в бренд через `.wpp-check`;
+- **все выборы каталога работают без перезагрузки по AJAX**: клик по вкладке, изменение чекбоксов тегов/сброс и смена сортировки отправляют `wpp_catalog` (nonce `wpp-catalog`) и подменяют `[data-catalog-grid]`, `[data-catalog-list]` и счётчик `[data-catalog-count]`, пагинация скрывается; без JS формы отправляются обычным GET как запасной путь;
+- **анимации появления**: `IntersectionObserver` в `theme.js` добавляет `.wpp-reveal` → `.wpp-revealed` (плавный fade + сдвиг) секциям, карточкам и `[data-reveal]` внутри `<main>`, с каскадной задержкой и уважением к `prefers-reduced-motion`; после AJAX-подмены контент анимируется заново (`window.wppApplyReveal`);
+- **панель «Настройки дизайна»** (`template-parts/design-panel.php`, подключается в `footer.php`): плавающий триггер-пилюля слева внизу открывает левый drawer с 10 цветовыми схемами (Золотая/Мятная/Океан/Пудровая/Лаванда/Роза/Королевская/Мороз/Лес/Ночь) и тремя пресетами углов (Сильные/Лёгкие/Прямые); выбор пишется в `localStorage['wpp-design']` и применяется к `<html data-wpp-scheme data-wpp-corners>` — схемы переопределяют CSS-переменные бренда (Ночь — ещё и white/ink/muted/line/soft + фон), углы — `--radius-*`; ранний inline-скрипт в `wp_head` (`wpp_early_design_script`) восстанавливает выбор до первой отрисовки, без «мигания» дефолтной палитры;
 - карточки каталога выровнены: описание фиксированной высоты (2 строки), цена со старой ценой в одну строку без переноса;
 - строки списка: кнопки в фирменных цветах (жёлтая «Купить», контурная «Подробнее») на колонке `sm:w-64`;
 - вкладки категорий каталога («Все / Темы / Плагины / …») генерируются из таксономии `product_cat` (верхний уровень, `hide_empty`): новые рубрики, например «HTML-шаблоны», появляются автоматически; для `wordpress-themes`/`wordpress-plugins` сохраняются короткие подписи «Темы»/«Плагины», у остальных — имя рубрики; подзаголовок берёт описание рубрики; при >3 вкладках контейнер становится скроллируемым; те же рубрики питают табы подборки «Популярное на этой неделе» на главной (`wpp_catalog_categories()`, `wpp_catalog_tab_label()`, `wpp_product_home_kind()`);
@@ -307,6 +311,7 @@ wp-panda/
 | Экшен | Нонс | Параметры | Ответ |
 |---|---|---|---|
 | `wpp_search` | `wpp-search` (`searchNonce`) | `q` | `{rows: HTML, count}` — до 6 товаров |
+| `wpp_catalog` | `wpp-catalog` (`catalogNonce`) | `cat` (slug рубрики), `tags[]` (slug тегов), `orderby` | `{grid: HTML, list: HTML, count: HTML}` — фильтры каталога без перезагрузки |
 | `wpp_mini_cart` | `wpp-cart` (`cartNonce`) | — | `{html, count, subtitle, total}` |
 | `wpp_cart_remove` | `wpp-cart` | `key` | `{success}` |
 | `wpp_cart_variation` | `wpp-cart` | `key`, `variation` (ID вариации) | `{success}` — замена позиции на другой тариф |
@@ -325,7 +330,7 @@ wp-panda/
 
 - `assets/css/layout.css` и файл шрифтов подключаются в `inc/setup.php` через `wp_enqueue_scripts` (приоритет 999), версия — по `filemtime` файла.
 - `assets/js/theme.js` — в подвале, зависимость `jquery` (для событий `added_to_cart` / `show_variation` WooCommerce).
-- В объект `wppTheme` локализуются: `ajaxUrl`, `homeUrl`, `shopUrl`, `cartUrl`, `checkoutUrl`, `accountUrl`, `searchNonce`, `cartNonce`, `wishlistNonce`, `notifNonce`, `isCartPage`.
+- В объект `wppTheme` локализуются: `ajaxUrl`, `homeUrl`, `shopUrl`, `cartUrl`, `checkoutUrl`, `accountUrl`, `searchNonce`, `cartNonce`, `catalogNonce`, `wishlistNonce`, `notifNonce`, `isCartPage`.
 
 ### Обработчики в theme.js (селекторы)
 
@@ -347,6 +352,9 @@ wp-panda/
 | `[data-review-rating]` + `[data-star]` | звёздный выбор оценки в форме отзыва: пишет значение в `input[name=rating]` (и в `select#rating` WC, если он есть), без оценки отправка блокируется с подсказкой |
 | `[data-gallery-thumb]` | миниатюры галереи |
 | `[data-catalog-view]` | сетка/список в каталоге: переключает контейнеры `[data-catalog-grid]` и `[data-catalog-list]` (строки `template-parts/product/row.php` по разметке макета) |
+| `[data-catalog-tab]`, `[data-tag-panel]`+`[data-tag-reset]`, `[data-catalog-order]` | AJAX-фильтры каталога: вкладка/теги/сортировка шлют `wpp_catalog` и подменяют сетку, список и `[data-catalog-count]` без перезагрузки; `data-tag-label` обновляет счётчик «Фильтры: N» |
+| `[data-design-trigger]`, `[data-design-drawer]`, `[data-design-scheme]`, `[data-design-corners]` | панель «Настройки дизайна»: открыть/закрыть drawer, применить схему цвета и пресет углов к `<html>`, сохранить в `localStorage['wpp-design']` |
+| `IntersectionObserver` → `.wpp-reveal`/`.wpp-revealed` | анимации появления секций/карточек внутри `<main>` (`window.wppApplyReveal`, в т.ч. после AJAX) |
 | `[data-cart-close]` | закрытие дровера корзины (делегированное — переживает AJAX-замену фрагментов) |
 | `[data-home-tab]` / `[data-home-card]` | табы подборки на главной: генерируются из `product_cat` (значения — слаги рубрик), карточки помечаются основной рубрикой; пустая подборка показывает подсказку |
 | `[data-faq-tab]`, `[data-faq-search]`, `[data-faq-item]` | фильтры и поиск по FAQ |
@@ -368,7 +376,11 @@ wp-panda/
 - таблицы заказов/загрузок в кабинете;
 - форма отзывов и комментариев, звёзды рейтинга;
 - пагинация `the_posts_pagination`;
-- скрытие штатных блоков товара/корзины, которые заменены своими шаблонами.
+- скрытие штатных блоков товара/корзины, которые заменены своими шаблонами;
+- **сел­ект-хром** тулбара каталога, независимый от tailwind-сборки: `.wpp-rel` (контекст), `.wpp-caret` (шеврон внутри), `.wpp-select`/`.wpp-select-btn` (отступы), `.wpp-check` (акцент чекбоксов в цвет бренда);
+- **анимации**: `html{scroll-behavior:smooth}`, `.wpp-reveal`/`.wpp-revealed` (fade + сдвиг) с guard для `prefers-reduced-motion`;
+- **темы оформления**: 10 палитр как `html[data-wpp-scheme="…"]` (переопределение `--color-brand*`, «Ночь» также меняет white/ink/muted/line/soft и фон) и пресеты углов `html[data-wpp-corners="light"|"none"]` (переопределение `--radius-*`);
+- **панель дизайна**: `.wpp-design-drawer` (левый drawer, `translateX(-102%)→0`), `.wpp-design-backdrop`, `.wpp-design-trigger` (пилюля слева внизу), `.wpp-design-active` (активная схема/углы).
 
 ---
 

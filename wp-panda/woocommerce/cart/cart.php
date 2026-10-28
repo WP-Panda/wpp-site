@@ -52,7 +52,7 @@ $wpp_count = $wpp_cart->get_cart_contents_count();
 						$wpp_price    = (float) $wpp_product->get_price();
 						$wpp_regular  = (float) $wpp_product->get_regular_price();
 						?>
-						<div class="rounded-2xl border border-line p-3 sm:p-4">
+						<div class="wpp-cart-row relative rounded-2xl border border-line p-3 sm:p-4">
 							<div class="flex gap-4">
 								<a class="w-28 flex-shrink-0 overflow-hidden rounded-xl sm:w-40" href="<?php echo esc_url( get_permalink( $wpp_item['product_id'] ) ); ?>">
 									<?php echo wpp_render_product_art( $wpp_parent ? $wpp_parent : $wpp_product, 'wpp-product-card' ); ?>

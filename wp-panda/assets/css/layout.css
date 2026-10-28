@@ -201,3 +201,16 @@ p.stars a{color:var(--color-brand)}
 /* Hide WC screen reader/live region clutter in the drawer. */
 .woocommerce-mini-cart__empty-message{padding:1rem;text-align:center;color:var(--color-muted);font-size:.85rem}
 .wpp-mini-cart .woocommerce-mini-cart{list-style:none;margin:0;padding:0}
+
+/* ---- Toasts, cart row overlay, busy state ----------------------------- */
+.wpp-toast-wrap{position:fixed;top:16px;left:16px;z-index:120;display:flex;flex-direction:column;gap:10px;max-width:min(380px,calc(100vw - 32px));pointer-events:none}
+.wpp-toast-wrap .wpp-toast{pointer-events:auto}
+.wpp-toast{display:flex;align-items:center;gap:10px;margin:0;width:auto;max-width:100%;background:#fff;border:1px solid var(--color-line);border-radius:14px;box-shadow:var(--shadow-float);padding:12px 16px;font-size:13px;font-weight:500;color:var(--color-ink);list-style:none}
+.wpp-toast a{font-weight:600;color:var(--color-ink);text-decoration:underline;text-decoration-color:var(--color-brand);text-decoration-thickness:2px;text-underline-offset:4px;white-space:nowrap}
+.wpp-toast::before{content:"";flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--color-brand)}
+.wpp-toast.woocommerce-error::before{background:#e11d48}
+.wpp-toast-out{opacity:0;transform:translateX(-16px);transition:opacity .3s ease,transform .3s ease}
+.wpp-row-overlay{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:16px}
+.wpp-spinner{width:26px;height:26px;border-radius:50%;border:3px solid var(--color-line);border-top-color:var(--color-brand);animation:wpp-spin .7s linear infinite}
+@keyframes wpp-spin{to{transform:rotate(360deg)}}
+.wpp-busy button,.wpp-busy a,.wpp-busy input,.wpp-busy select{pointer-events:none;opacity:.55}

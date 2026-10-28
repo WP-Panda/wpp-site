@@ -219,7 +219,9 @@
 		body.style.overflow = '';
 	}
 	qsa('[data-cart-open]').forEach(function (btn) { btn.addEventListener('click', openCart); });
-	qsa('[data-cart-close]').forEach(function (btn) { btn.addEventListener('click', closeCart); });
+	doc.addEventListener('click', function (e) {
+		if (e.target.closest('[data-cart-close]')) { closeCart(); }
+	});
 	if (backdrop) { backdrop.addEventListener('click', closeCart); }
 
 	/* Refresh drawer content + counters from the server. */
@@ -253,7 +255,23 @@
 		var removeBtn = e.target.closest('[data-cart-remove]');
 		if (removeBtn) {
 			e.preventDefault();
-			cartAction('wpp_cart_remove', { key: removeBtn.getAttribute('data-cart-remove') });
+			var row = removeBtn.closest('.wpp-cart-row');
+			var scope = removeBtn.closest('.wpp-mini-cart') || removeBtn.closest('form') || (row ? row.parentNode : doc.body);
+			var overlay = null;
+			if (row) {
+				overlay = doc.createElement('div');
+				overlay.className = 'wpp-row-overlay';
+				overlay.innerHTML = '<span class="wpp-spinner"></span>';
+				row.appendChild(overlay);
+			}
+			if (scope) { scope.classList.add('wpp-busy'); }
+			cartAction('wpp_cart_remove', { key: removeBtn.getAttribute('data-cart-remove') })
+				.then(function () { wppToast('Товар удалён из корзины.'); })
+				.catch(function () {})
+				.finally(function () {
+					if (overlay && overlay.parentNode) { overlay.parentNode.removeChild(overlay); }
+					if (scope) { scope.classList.remove('wpp-busy'); }
+				});
 			return;
 		}
 		var varBtn = e.target.closest('[data-cart-variation]');
@@ -275,7 +293,7 @@
 		fd.append('action', action);
 		fd.append('nonce', wppTheme.cartNonce);
 		Object.keys(extra || {}).forEach(function (k) { fd.append(k, extra[k]); });
-		fetch(wppTheme.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' })
+		return fetch(wppTheme.ajaxUrl, { method: 'POST', body: fd, credentials: 'same-origin' })
 			.then(function (r) { return r.json(); })
 			.then(function (data) {
 				if (form) {
@@ -286,8 +304,40 @@
 					}
 				}
 				refreshCartUi();
-			}).catch(function () {});
+				return data;
+			});
 	}
+
+	/* ---------- Toasts: WC notices float top-left and auto-close ---------- */
+	var toastWrap = null;
+	function toastWrapEl() {
+		if (!toastWrap) {
+			toastWrap = doc.createElement('div');
+			toastWrap.className = 'wpp-toast-wrap';
+			doc.body.appendChild(toastWrap);
+		}
+		return toastWrap;
+	}
+	function scheduleToastHide(node) {
+		setTimeout(function () {
+			node.classList.add('wpp-toast-out');
+			setTimeout(function () { if (node.parentNode) { node.parentNode.removeChild(node); } }, 350);
+		}, 5000);
+	}
+	function wppToast(text) {
+		var node = doc.createElement('div');
+		node.className = 'wpp-toast fade-up';
+		node.setAttribute('role', 'status');
+		node.textContent = text;
+		toastWrapEl().appendChild(node);
+		scheduleToastHide(node);
+	}
+	// Server-rendered WooCommerce notices become toasts.
+	qsa('.woocommerce-message, .woocommerce-error, .woocommerce-info').forEach(function (notice) {
+		notice.classList.add('wpp-toast', 'fade-up');
+		toastWrapEl().appendChild(notice);
+		scheduleToastHide(notice);
+	});
 
 	/* ---------- Wishlist ---------- */
 	doc.addEventListener('click', function (e) {
@@ -525,7 +575,8 @@
 		if (!view) { return; }
 		var mode = view.getAttribute('data-catalog-view');
 		var grid = qs('[data-catalog-grid]');
-		if (!grid) { return; }
+		var list = qs('[data-catalog-list]');
+		if (!grid && !list) { return; }
 		qsa('[data-catalog-view]').forEach(function (v) {
 			var active = v === view;
 			v.setAttribute('aria-pressed', active ? 'true' : 'false');
@@ -535,11 +586,11 @@
 			v.classList.toggle('hover:text-ink', !active);
 		});
 		if (mode === 'list') {
-			grid.classList.remove('sm:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
-			grid.classList.add('grid-cols-1');
+			if (grid) { grid.classList.add('hidden'); }
+			if (list) { list.classList.remove('hidden'); }
 		} else {
-			grid.classList.add('sm:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4');
-			grid.classList.remove('grid-cols-1');
+			if (grid) { grid.classList.remove('hidden'); }
+			if (list) { list.classList.add('hidden'); }
 		}
 	});
 

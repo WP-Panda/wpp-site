@@ -31,7 +31,7 @@ do_action( 'woocommerce_before_mini_cart' );
 					$variation_label = wc_get_product( $variation_id )->get_attribute_summary() ? wc_get_product( $variation_id )->get_attribute_summary() : implode( ', ', $cart_item['variation'] );
 				}
 				?>
-				<div class="rounded-2xl border border-line p-3 transition hover:border-ink/15">
+				<div class="wpp-cart-row relative rounded-2xl border border-line p-3 transition hover:border-ink/15">
 					<div class="flex gap-3">
 						<a class="w-[104px] flex-shrink-0 overflow-hidden rounded-xl" href="<?php echo esc_url( $product_permalink ); ?>">
 							<?php
@@ -149,7 +149,6 @@ do_action( 'woocommerce_before_mini_cart' );
 		<div class="mt-3 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] text-muted">
 			<span class="flex items-center gap-1"><?php echo wpp_icon( 'lock', 'h-3 w-3' ); ?><?php esc_html_e( 'Безопасная оплата', 'wp-panda' ); ?></span>
 			<span class="flex items-center gap-1"><?php echo wpp_icon( 'download', 'h-3 w-3' ); ?><?php esc_html_e( 'Мгновенно', 'wp-panda' ); ?></span>
-			<span class="flex items-center gap-1"><?php echo wpp_icon( 'undo-2', 'h-3 w-3' ); ?><?php esc_html_e( 'Возврат 14 дней', 'wp-panda' ); ?></span>
 		</div>
 	</div>
 <?php else : ?>

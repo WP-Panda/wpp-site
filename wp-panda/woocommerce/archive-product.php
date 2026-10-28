@@ -29,7 +29,6 @@ $wpp_tab_active = function ( $term ) use ( $current_term ) {
 	return in_array( (int) $term->term_id, get_ancestors( (int) $current_term->term_id, 'product_cat' ), true );
 };
 
-$wpp_tab_count = 1 + count( $wpp_catalog_cats );
 
 $orderby = isset( $_GET['orderby'] ) ? sanitize_key( wp_unslash( $_GET['orderby'] ) ) : 'popular';
 
@@ -67,11 +66,11 @@ if ( ! is_wp_error( $all_tags ) ) {
 			?>
 		</p>
 	</div>
-	<div class="mx-auto mt-8 <?php echo $wpp_tab_count <= 3 ? 'max-w-[640px]' : 'max-w-[900px]'; ?>">
-		<div class="flex w-full rounded-full border border-line bg-white p-1.5 shadow-card <?php echo $wpp_tab_count > 3 ? 'no-scrollbar overflow-x-auto' : ''; ?>">
-			<a class="<?php echo $wpp_tab_count <= 3 ? 'flex-1 ' : 'flex-shrink-0 '; ?>flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm <?php echo ( ! is_product_taxonomy() ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Все', 'wp-panda' ); ?></a>
+	<div class="no-scrollbar mt-8 flex max-w-full justify-center overflow-x-auto px-4">
+		<div class="inline-flex flex-shrink-0 rounded-full border border-line bg-white p-1.5 shadow-card">
+			<a class="flex flex-shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-5 font-semibold transition-all duration-200 h-10 text-sm <?php echo ( ! is_product_taxonomy() ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( $shop_url ); ?>"><?php esc_html_e( 'Все', 'wp-panda' ); ?></a>
 			<?php foreach ( $wpp_catalog_cats as $wpp_cat ) : ?>
-				<a class="<?php echo $wpp_tab_count <= 3 ? 'flex-1 ' : 'flex-shrink-0 '; ?>flex items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-4 font-semibold transition-all duration-200 h-10 text-sm <?php echo $wpp_tab_active( $wpp_cat ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( get_term_link( $wpp_cat ) ); ?>"><?php echo esc_html( wpp_catalog_tab_label( $wpp_cat ) ); ?></a>
+				<a class="flex flex-shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-5 font-semibold transition-all duration-200 h-10 text-sm <?php echo $wpp_tab_active( $wpp_cat ) ? 'bg-ink text-white shadow-[0_6px_16px_-8px_rgba(20,20,28,0.6)]' : 'text-ink/65 hover:text-ink'; ?>" href="<?php echo esc_url( get_term_link( $wpp_cat ) ); ?>"><?php echo esc_html( wpp_catalog_tab_label( $wpp_cat ) ); ?></a>
 			<?php endforeach; ?>
 		</div>
 	</div>
@@ -134,6 +133,16 @@ if ( ! is_wp_error( $all_tags ) ) {
 			}
 		}
 		woocommerce_product_loop_end();
+
+		// List view: the layout's horizontal rows, toggled by theme.js.
+		rewind_posts();
+		echo '<div class="mt-5 hidden flex flex-col gap-4" data-catalog-list>';
+		while ( have_posts() ) {
+			the_post();
+			get_template_part( 'template-parts/product/row' );
+		}
+		echo '</div>';
+
 		do_action( 'woocommerce_after_shop_loop' );
 	} else {
 		do_action( 'woocommerce_no_products_found' );

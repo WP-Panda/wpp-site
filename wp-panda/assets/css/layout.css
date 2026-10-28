@@ -51,7 +51,7 @@
 .woocommerce form .form-row textarea,
 .woocommerce form .form-row .select2-container,
 .woocommerce form .form-row select{
-  height:3rem;width:100%;border-radius:.75rem;border:1px solid var(--color-line);
+  height:3rem;width:100%;border-radius:var(--radius-input);border:1px solid var(--color-line);
   background:rgba(246,246,248,.7);padding:0 1rem;font-size:.875rem;color:var(--color-ink);
   outline:none;transition:all .15s ease;appearance:none;
 }
@@ -76,7 +76,7 @@
 .woocommerce-form-login .button,.woocommerce-form-register .button,
 #place_order{
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;white-space:nowrap;
-  border-radius:9999px;font-weight:600;transition:all .2s;border:0;cursor:pointer;
+  border-radius:var(--radius-pill);font-weight:600;transition:all .2s;border:0;cursor:pointer;
   background:var(--color-brand);color:var(--color-ink);height:3rem;padding:0 1.5rem;font-size:.875rem;
   box-shadow:0 10px 24px -10px rgba(255,194,31,.6);
 }
@@ -86,7 +86,7 @@
 
 /* Notices. */
 .woocommerce-message,.woocommerce-error,.woocommerce-info,.woocommerce-notice{
-  border-radius:1rem;border:1px solid var(--color-line);background:#fff;padding:1rem 1.25rem;
+  border-radius:var(--radius-panel);border:1px solid var(--color-line);background:#fff;padding:1rem 1.25rem;
   font-size:.875rem;margin:0 0 1rem;box-shadow:0 1px 2px rgba(20,20,28,.05);
   display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;list-style:none;
 }
@@ -105,13 +105,13 @@
   display:flex;flex-direction:column;gap:.5rem;margin:1.25rem 0;list-style:none;padding:0;
 }
 .wpp-order-review #payment ul.wc_payment_methods li{
-  border:1px solid var(--color-line);border-radius:.75rem;background:#fff;padding:.75rem 1rem;
+  border:1px solid var(--color-line);border-radius:var(--radius-input);background:#fff;padding:.75rem 1rem;
 }
 .wpp-order-review #payment ul.wc_payment_methods li:only-child label{cursor:default}
 .wpp-order-review #payment label{display:flex!important;align-items:center;gap:.6rem;font-size:.875rem;font-weight:600;cursor:pointer}
 .wpp-order-review #payment input.input-radio{accent-color:var(--color-brand);width:1rem;height:1rem}
 .wpp-order-review #payment .payment_box{
-  background:var(--color-soft);border-radius:.75rem;padding:.75rem 1rem;margin:.6rem 0 0;
+  background:var(--color-soft);border-radius:var(--radius-input);padding:.75rem 1rem;margin:.6rem 0 0;
   font-size:.8rem;color:var(--color-muted);
 }
 .wpp-order-review #payment .payment_box::before{display:none}
@@ -134,7 +134,7 @@ form.checkout{position:relative}
 .wpp-wc-default .woocommerce-table--order-details tfoot th{text-align:right;color:var(--color-muted);font-weight:500}
 .wpp-wc-default .woocommerce-table--order-details tfoot td{text-align:right;font-weight:700}
 .wpp-wc-default .woocommerce-notice{margin-top:1rem}
-.wpp-wc-default .button{display:inline-flex;align-items:center;justify-content:center;border-radius:9999px;font-weight:600;background:var(--color-brand);color:var(--color-ink);height:2.5rem;padding:0 1.25rem;font-size:.8rem;text-decoration:none;transition:all .2s}
+.wpp-wc-default .button{display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-pill);font-weight:600;background:var(--color-brand);color:var(--color-ink);height:2.5rem;padding:0 1.25rem;font-size:.8rem;text-decoration:none;transition:all .2s}
 .wpp-wc-default .button:hover{background:var(--color-brand-600)}
 
 /* Downloads table. */
@@ -147,7 +147,7 @@ form.checkout{position:relative}
    -------------------------------------------------------------------------- */
 .commentlist{list-style:none;margin:0;padding:0}
 .commentlist .comment{padding:1rem 0;border-bottom:1px solid var(--color-line)}
-.commentlist .avatar{border-radius:9999px;float:left;margin-right:.9rem}
+.commentlist .avatar{border-radius:var(--radius-pill);float:left;margin-right:.9rem}
 .commentlist .comment-text{overflow:hidden}
 .commentlist .meta{font-size:.8rem;color:var(--color-muted)}
 .commentlist .description p{margin:.4rem 0 0;font-size:.9rem;line-height:1.7}
@@ -155,12 +155,12 @@ form.checkout{position:relative}
 #review_form_wrapper .comment-form,#comments .comment-form{display:grid;gap:.9rem}
 .comment-form label{display:block;font-size:.8rem;font-weight:600;margin-bottom:.3rem}
 .comment-form input[type=text],.comment-form input[type=email],.comment-form input[type=url],.comment-form textarea{
-  width:100%;border-radius:.75rem;border:1px solid var(--color-line);background:rgba(246,246,248,.7);
+  width:100%;border-radius:var(--radius-input);border:1px solid var(--color-line);background:rgba(246,246,248,.7);
   padding:.65rem 1rem;font-size:.875rem;outline:none;transition:all .15s;
 }
 .comment-form input:focus,.comment-form textarea:focus{border-color:var(--color-brand);background:#fff;box-shadow:0 0 0 4px rgba(255,194,31,.15)}
 .comment-form .submit,.form-submit .submit{
-  display:inline-flex;align-items:center;justify-content:center;border-radius:9999px;font-weight:600;border:0;cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;border-radius:var(--radius-pill);font-weight:600;border:0;cursor:pointer;
   background:var(--color-brand);color:var(--color-ink);height:2.75rem;padding:0 1.5rem;font-size:.85rem;transition:all .2s;
   box-shadow:0 10px 24px -10px rgba(255,194,31,.6);
 }
@@ -176,7 +176,7 @@ p.stars a{color:var(--color-brand)}
 .navigation.pagination .nav-links{display:flex;justify-content:center;gap:.5rem;margin-top:2.5rem}
 .navigation.pagination .page-numbers{
   display:flex;height:2.75rem;width:2.75rem;align-items:center;justify-content:center;
-  border-radius:9999px;border:1px solid var(--color-line);background:#fff;font-size:.875rem;font-weight:600;
+  border-radius:var(--radius-pill);border:1px solid var(--color-line);background:#fff;font-size:.875rem;font-weight:600;
   color:var(--color-ink);text-decoration:none;transition:all .2s;
 }
 .navigation.pagination .page-numbers:hover{border-color:rgba(28,28,33,.2)}
@@ -205,12 +205,12 @@ p.stars a{color:var(--color-brand)}
 /* ---- Toasts, cart row overlay, busy state ----------------------------- */
 .wpp-toast-wrap{position:fixed;top:16px;left:16px;z-index:120;display:flex;flex-direction:column;gap:10px;max-width:min(380px,calc(100vw - 32px));pointer-events:none}
 .wpp-toast-wrap .wpp-toast{pointer-events:auto}
-.wpp-toast{display:flex;align-items:center;gap:10px;margin:0;width:auto;max-width:100%;background:#fff;border:1px solid var(--color-line);border-radius:14px;box-shadow:var(--shadow-float);padding:12px 16px;font-size:13px;font-weight:500;color:var(--color-ink);list-style:none}
+.wpp-toast{display:flex;align-items:center;gap:10px;margin:0;width:auto;max-width:100%;background:#fff;border:1px solid var(--color-line);border-radius:var(--radius-toast);box-shadow:var(--shadow-float);padding:12px 16px;font-size:13px;font-weight:500;color:var(--color-ink);list-style:none}
 .wpp-toast a{font-weight:600;color:var(--color-ink);text-decoration:underline;text-decoration-color:var(--color-brand);text-decoration-thickness:2px;text-underline-offset:4px;white-space:nowrap}
 .wpp-toast::before{content:"";flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--color-brand)}
 .wpp-toast.woocommerce-error::before{background:#e11d48}
 .wpp-toast-out{opacity:0;transform:translateX(-16px);transition:opacity .3s ease,transform .3s ease}
-.wpp-row-overlay{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:16px}
+.wpp-row-overlay{position:absolute;inset:0;z-index:6;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border-radius:var(--radius-overlay)}
 .wpp-spinner{width:26px;height:26px;border-radius:50%;border:3px solid var(--color-line);border-top-color:var(--color-brand);animation:wpp-spin .7s linear infinite}
 @keyframes wpp-spin{to{transform:rotate(360deg)}}
 .wpp-busy button,.wpp-busy a,.wpp-busy input,.wpp-busy select{pointer-events:none;opacity:.55}
@@ -259,3 +259,11 @@ html[data-wpp-corners="none"]{--radius-card:0px;--radius-2xl:0px;--radius-xl:0px
 /* ---- Design panel active state ------------------------------------------ */
 .wpp-design-active{border-color:var(--color-brand);background:var(--color-brand-50);box-shadow:0 0 0 1px var(--color-brand)}
 html[data-wpp-scheme="night"] .wpp-design-active{background:#2a2a31}
+
+/* ---- Corner presets cover every rounded element -------------------------- */
+:root{--radius-pill:9999px;--radius-input:.75rem;--radius-panel:1rem;--radius-toast:14px;--radius-overlay:16px;--radius-drawer:28px;--radius-dialog:24px}
+html[data-wpp-corners="light"]{--radius-pill:14px;--radius-input:.5rem;--radius-panel:.75rem;--radius-toast:10px;--radius-overlay:12px;--radius-drawer:16px;--radius-dialog:14px}
+html[data-wpp-corners="none"]{--radius-pill:0;--radius-input:0;--radius-panel:0;--radius-toast:0;--radius-overlay:0;--radius-drawer:0;--radius-dialog:0}
+.rounded-full{border-radius:var(--radius-pill)}
+.product-preview-dialog{border-radius:var(--radius-dialog)}
+@media(min-width:640px){.wpp-cart-drawer{border-radius:var(--radius-drawer)}}

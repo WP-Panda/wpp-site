@@ -112,3 +112,4 @@ $shop_url     = function_exists( 'wc_get_page_permalink' ) ? wc_get_page_permali
 		</div>
 	</div>
 </div>
+<?php get_template_part( 'template-parts/product/preview-dialog' ); ?>

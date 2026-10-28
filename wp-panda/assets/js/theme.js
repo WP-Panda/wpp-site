@@ -448,6 +448,63 @@
 			if (window.jQuery) { jQuery(select).trigger('change'); }
 		}
 		paintLicenseLabels(form);
+		paintBuyPrice(form, variationMatch(form));
+		var mobileLabel = qs('.wpp-mobile-buy-label');
+		if (mobileLabel) {
+			mobileLabel.textContent = mobileLabel.textContent.split('·')[0].trim() + ' · ' + input.value;
+		}
+	});
+
+	/* Resolve the variation matching the current attribute selects (no WC JS needed). */
+	function variationMatch(form) {
+		var raw = form.getAttribute('data-product_variations');
+		if (!raw) { return null; }
+		var list;
+		try { list = JSON.parse(raw); } catch (err) { return null; }
+		var selects = qsa('select[name^="attribute_"]', form);
+		if (!selects.length) { return null; }
+		var norm = function (v) { return String(v == null ? '' : v).replace(/\s+/g, '-').toLowerCase(); };
+		for (var i = 0; i < list.length; i++) {
+			var attrs = list[i].attributes || {};
+			var ok = true;
+			for (var s = 0; s < selects.length; s++) {
+				var want = selects[s].value;
+				if (!want) { ok = false; break; }
+				var have = attrs[selects[s].name];
+				if (have == null) { have = ''; }
+				if (String(have) !== want && norm(have) !== norm(want)) { ok = false; break; }
+			}
+			if (ok) { return list[i]; }
+		}
+		return null;
+	}
+	/* Repaint the buy-box price block for a resolved variation. */
+	function paintBuyPrice(form, variation) {
+		if (!variation) { return; }
+		var price = parseFloat(variation.display_price);
+		var regular = parseFloat(variation.display_regular_price);
+		if (!price) { return; }
+		var priceEl = qs('.wpp-buy-price', form);
+		if (priceEl) { priceEl.textContent = fmtAmount(price); }
+		var regEl = qs('.wpp-buy-regular', form);
+		var saleEl = qs('[data-buy-sale]', form);
+		if (regEl) {
+			var onSale = regular && regular > price;
+			regEl.classList.toggle('hidden', !onSale);
+			if (onSale) { regEl.textContent = fmtAmount(regular); }
+			if (saleEl) {
+				saleEl.classList.toggle('hidden', !onSale);
+				if (onSale) { saleEl.textContent = '-' + Math.round((1 - price / regular) * 100) + '%'; }
+			}
+		}
+		var mobilePrice = qs('.wpp-mobile-buy-price');
+		if (mobilePrice) { mobilePrice.textContent = fmtAmount(price); }
+		var mobileBtn = qs('button.wpp-add-variable[data-product_id]');
+		if (mobileBtn && variation.variation_id) { mobileBtn.setAttribute('data-variation_id', variation.variation_id); }
+	}
+	/* Align the printed price with the preselected license on first paint. */
+	qsa('form.cart[data-product_variations]').forEach(function (form) {
+		paintBuyPrice(form, variationMatch(form));
 	});
 
 	/* Sync radios and price when WC variation form resolves a selection. */
@@ -462,21 +519,7 @@
 				});
 			});
 			paintLicenseLabels(form);
-			var priceEl = qs('.wpp-buy-price', form);
-			if (priceEl && variation.display_price) {
-				priceEl.innerHTML = fmtAmount(variation.display_price);
-			}
-			var regEl = qs('.wpp-buy-regular', form);
-			if (regEl) {
-				if (variation.display_regular_price && variation.display_regular_price > variation.display_price) {
-					regEl.innerHTML = fmtAmount(variation.display_regular_price);
-					regEl.style.display = '';
-				} else {
-					regEl.style.display = 'none';
-				}
-			}
-			var mobilePrice = qs('.wpp-mobile-buy-price');
-			if (mobilePrice && variation.display_price) { mobilePrice.innerHTML = fmtAmount(variation.display_price); }
+			paintBuyPrice(form, variation);
 			var mobileLabel = qs('.wpp-mobile-buy-label');
 			if (mobileLabel) {
 				var base = mobileLabel.textContent.split('·')[0].trim();
@@ -518,25 +561,67 @@
 			.finally(function () { btn.disabled = false; });
 	});
 
-	/* ---------- Product media: preview vs screenshots ---------- */
+	/* ---------- Product media: screenshots cycling ---------- */
 	doc.addEventListener('click', function (e) {
-		var preview = e.target.closest('[data-media-preview]');
 		var shots = e.target.closest('[data-media-screenshots]');
-		if (!preview && !shots) { return; }
+		if (!shots) { return; }
 		var stage = qs('[data-media-stage]');
 		if (!stage) { return; }
 		var art = qs('[data-media-art-inner]', stage) || stage.querySelector(':scope > div:not(.wpp-screenshot)');
 		var list = qsa('.wpp-screenshot', stage);
-		if (preview) {
-			list.forEach(function (img) { img.classList.add('hidden'); });
-			if (art) { art.classList.remove('hidden'); }
-			return;
-		}
 		if (!list.length) { return; }
 		var visible = list.filter(function (img) { return !img.classList.contains('hidden'); })[0];
 		var nextIndex = visible ? (list.indexOf(visible) + 1) % list.length : 0;
 		if (art) { art.classList.add('hidden'); }
 		list.forEach(function (img, i) { img.classList.toggle('hidden', i !== nextIndex); });
+	});
+
+	/* ---------- Product preview dialog (artwork / screenshots, device sizes) ---------- */
+	var previewDialog = qs('[data-preview-dialog]');
+	function previewOpen() {
+		if (!previewDialog || typeof previewDialog.showModal !== 'function') { return; }
+		if (!previewDialog.open) { previewDialog.showModal(); }
+	}
+	function previewClose() {
+		if (previewDialog && previewDialog.open) { previewDialog.close(); }
+	}
+	if (previewDialog) {
+		previewDialog.addEventListener('cancel', function (e) { e.preventDefault(); previewClose(); });
+		previewDialog.addEventListener('click', function (e) { if (e.target === previewDialog) { previewClose(); } });
+		qsa('[data-preview-close]', previewDialog).forEach(function (b) { b.addEventListener('click', previewClose); });
+		var screenSel = qs('[data-preview-screen]', previewDialog);
+		if (screenSel) {
+			screenSel.addEventListener('change', function () {
+				var idx = parseInt(screenSel.value, 10) || 0;
+				var art = qs('[data-preview-art]', previewDialog);
+				if (art) { art.classList.toggle('hidden', idx !== 0); }
+				qsa('[data-preview-shot]', previewDialog).forEach(function (img, i) {
+					img.classList.toggle('hidden', i !== idx - 1);
+				});
+			});
+		}
+	}
+	doc.addEventListener('click', function (e) {
+		if (e.target.closest('[data-media-art]') || e.target.closest('[data-media-preview]')) {
+			previewOpen();
+			return;
+		}
+		var dev = e.target.closest('[data-preview-device]');
+		if (dev) {
+			var widths = { desktop: '100%', tablet: '720px', mobile: '360px' };
+			var id = dev.getAttribute('data-preview-device');
+			qsa('[data-preview-device]').forEach(function (b) {
+				var active = b === dev;
+				b.setAttribute('aria-pressed', active ? 'true' : 'false');
+				b.classList.toggle('bg-ink', active);
+				b.classList.toggle('text-white', active);
+				b.classList.toggle('text-muted', !active);
+				b.classList.toggle('hover:bg-soft', !active);
+				b.classList.toggle('hover:text-ink', !active);
+			});
+			var frame = qs('[data-preview-frame]');
+			if (frame) { frame.style.width = widths[id] || '100%'; }
+		}
 	});
 
 	/* Share: copy product link. */

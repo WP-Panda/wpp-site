@@ -26,7 +26,7 @@ $attributes   = $is_variable ? $product->get_variation_attributes() : array();
 		<span class="wpp-buy-price text-[34px] font-bold leading-tight tracking-tight tabular-nums" aria-live="polite"><?php echo wpp_format_amount( $price ); ?></span>
 		<?php if ( $regular > $price && $regular > 0 ) : ?>
 			<span class="wpp-buy-regular text-sm text-muted line-through"><?php echo wpp_format_amount( $regular ); ?></span>
-			<span class="rounded-full bg-brand-50 px-2 py-1 text-[11px] font-semibold text-[#906500]">-<?php echo esc_html( $sale_percent ); ?>%</span>
+			<span class="rounded-full bg-brand-50 px-2 py-1 text-[11px] font-semibold text-[#906500]<?php echo $regular > $price && $regular > 0 ? '' : ' hidden'; ?>" data-buy-sale>-<?php echo esc_html( $sale_percent ); ?>%</span>
 		<?php endif; ?>
 	</div>
 	<p class="mt-1 text-xs leading-relaxed text-muted"><?php echo 'theme' === $kind ? esc_html__( 'Для личных и клиентских проектов.', 'wp-panda' ) : esc_html__( 'Один платёж. Без подписки и продлений.', 'wp-panda' ); ?></p>
@@ -39,7 +39,7 @@ $attributes   = $is_variable ? $product->get_variation_attributes() : array();
 		}
 		?>>
 		<?php if ( $is_variable ) : ?>
-			<fieldset class="mt-5">
+			<fieldset class="variations mt-5">
 				<legend class="mb-2 text-xs font-medium"><?php esc_html_e( 'Количество сайтов', 'wp-panda' ); ?></legend>
 				<div class="grid grid-cols-2 gap-2">
 					<?php
@@ -51,7 +51,7 @@ $attributes   = $is_variable ? $product->get_variation_attributes() : array();
 						$wpp_active = 0 === $wpp_oi;
 						?>
 						<label class="flex cursor-pointer items-center justify-center gap-2 rounded-xl border px-3 py-3 text-sm font-semibold transition-colors <?php echo $wpp_active ? 'border-brand bg-brand-50' : 'border-line hover:border-ink/25'; ?>">
-							<input class="h-4 w-4 accent-[#ffc21f]" type="radio" value="<?php echo esc_attr( $wpp_option ); ?>" <?php checked( $wpp_active ); ?> name="wpp-license-radio" data-license-option="<?php echo esc_attr( $wpp_option ); ?>"><?php echo esc_html( $wpp_option ); ?>
+							<input class="wpp-check h-4 w-4" type="radio" value="<?php echo esc_attr( $wpp_option ); ?>" <?php checked( $wpp_active ); ?> name="wpp-license-radio" data-license-option="<?php echo esc_attr( $wpp_option ); ?>"><?php echo esc_html( $wpp_option ); ?>
 						</label>
 					<?php endforeach; ?>
 				</div>

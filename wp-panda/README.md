@@ -133,7 +133,7 @@ wp-panda/
 │   ├── home/                    — hero, featured, all-access, use-cases, benefits,
 │   │                              licensing, testimonials, latest-posts
 │   ├── product/                 — media, buy-box, information, related, reviews,
-│   │                              comments, changelog
+│   │                              comments, changelog, preview-dialog, row
 │   ├── blog/loop.php            — сетка постов для архивов/поиска
 │   ├── design-panel.php         — drawer «Настройки дизайна»: схемы цвета + углы, триггер-пилюля
 │   ├── kb/article.php           — статья базы знаний с боковой навигацией
@@ -344,7 +344,8 @@ wp-panda/
 | `[data-wpp-copy-link]` / `[data-wpp-copy]` | копирование (ключ, ссылка на товар) |
 | `[data-accordion]` / `[data-accordion-content]` | аккордеоны FAQ/БЗ |
 | `[data-product-tab]` / `[data-product-panel]`, `[data-scroll-to-tabs]` | табы карточки товара + скролл к отзывам |
-| `input[data-license-option]` ↔ `select[name^="attribute_"]` | радио-лицензии синхронизируются с вариацией, цена обновляется |
+| `input[data-license-option]` ↔ `select[name^="attribute_"]` | радио-лицензии синхронизируются с вариацией; цена/старая цена/бейдж скидки и мобильная панель перерисовываются напрямую из `data-product_variations` (`variationMatch` + `paintBuyPrice`, не зависит от JS WooCommerce), дублируясь событием `show_variation`; мобильная кнопка `wpp-add-variable` получает актуальный `data-variation_id` |
+| `[data-media-art]`, `[data-media-preview]`, `[data-preview-device]`, `[data-preview-screen]`, `[data-preview-close]` | диалог предпросмотра товара (`template-parts/product/preview-dialog.php`, `<dialog class="product-preview-dialog">`): открывается кликом по арту или кнопке «Предпросмотр», переключает устройства (Компьютер/Планшет/Смартфон — ширина фрейма 100%/720px/360px) и экраны (обложка + скриншоты галереи), закрывается крестом, Esc и кликом по подложке |
 | `form.wpp-add-variable` | вариации добавляются без перезагрузки (fetch-POST формы) |
 | `button.wpp-add-variable` | мобильная панель товара: первая вариация |
 | `[data-buy-now]` | «Купить сейчас»: добавление + переход к чекауту |
@@ -380,6 +381,7 @@ wp-panda/
 - **сел­ект-хром** тулбара каталога, независимый от tailwind-сборки: `.wpp-rel` (контекст), `.wpp-caret` (шеврон внутри), `.wpp-select`/`.wpp-select-btn` (отступы), `.wpp-check` (акцент чекбоксов в цвет бренда);
 - **анимации**: `html{scroll-behavior:smooth}`, `.wpp-reveal`/`.wpp-revealed` (fade + сдвиг) с guard для `prefers-reduced-motion`;
 - **темы оформления**: 10 палитр как `html[data-wpp-scheme="…"]` (переопределение `--color-brand*`, «Ночь» также меняет white/ink/muted/line/soft и фон) и пресеты углов `html[data-wpp-corners="light"|"none"]` (переопределение `--radius-*`);
+- **пресеты углов закрывают все скругления**, а не только карточки: кроме `--radius-card/2xl/xl/lg/md` определены `--radius-pill` (пилюли, круглые кнопки и иконки хедера, аватары, пагинация — через переопределение `.rounded-full` и замены захардкоженных `9999px` в адаптационном CSS), `--radius-input` (поля форм), `--radius-panel` (уведомления), `--radius-toast`, `--radius-overlay`, `--radius-drawer` (корзина на `sm+`), `--radius-dialog` (предпросмотр); «Сильные» = значения макета по умолчанию;
 - **панель дизайна**: `.wpp-design-drawer` (левый drawer, `translateX(-102%)→0`), `.wpp-design-backdrop`, `.wpp-design-trigger` (пилюля слева внизу), `.wpp-design-active` (активная схема/углы).
 
 ---

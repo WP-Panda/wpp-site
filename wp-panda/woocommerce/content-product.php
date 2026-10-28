@@ -22,9 +22,6 @@ $wishlisted   = wpp_in_wishlist( $product_id );
 $sale_percent = wpp_sale_percent( $product );
 $tags         = get_the_terms( $product_id, 'product_tag' );
 $tag_label    = ( ! is_wp_error( $tags ) && $tags ) ? $tags[0]->name : '';
-$rating       = (float) $product->get_average_rating();
-$review_count = (int) $product->get_review_count();
-$sales        = (int) get_post_meta( $product_id, 'total_sales', true );
 $price        = (float) $product->get_price();
 $regular      = (float) $product->get_regular_price();
 $type_label   = 'theme' === $kind ? __( 'Тема', 'wp-panda' ) : ( 'plugin' === $kind ? __( 'Плагин', 'wp-panda' ) : __( 'Товар', 'wp-panda' ) );
@@ -82,16 +79,6 @@ $type_icon    = 'theme' === $kind ? 'palette' : 'plug';
 			<?php endif; ?>
 		</div>
 		<p class="mt-2 line-clamp-2 min-h-9 text-[12px] leading-relaxed text-muted"><?php echo esc_html( wp_strip_all_tags( $product->get_short_description() ) ); ?></p>
-		<div class="mt-2.5 flex items-center justify-between gap-2 border-t border-line pt-2.5">
-			<div class="flex min-w-0 items-center gap-1.5">
-				<?php echo wpp_rating_stars(); ?>
-				<span class="text-[11px] font-semibold text-ink"><?php echo esc_html( $rating ? number_format_i18n( $rating, 1 ) : '—' ); ?></span>
-				<span class="truncate text-[11px] text-muted"><?php echo wpp_review_count_label( $review_count ); ?></span>
-			</div>
-			<span class="flex flex-shrink-0 items-center gap-1 text-[11px] text-muted" title="<?php esc_attr_e( 'Количество продаж', 'wp-panda' ); ?>">
-				<?php echo wpp_icon( 'shopping-bag', 'h-3 w-3' ); ?> <?php echo wpp_sales_label( $sales ); ?>
-			</span>
-		</div>
 		<div class="mt-auto flex items-center justify-between gap-2 pt-3">
 			<div class="min-w-0">
 				<div class="text-[10px] text-muted"><?php echo esc_html( wpp_license_line( $product ) ); ?></div>
@@ -107,7 +94,7 @@ $type_icon    = 'theme' === $kind ? 'palette' : 'plug';
 					<?php echo wpp_icon( 'check', 'h-4 w-4', array( 'stroke' => '3' ) ); ?><?php esc_html_e( 'В корзине', 'wp-panda' ); ?>
 				</button>
 			<?php else : ?>
-				<button type="button" aria-label="<?php echo esc_attr( sprintf( __( 'Добавить %s в корзину', 'wp-panda' ), $product->get_name() ) ); ?>" data-quantity="1" <?php if ( $product->is_type( 'variable' ) ) : $children = $product->get_children(); ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-variation_id="<?php echo esc_attr( $children ? $children[0] : 0 ); ?>" class="wpp-add-variable flex h-12 flex-shrink-0 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] border border-line bg-soft hover:border-brand hover:bg-brand"<?php else : ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" class="add_to_cart_button product_type_simple flex h-12 flex-shrink-0 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] border border-line bg-soft hover:border-brand hover:bg-brand"<?php endif; ?>>
+				<button type="button" aria-label="<?php echo esc_attr( sprintf( __( 'Добавить %s в корзину', 'wp-panda' ), $product->get_name() ) ); ?>" data-quantity="1" <?php if ( $product->is_type( 'variable' ) ) : $children = $product->get_children(); ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-variation_id="<?php echo esc_attr( $children ? $children[0] : 0 ); ?>" class="wpp-add-variable flex h-12 flex-shrink-0 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] border border-line bg-soft hover:border-brand hover:bg-brand"<?php else : ?>data-product_id="<?php echo esc_attr( $product_id ); ?>" data-product_sku="<?php echo esc_attr( $product->get_sku() ); ?>" class="add_to_cart_button product_type_simple ajax_add_to_cart flex h-12 flex-shrink-0 items-center justify-center gap-2 rounded-full px-4 text-[13px] font-bold transition-all duration-200 active:scale-[0.98] border border-line bg-soft hover:border-brand hover:bg-brand"<?php endif; ?>>
 					<?php echo wpp_icon( 'shopping-bag', 'h-4 w-4' ); ?><?php esc_html_e( 'Купить', 'wp-panda' ); ?><?php echo wpp_icon( 'arrow-up-right', 'h-3.5 w-3.5' ); ?>
 				</button>
 			<?php endif; ?>
